@@ -10,12 +10,12 @@ function read_new($agency, $new_id){
         $manager->executeBulkWrite('db.news', $bulk);
 }
 
-function getSavedCategory(){
+function getSavedCategories(){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $cmd = new MongoDB\Driver\Command([
         // build the 'distinct' command
        'distinct' => 'news', // specify the collection name
-       'key' => 'category' // specify the field for which we want to get the distinct values
+       'key' => 'categories' // specify the field for which we want to get the distinct values
       ]);
       $cursor = $manager->executeCommand('db', $cmd); // retrieve the results
       return $cursor->toArray()[0]->values;
@@ -68,7 +68,6 @@ function saveDatabase($agency, $data){
             return true;
     }
     return false;
-
 }
 
 ?>

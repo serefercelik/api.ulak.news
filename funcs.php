@@ -103,7 +103,7 @@ function saveImage($link){
     // save to images/web/$agency/$id.jpg
 }
 
-function getCategory($agency, $id){
+function getCategorie($agency, $id){
     $cat=null;
     $result=null;
     if($agency==="odatv"){

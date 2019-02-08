@@ -10,12 +10,12 @@
                 if($news!=null){
                     foreach($news as $news){
                         if($news['type']==="text"){
-                            $desc="İşlem sanırım tamam :)";
+                            $desc="from agency";
                             $status=true;
                             $cat=$news['categories'];
                             $cats=[];
                             foreach($cat as $subcat){
-                                $resCat=getCategory("sputnik", $subcat);
+                                $resCat=getCategorie("sputnik", $subcat);
                                 if($resCat!=null){
                                     $cats[]=$resCat;
                                 }
@@ -33,7 +33,7 @@
                             $catNews[]=array(
                                 "agency"=>"sputnik",
                                 "agency_title"=>"Sputnik",
-                                "category"=>$cats,
+                                "categories"=>$cats,
                                 "id"=>$news['id'],
                                 "date"=>gmdate("d.m.Y H:i:s", $news['pub_date_ut']),
                                 "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
@@ -61,12 +61,12 @@
                 $news=$file['result']['articles'][0];
                 if($news!=null){
                     if($news['type']==="text"){
-                        $desc="İşlem sanırım tamam :)";
+                        $desc="from agency";
                         $status=true;
                         $cat=$news['categories'];
                         $cats=[];
                         foreach($cat as $subcat){
-                            $resCat=getCategory($agency, $subcat);
+                            $resCat=getCategorie($agency, $subcat);
                             if($resCat!=null){
                                 $cats[]=$resCat;
                             }
@@ -82,7 +82,7 @@
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
                             "text"=>strip_tags($news['body']),
-                            "category"=>$cats,
+                            "categories"=>$cats,
                             "id"=>(int)$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),
                             "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],

@@ -8,14 +8,14 @@
                 $file=curl_function_sozcu(); // Tüm manşetler
                 if($file['status']){
                     if($file['result']['success']){
-                        $desc="İşlem sanırım tamam :)";
+                        $desc="from agency";
                         $status=true;
                         foreach($file['result']['data'] as $raw){
                             $date=gmdate("d.m.Y H:i:s", $raw['date']);
                             $catNews[]=array(
                                 "agency"=>"sozcu",
                                 "agency_title"=>"Sözcü",
-                                "category"=>array($raw['category']),
+                                "categories"=>array($raw['category']),
                                 "id"=>(int)$raw['post_id'],
                                 "date"=>$date,
                                 "date_u"=>strtotime($date),
@@ -40,7 +40,7 @@
                 if($file['status']){
                     $news=$file['result']['data'];
                     if($news[0]['post_id']!=null){
-                        $desc="İşlem sanırım tamam :)";
+                        $desc="from agency";
                         $status=true;
                         $date=gmdate("d.m.Y H:i:s", $news[0]['date']);
                         //image check
@@ -52,7 +52,7 @@
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
                             "text"=>strip_tags(html_entity_decode($news[0]['content'])),
-                            "category"=>array($news[0]['category']),
+                            "categories"=>array($news[0]['category']),
                             "id"=>(int)$news[0]['post_id'],
                             "date"=>$date,
                             "date_u"=>strtotime($date),

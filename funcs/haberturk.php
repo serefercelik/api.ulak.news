@@ -8,7 +8,7 @@
             $status=false;
             $file=curl_function("{$_ENV["get_haberturk"]}");
             if($file['status']){
-                $desc="İşlem sanırım tamam :)";
+                $desc="from agency";
                 $status=true;
                 foreach($file['result']['items'] as $raw){
                     if(isset($raw['items'])){
@@ -17,7 +17,7 @@
                                 $catNews[]=array(
                                     "agency_title"=>"Haber Türk",
                                     "agency"=>"haberturk",
-                                    "category"=>array($itemRaw['kategori_adi']),
+                                    "categories"=>array($itemRaw['kategori_adi']),
                                     "id"=>(int)$itemRaw['haber_id'],
                                     "date_u"=>strtotime($itemRaw['giris_zamani']),
                                     "date"=>$itemRaw['giris_zamani'],
@@ -44,7 +44,7 @@
             $desc="İstediğiniz artık yok veya hatalı işlem.";
             $file=curl_function("{$_ENV["get_haberturk_new"]}?news_id={$new_id}");
             if($file['status']){
-                $desc="İşlem sanırım tamam :)";
+                $desc="from agency";
                 $status=true;
                 $news=$file['result'];
                 $news_text=$news['haber_metin'];
@@ -82,7 +82,7 @@
                         "agency"=>"haberturk",
                         "agency_title"=>"Haber Türk",
                         "text"=>$text,
-                        "category"=>array($news_cat),
+                        "categories"=>array($news_cat),
                         "id"=>(int)$news['haber_id'],
                         "date_u"=>strtotime($news_date),
                         "date"=>$news_date,

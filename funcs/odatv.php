@@ -8,13 +8,13 @@
                 $status=false;
                 $file=curl_function("{$_ENV["get_odatv"]}?catid=10"); // Tüm manşetler
                 if($file['status']){
-                    $desc="İşlem sanırım tamam :)";
+                    $desc="from agency";
                     $status=true;
                     foreach($file['result']['haberler'] as $raw){
                                 $catNews[]=array(
                                     "agency"=>"odatv",
                                     "agency_title"=>"Odatv",
-                                    "category"=>array(getCategory("odatv", $raw['kategori_id'])),
+                                    "categories"=>array(getCategorie("odatv", $raw['kategori_id'])),
                                     "id"=>(int)$raw['id'],
                                     "date"=>$raw['haber_zaman'],
                                     "date_u"=>strtotime($raw['haber_zaman']),
@@ -39,7 +39,7 @@
                 if($file['status']){
                     $news=$file['result']['haberler'];
                     if($news!=null){
-                        $desc="İşlem sanırım tamam :)";
+                        $desc="from agency";
                         $status=true;
                         //image check
                         $news_image="https://api.ulak.news/images/web/404.png";
@@ -50,7 +50,7 @@
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
                             "text"=>strip_tags($news[0]['haber_metin']),
-                            "category"=>array(getCategory($agency, $news[0]['kategori_id'])),
+                            "categories"=>array(getCategorie($agency, $news[0]['kategori_id'])),
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
                             "date_u"=>strtotime($news[0]['haber_zaman']),
