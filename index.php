@@ -36,7 +36,7 @@ if(isset($_GET['process'])){
 
 
 /// CACHE
-if($is_local){
+if(!$is_local){
     require_once "sCache.php";
     $options = array(
         'time'   => $cache_seconds, // 120 saniye yani 2 dakika
