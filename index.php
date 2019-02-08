@@ -36,8 +36,7 @@ if(isset($_GET['process'])){
 
 
 /// CACHE
-$host=Sanitizer::url($_SERVER['HTTP_HOST']);
-if($host!="127.0.0.1:3001" && $host!="127.0.0.1"){
+if($is_local){
     require_once "sCache.php";
     $options = array(
         'time'   => $cache_seconds, // 120 saniye yani 2 dakika
