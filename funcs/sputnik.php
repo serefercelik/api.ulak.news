@@ -40,8 +40,7 @@
                                 "title"=>$news['title'],
                                 "spot"=>$news['lead'],
                                 "image"=>$imageid,
-                                "url"=>$news['issuer_article_uri'],
-                                "read_times"=>0
+                                "url"=>$news['issuer_article_uri']
                             );
                         }
                     }
@@ -90,7 +89,8 @@
                             "title"=>$news['title'],
                             "spot"=>$news['lead'],
                             "image"=>$news_image,
-                            "url"=>$news['issuer_article_uri']
+                            "url"=>$news['issuer_article_uri'],
+                            "read_times"=>1
                         );
                         if($cats!=null){
                             saveDatabase($agency, $result);

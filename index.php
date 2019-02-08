@@ -119,6 +119,22 @@ if($agency_process){
                 $result=$islem['result'];
             }
         break;
+        case "all":
+                $islem_haberturk=get_haberturk();
+                $islem_odatv=get_odatv();
+                $islem_sputnik=get_sputnik();
+                $islem_sozcu=get_sozcu();
+                $all=array_merge($islem_haberturk['result'], $islem_odatv['result'], $islem_sputnik['result'], $islem_sozcu['result']);
+                if($islem_haberturk['status']===true && $islem_odatv['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true){
+                    shuffle($all);
+                    $status=true;
+                    $desc="Okey";
+                    $result=$all;
+                }else{
+                    $desc="Ajans ile bağlantı kurulamadı.";
+                }
+
+        break;
         case "list":
             $status=true;
             $desc= "Listelendi.";

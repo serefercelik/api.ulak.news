@@ -58,7 +58,7 @@
                             "spot"=>$news[0]['haber_spot'],
                             "image"=>$news_image,
                             "url"=>$news[0]['haber_url'],
-                            "read_times"=>0
+                            "read_times"=>1
                         );
                         saveDatabase($agency, $result);
                     }

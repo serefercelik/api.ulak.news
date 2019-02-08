@@ -90,7 +90,7 @@
                         "spot"=>$news_spot,
                         "image"=>$news_image,
                         "url"=>$news['url'],
-                        "read_times"=>0
+                        "read_times"=>1
                     );
                     saveDatabase($agency, $result);
             }else{
