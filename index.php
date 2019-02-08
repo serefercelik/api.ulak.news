@@ -12,10 +12,10 @@ $saved_new=false;
 $islem=null;
 if(isset($_GET['agency'])){
     $agency_process=true;
-    $agency=$_GET['agency'];
+    $agency=Sanitizer::alfabetico($_GET['agency']);
     if(isset($_GET['id'])){
         $agency_new=true;
-        $new_id=(int)preg_replace('/\D/', '', $_GET['id']);
+        $new_id=Sanitizer::numerico($_GET['id']);
         $saved_new=checkNew($agency, $new_id);
         if($saved_new){
             read_new($agency, $new_id);
@@ -29,12 +29,12 @@ $get_process=false;
 $process=null;
 if(isset($_GET['process'])){
     $get_process=true;
-    $process=strip_tags($_GET['process']);
+    $process=Sanitizer::alfabetico($_GET['process']);
 }
 
 
 /// CACHE
-$host=$_SERVER['HTTP_HOST'];
+$host=Sanitizer::url($_SERVER['HTTP_HOST']);
 if($host!="127.0.0.1:3001" && $host!="127.0.0.1"){
     require_once "sCache.php";
     $options = array(
