@@ -12,10 +12,12 @@ if($host===$_ENV['local1'] || $host===$_ENV['local2']){
 function checkToken(){
     global $is_local, $apikey_result;
     $result=false;
-    $site=$_SERVER['HTTP_X_SITE'];
-    $token=$_SERVER['HTTP_X_SITE_TOKEN'];
-    if($_ENV['site']===$site && $_ENV['token']===$token){
-        $result=true;
+    if(isset($_SERVER['HTTP_X_SITE']) && isset($_SERVER['HTTP_X_SITE_TOKEN'])){
+        $site=$_SERVER['HTTP_X_SITE'];
+        $token=$_SERVER['HTTP_X_SITE_TOKEN'];
+        if($_ENV['site']===$site && $_ENV['token']===$token){
+            $result=true;
+        }
     }
     return $result;
 }
