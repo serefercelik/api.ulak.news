@@ -1,6 +1,4 @@
 <?php
-
-
             /// ODA TV ///
             function get_odatv(){
                 $desc="İstediğiniz artık yok veya hatalı işlem.";

@@ -68,13 +68,13 @@
                         $text.=$textRaw['text']." ";
                     }else
                     if($textRaw['type']==="mainimage"){
-                        $news_image=$textRaw['imageUrl']."";
+                        $news_image=$textRaw['imageUrl'];
                     }else
                     if($textRaw['type']==="title"){
-                        $news_title=$textRaw['text']."";
+                        $news_title=$textRaw['text'];
                     }else
                     if($textRaw['type']==="spot"){
-                        $news_spot=$textRaw['text']."";
+                        $news_spot=$textRaw['text'];
                         if($news_spot===""){
                             $news_spot=$news_title;
                         }

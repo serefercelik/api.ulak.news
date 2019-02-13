@@ -110,12 +110,13 @@ function mostRead($arg){
         case "today":
             $today=strtotime(date("d.m.Y"));
             $query = new MongoDB\Driver\Query(
-            array(),
+            array(
+                "date_u"=>array('$gt'=>$today)
+            ),
             array(
                 'sort'=>
                     array('read_times'=> -1),
-                'limit'=>10,
-                '$gty'=>array('gte'=>$today)
+                'limit'=>10
             )
             );
             $cursor = $manager->executeQuery('db.news', $query);
