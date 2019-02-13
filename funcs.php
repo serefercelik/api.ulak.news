@@ -1,11 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
-$is_local=false;
-$host=Sanitizer::url($_SERVER['HTTP_HOST']);
-if($host==="127.0.0.1:3001" || $host==="127.0.0.1"){
-    $is_local=true;
-}
+
 // env file
 include("env.php");
 
