@@ -3,7 +3,7 @@ header("Content-type:application/json");
 
 include("funcs.php");
 
-$apikey_result=checkToken();
+$apikey_result= $is_local ? true : checkToken();
 
 
 $cache_seconds=120;
