@@ -17,6 +17,12 @@
                                 $rawDate=explode(' ',$itemRaw['giris_zamani']);
                                 $rawDatee=explode('-', $rawDate[0]);
                                 $news_date=$rawDatee[2].".".$rawDatee[1].".".$rawDatee[0]." ".$rawDate[1];
+                                if($itemRaw['kategori_id']==="0"){
+                                    $itemRaw['kategori_adi']="HT Yazı";
+                                }
+                                if($itemRaw['haber_spot']===""){
+                                    $itemRaw['haber_spot']=$itemRaw['haber_baslik'];
+                                }
                                 $catNews[]=array(
                                     "agency_title"=>"Haber Türk",
                                     "agency"=>"haberturk",
@@ -62,13 +68,16 @@
                         $text.=$textRaw['text']." ";
                     }else
                     if($textRaw['type']==="mainimage"){
-                        $news_image=$textRaw['imageUrl']." ";
-                    }else
-                    if($textRaw['type']==="spot"){
-                        $news_spot=$textRaw['text']." ";
+                        $news_image=$textRaw['imageUrl']."";
                     }else
                     if($textRaw['type']==="title"){
-                        $news_title=$textRaw['text']." ";
+                        $news_title=$textRaw['text']."";
+                    }else
+                    if($textRaw['type']==="spot"){
+                        $news_spot=$textRaw['text']."";
+                        if($news_spot===""){
+                            $news_spot=$news_title;
+                        }
                     }else
                     if($textRaw['type']==="share"){
                         $rawDate=explode(' ',$textRaw['createTime']);
@@ -82,6 +91,9 @@
                     }else{
                         $news_image="https://api.ulak.news/images/web/404.png";
 
+                    }
+                    if($itemRaw['kategori_id']=="0"){
+                        $itemRaw['kategori_adi']="HT Yazı";
                     }
                     $result=array(
                         "agency"=>"haberturk",

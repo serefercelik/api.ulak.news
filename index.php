@@ -219,23 +219,9 @@ if($get_process){
         case "mostRead":
             if(isset($_GET['filter'])){
                 $filter=Sanitizer::alfabetico($_GET['filter']);
-                switch($filter){
-                    case "week":
-                        $status=true;
-                        $desc="most readed news filtered by week";
-                        $result=mostRead($filter);
-                    break;
-                    case "month":
-                        $status=true;
-                        $desc="most readed news filtered by month";
-                        $result=mostRead($filter);
-                    break;
-                    default:
-                        $status=true;
-                        $desc="most readed news filtered by all";
-                        $result=mostRead("all");
-                }
-
+                $status=true;
+                $result=mostRead($filter);
+                $desc="most readed news filtered by $filter";
             }else{
                 $status=true;
                 $desc="most readed news filtered by all";

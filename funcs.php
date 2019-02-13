@@ -17,7 +17,7 @@ function rangeMonthThis (){
       "end" => strtotime ('last day of this month', $dt)
     );
 }
- 
+
 function rangeWeek ($datestr) {
     date_default_timezone_set (date_default_timezone_get());
     $dt = strtotime ($datestr);
