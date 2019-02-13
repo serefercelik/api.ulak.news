@@ -13,8 +13,8 @@ function checkToken(){
     global $apikey_result;
     $result=false;
         if(isset($_SERVER['HTTP_X_SITE']) && isset($_SERVER['HTTP_X_SITE_TOKEN'])){
-            $site=$_SERVER['HTTP_X_SITE'];
-            $token=$_SERVER['HTTP_X_SITE_TOKEN'];
+            $site=Sanitizer::url($_SERVER['HTTP_X_SITE']);
+            $token=Sanitizer::alfanumerico($_SERVER['HTTP_X_SITE_TOKEN']);
             if($_ENV['site']===$site && $_ENV['token']===$token){
                 $result=true;
             }
