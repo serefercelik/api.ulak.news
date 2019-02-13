@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Istanbul');
 
 $is_local=false;
 $host=Sanitizer::url($_SERVER['HTTP_HOST']);
@@ -7,7 +8,30 @@ if($host==="127.0.0.1:3001" || $host==="127.0.0.1"){
 }
 // env file
 include("env.php");
-date_default_timezone_set('Europe/Istanbul');
+
+function rangeMonthThis (){
+    date_default_timezone_set (date_default_timezone_get());
+    $dt = time();
+    return array (
+      "start" => strtotime ('first day of this month', $dt),
+      "end" => strtotime ('last day of this month', $dt)
+    );
+}
+ 
+function rangeWeek ($datestr) {
+    date_default_timezone_set (date_default_timezone_get());
+    $dt = strtotime ($datestr);
+    return array (
+      "start" => date ('N', $dt) == 1 ? $dt :strtotime ('last monday', $dt),
+      "end" => date('N', $dt) == 7 ? $dt :strtotime ('next sunday', $dt)
+    );
+}
+
+  
+function getUnixTime ($dateStr){
+    $date=new DateTime($dateStr, new DateTimeZone("Europe/Istanbul"));
+    return (int)$date->format('U');
+}
 
 class Sanitizer {
     /**

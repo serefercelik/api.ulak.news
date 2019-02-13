@@ -12,6 +12,8 @@ $new_id=null;
 $agency_new=false;
 $saved_new=false;
 $islem=null;
+$limit=0; // 0 unlimited
+$start=0; // start from
 if(isset($_GET['agency'])){
     $agency_process=true;
     $agency=Sanitizer::alfabetico($_GET['agency']);
@@ -26,6 +28,13 @@ if(isset($_GET['agency'])){
     }
 }
 
+if(isset($_GET['limit'])){
+    $limit=Sanitizer::numerico($_GET['limit']);
+}
+if(isset($_GET['start'])){
+    $start=Sanitizer::numerico($_GET['start']);
+}
+
 //get process
 $get_process=false;
 $process=null;
@@ -33,7 +42,6 @@ if(isset($_GET['process'])){
     $get_process=true;
     $process=Sanitizer::alfabetico($_GET['process']);
 }
-
 
 /// CACHE
 if(!$is_local){
@@ -75,6 +83,9 @@ if($agency_process){
                         $status=$islem['status'];
                         $desc=$islem['desc'];
                         $result=$islem['result'];
+                        if($limit>0){
+                            $result=array_splice($result, $start, $limit);
+                        }
                     }
             break;
             case "odatv":
@@ -86,10 +97,13 @@ if($agency_process){
                         $result=$islem['result'];
                         $desc=$islem['desc'];
                 }else{
-                        $islem=get_odatv();
+                    $islem=get_odatv();
                     $status=$islem['status'];
                     $desc=$islem['desc'];
                     $result=$islem['result'];
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
                 }
             break;
             case "sputnik":
@@ -105,6 +119,9 @@ if($agency_process){
                     $status=$islem['status'];
                     $desc=$islem['desc'];
                     $result=$islem['result'];
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
                 }
             break;
             case "sozcu":
@@ -120,6 +137,9 @@ if($agency_process){
                     $status=$islem['status'];
                     $desc=$islem['desc'];
                     $result=$islem['result'];
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
                 }
             break;
             case "all":
@@ -129,10 +149,27 @@ if($agency_process){
                     $islem_sozcu=get_sozcu();
                     $all=array_merge($islem_haberturk['result'], $islem_odatv['result'], $islem_sputnik['result'], $islem_sozcu['result']);
                     if($islem_haberturk['status']===true && $islem_odatv['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true){
-                        shuffle($all);
+                        $sortArray = array();
+                        foreach($all as $person){ 
+                            foreach($person as $key=>$value){ 
+                                if(!isset($sortArray[$key])){ 
+                                    $sortArray[$key] = array(); 
+                                } 
+                                $sortArray[$key][] = $value; 
+                            } 
+                        } 
+                        $orderby = "date_u"; //change this to whatever key you want from the array 
+                        array_multisort($sortArray[$orderby],SORT_DESC,$all); 
                         $status=true;
                         $desc="Okey";
                         $result=$all;
+                        if($limit>0){
+                            $result=array_splice($result, $start, $limit);
+                        }
+                        if($result===null){
+                            $desc="null";
+                            $status=false;
+                        }
                     }else{
                         $desc="Ajans ile bağlantı kurulamadı.";
                     }
@@ -178,6 +215,32 @@ if($get_process){
             $status=true;
             $desc="Listed Categories";
             $result=getSavedCategories();
+            break;
+        case "mostRead":
+            if(isset($_GET['filter'])){
+                $filter=Sanitizer::alfabetico($_GET['filter']);
+                switch($filter){
+                    case "week":
+                        $status=true;
+                        $desc="most readed news filtered by week";
+                        $result=mostRead($filter);
+                    break;
+                    case "month":
+                        $status=true;
+                        $desc="most readed news filtered by month";
+                        $result=mostRead($filter);
+                    break;
+                    default:
+                        $status=true;
+                        $desc="most readed news filtered by all";
+                        $result=mostRead("all");
+                }
+
+            }else{
+                $status=true;
+                $desc="most readed news filtered by all";
+                $result=mostRead("all");
+            }
             break;
         default:
             $desc="Eksik veya hatalı işlem";

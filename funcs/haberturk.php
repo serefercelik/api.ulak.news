@@ -14,13 +14,16 @@
                     if(isset($raw['items'])){
                         foreach($raw['items'] as $itemRaw){
                             if(explode('/',$itemRaw['url'])[2]==="news"){
+                                $rawDate=explode(' ',$itemRaw['giris_zamani']);
+                                $rawDatee=explode('-', $rawDate[0]);
+                                $news_date=$rawDatee[2].".".$rawDatee[1].".".$rawDatee[0]." ".$rawDate[1];
                                 $catNews[]=array(
                                     "agency_title"=>"Haber Türk",
                                     "agency"=>"haberturk",
                                     "categories"=>array($itemRaw['kategori_adi']),
                                     "id"=>(int)$itemRaw['haber_id'],
-                                    "date_u"=>strtotime($itemRaw['giris_zamani']),
-                                    "date"=>$itemRaw['giris_zamani'],
+                                    "date_u"=>strtotime($news_date),
+                                    "date"=>$news_date,
                                     "title"=>$itemRaw['haber_baslik'],
                                     "spot"=>$itemRaw['haber_spot'],
                                     "image"=>$itemRaw['mansetPhoto'],
@@ -68,7 +71,9 @@
                         $news_title=$textRaw['text']." ";
                     }else
                     if($textRaw['type']==="share"){
-                        $news_date=$textRaw['createTime']." ";
+                        $rawDate=explode(' ',$textRaw['createTime']);
+                        $rawDatee=explode('-', $rawDate[0]);
+                        $news_date=$rawDatee[2].".".$rawDatee[1].".".$rawDatee[0]." ".$rawDate[1];
                     }
                 }
                     //image check

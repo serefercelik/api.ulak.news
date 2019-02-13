@@ -70,4 +70,59 @@ function saveDatabase($agency, $data){
     return false;
 }
 
+function mostRead($arg){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $result=null;
+    $time=time();
+    // most read by last 7 days
+    if($arg==="week"){
+        $maxTime=$time-7*24*60*60;
+        $query = new MongoDB\Driver\Query(
+        array(
+            'date_u'=>
+                array('$gte'=>$maxTime, '$lt'=>$time)
+        ),
+        array(
+            'sort'=>
+                array('read_times'=> -1),
+            'limit'=>10
+        )
+        );
+        $cursor = $manager->executeQuery('db.news', $query);
+        $result=(array)$cursor->toArray();
+    }else
+    /// most read by month
+    if($arg==="month"){
+        $range=rangeMonthThis();
+        $query = new MongoDB\Driver\Query(
+            array(
+                'date_u'=>
+                    array('$gte'=>$range['start'], '$lt'=>$range['end'])
+            ),
+            array(
+                'sort'=>
+                    array('read_times'=> -1),
+                'limit'=>10
+            )
+            );
+            $cursor = $manager->executeQuery('db.news', $query);
+            $result=(array)$cursor->toArray();
+    }else
+    /// most read by project begin
+    if($arg==="all"){
+        $query = new MongoDB\Driver\Query(
+            array(),
+            array(
+                'limit'=>10,
+                'sort'=>
+                    array('read_times'=> -1)
+                )
+ 
+        );
+        $cursor = $manager->executeQuery('db.news', $query);
+        $result=(array)$cursor->toArray();
+    }
+    return $result;
+}
+
 ?>
