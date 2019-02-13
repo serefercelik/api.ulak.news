@@ -196,7 +196,7 @@ if($apikey_result){
                     );
                     if(isset($_GET['filter'])){
                         if(isset($result[$_GET['filter']])){
-                            $result=$result[$_GET['filter']];
+                            $result=$result[Sanitizer::alfabetico($_GET['filter'])];
                         }else{
                             $status=false;
                             $desc="Sonuç bulunamadı.";
