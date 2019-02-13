@@ -3,12 +3,8 @@ header("Content-type:application/json");
 
 include("funcs.php");
 
-$apikey_result=true;
-$is_local=false;
-$host=Sanitizer::url($_SERVER['HTTP_HOST']);
-if($host===$_ENV['local1'] || $host===$_ENV['local2']){
-    $is_local=true;
-}
+$apikey_result=checkToken();
+
 
 $cache_seconds=120;
 // agency and new globals
@@ -61,7 +57,6 @@ if(!$is_local){
         );
     
     $sCache = new sCache($options); // ayarları sınıfımıza gönderip sınıfı çalıştıralım.
-    $apikey_result=false;
 }
 // CACHE FINISH
 

@@ -6,6 +6,7 @@
 * GİT : http://github.com/saltun
 * Date : 13.06.2015
 * Update : 29.06.2016
+* Edited by Orhan AYDOGDU - FOR ULAK.NEWS
 */
 class sCache {
 	
@@ -72,7 +73,7 @@ class sCache {
 			
 				
 
-				 $this->cache  =  dirname(__FILE__)."/".$this->dir."/".md5($_SERVER['REQUEST_URI']).$this->extension;
+				 $this->cache  =  dirname(__FILE__)."/".$this->dir."/".md5($_SERVER['REQUEST_URI'].$_SERVER['HTTP_X_SITE'].$_SERVER['HTTP_X_SITE_TOKEN']).$this->extension;
 
 				 if(time() - $this->time < @filemtime($this->cache)) {
 				      readfile($this->cache); 
