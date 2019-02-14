@@ -37,9 +37,23 @@ function get_new($agency, $new_id){
 
 function catNews($filter){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-    $query = new MongoDB\Driver\Query(array(
-        'categories'=>$filter
-    ));
+    $query = new MongoDB\Driver\Query(
+            array(
+                'categories'=>$filter
+            ),
+            array(
+                'projection'=>array(
+                    "id"=>1,
+                    "agency"=>1, 
+                    "agency_title"=>1, 
+                    "categories"=>1, 
+                    "title"=>1, 
+                    "spot"=>1, 
+                    "image"=>1, 
+                    "url"=>1
+                    )
+            )
+    );
     $cursor = $manager->executeQuery('db.news', $query);
     $data = $cursor->toArray();
     if(isset($data)){
@@ -58,7 +72,7 @@ function checkNew($agency, $new_id){
             ),
             // get just id field
         array(
-            '$project'=>
+            'projection'=>
                 array("id"=>1)
             )
         );

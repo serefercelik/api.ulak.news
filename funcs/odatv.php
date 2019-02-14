@@ -40,9 +40,9 @@
                         $desc="from agency";
                         $status=true;
                         //image check
-                        $news_image="https://api.ulak.news/images/web/404.png";
+                        $news_image=$news[0]['resim'];
                         if(!isset($news[0]['resim'])){
-                            $news_image=$news[0]['resim'];
+                            $news_image="https://api.ulak.news/images/web/404.png";
                         }
                         $result=array(
                             "agency"=>"odatv",

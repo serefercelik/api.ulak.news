@@ -74,9 +74,9 @@
                         if(count($cats)<0){
                             $cats=array("Dünya");
                         }
-                        $news_image="https://api.ulak.news/images/web/404.png";
-                        if(isset($news['enclosures'][0]['id'])){
-                            $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
+                        $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
+                        if(!isset($news['enclosures'][0]['id'])){
+                            $news_image="https://api.ulak.news/images/web/404.png";
                         }
                         $result=array(
                             "agency"=>"sputnik",

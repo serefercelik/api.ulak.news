@@ -44,9 +44,9 @@
                         $status=true;
                         $date=gmdate("d.m.Y H:i:s", $news[0]['date']);
                         //image check
-                        $news_image="https://api.ulak.news/images/web/404.png";
-                        if(isset($news[0]['image'])){
-                            $news_image=$news[0]['image'];
+                        $news_image=$news[0]['image'];
+                        if(!isset($news[0]['image'])){
+                            $news_image="https://api.ulak.news/images/web/404.png";
                         }
                         $result=array(
                             "agency"=>"sozcu",
