@@ -182,15 +182,19 @@ if($apikey_result){
                     $desc= "Listelendi.";
                     $result=array(
                         "haberturk"=>array(
+                            "title"=>"Haber Türk",
                             "image"=>getImage("haberturk"), 
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
                         "odatv"=>array(
+                            "title"=>"Odatv",
                             "image"=>getImage("odatv"), 
                             "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
                         "sputnik"=>array(
+                            "title"=>"Sputnik",
                             "image"=>getImage("sputnik"), 
                             "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. "),
                         "sozcu"=>array(
+                            "title"=>"Sözcü",
                             "image"=>getImage("sozcu"), 
                             "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete.")
                     );
@@ -212,7 +216,7 @@ if($apikey_result){
     // Page agency
     if($get_process){
         switch ($process) {
-            case "getCategories":
+            case "cats":
                 $status=true;
                 $desc="Listed Categories";
                 $result=getSavedCategories();
@@ -227,6 +231,17 @@ if($apikey_result){
                     $status=true;
                     $desc="most readed news filtered by all";
                     $result=mostRead("all");
+                }
+                break;
+            case "catNews":
+                if(isset($_GET['filter'])){
+                    $filter=Sanitizer::alfabetico($_GET['filter']);
+                    $status=true;
+                    $result=catNews($filter);
+                    $desc="news filtered by $filter";
+                }else{
+                    $status=false;
+                    $desc="no filter query";
                 }
                 break;
             default:

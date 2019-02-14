@@ -35,6 +35,19 @@ function get_new($agency, $new_id){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
+function catNews($filter){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(array(
+        'categories'=>$filter
+    ));
+    $cursor = $manager->executeQuery('db.news', $query);
+    $data = $cursor->toArray();
+    if(isset($data)){
+        return $data;
+    }
+    return null;
+}
+
 function checkNew($agency, $new_id){
         $status=false;
         $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
