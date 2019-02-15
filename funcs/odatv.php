@@ -9,6 +9,7 @@
                     $desc="from agency";
                     $status=true;
                     foreach($file['result']['haberler'] as $raw){
+                                $news_title=$raw['haber_baslik'];
                                 $catNews[]=array(
                                     "agency"=>"odatv",
                                     "agency_title"=>"Odatv",
@@ -16,7 +17,8 @@
                                     "id"=>(int)$raw['id'],
                                     "date"=>$raw['haber_zaman'],
                                     "date_u"=>strtotime($raw['haber_zaman']),
-                                    "title"=>$raw['haber_baslik'],
+                                    "title"=>$news_title,
+                                    "seo_link"=>seolink($news_title),
                                     "spot"=>$raw['haber_spot'],
                                     "image"=>$raw['resim'],
                                     "url"=>$raw['haber_url']

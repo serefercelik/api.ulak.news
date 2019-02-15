@@ -30,6 +30,7 @@
 
                                 $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                             }
+                            $news_title=$news['title'];
                             $catNews[]=array(
                                 "agency"=>"sputnik",
                                 "agency_title"=>"Sputnik",
@@ -38,6 +39,7 @@
                                 "date"=>gmdate("d.m.Y H:i:s", $news['pub_date_ut']),
                                 "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
                                 "title"=>$news['title'],
+                                "seo_link"=>seolink($news_title),
                                 "spot"=>$news['lead'],
                                 "image"=>$imageid,
                                 "url"=>$news['issuer_article_uri']

@@ -23,6 +23,7 @@
                                 if($itemRaw['haber_spot']===""){
                                     $itemRaw['haber_spot']=$itemRaw['haber_baslik'];
                                 }
+                                $news_title=$itemRaw['haber_baslik'];
                                 $catNews[]=array(
                                     "agency_title"=>"Haber Türk",
                                     "agency"=>"haberturk",
@@ -30,7 +31,8 @@
                                     "id"=>(int)$itemRaw['haber_id'],
                                     "date_u"=>strtotime($news_date),
                                     "date"=>$news_date,
-                                    "title"=>$itemRaw['haber_baslik'],
+                                    "title"=>$news_title,
+                                    "seo_link"=>seolink($news_title),
                                     "spot"=>$itemRaw['haber_spot'],
                                     "image"=>$itemRaw['mansetPhoto'],
                                     "url"=>$itemRaw['httpurl']

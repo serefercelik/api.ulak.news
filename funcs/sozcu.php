@@ -12,6 +12,7 @@
                         $status=true;
                         foreach($file['result']['data'] as $raw){
                             $date=gmdate("d.m.Y H:i:s", $raw['date']);
+                            $news_title=$raw['title'];
                             $catNews[]=array(
                                 "agency"=>"sozcu",
                                 "agency_title"=>"Sözcü",
@@ -19,8 +20,9 @@
                                 "id"=>(int)$raw['post_id'],
                                 "date"=>$date,
                                 "date_u"=>strtotime($date),
-                                "title"=>$raw['title'],
-                                "spot"=>$raw['title'],
+                                "title"=>$news_title,
+                                "seo_link"=>seolink($news_title),
+                                "spot"=>$news_title,
                                 "image"=>$raw['image'],
                                 "url"=>null
                             );
