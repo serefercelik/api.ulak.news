@@ -98,6 +98,7 @@
                     $result=array(
                         "agency"=>"haberturk",
                         "agency_title"=>"Haber Türk",
+                        "seo_link"=>seolink($news_title),
                         "text"=>$text,
                         "categories"=>array($news_cat),
                         "id"=>(int)$news['haber_id'],

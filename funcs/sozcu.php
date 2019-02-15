@@ -43,6 +43,7 @@
                         $desc="from agency";
                         $status=true;
                         $date=gmdate("d.m.Y H:i:s", $news[0]['date']);
+                        $news_title=$news[0]['title'];
                         //image check
                         $news_image=$news[0]['image'];
                         if(!isset($news[0]['image'])){
@@ -56,7 +57,8 @@
                             "id"=>(int)$news[0]['post_id'],
                             "date"=>$date,
                             "date_u"=>strtotime($date),
-                            "title"=>$news[0]['title'],
+                            "title"=>$news_title,
+                            "seo_link"=>seolink($news_title),
                             "spot"=>$news[0]['title'],
                             "image"=>$news_image,
                             "url"=>$news[0]['permalink'],

@@ -74,6 +74,7 @@
                         if(count($cats)<0){
                             $cats=array("Dünya");
                         }
+                        $news_title=$news['title'];
                         $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                         if(!isset($news['enclosures'][0]['id'])){
                             $news_image="https://api.ulak.news/images/web/404.png";
@@ -86,7 +87,8 @@
                             "id"=>(int)$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),
                             "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
-                            "title"=>$news['title'],
+                            "title"=> $news_title,
+                            "seo_link"=>seolink($news_title),
                             "spot"=>$news['lead'],
                             "image"=>$news_image,
                             "url"=>$news['issuer_article_uri'],

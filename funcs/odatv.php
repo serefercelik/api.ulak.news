@@ -39,6 +39,7 @@
                     if($news!=null){
                         $desc="from agency";
                         $status=true;
+                        $news_title=$news[0]['haber_baslik'];
                         //image check
                         $news_image=$news[0]['resim'];
                         if(!isset($news[0]['resim'])){
@@ -52,7 +53,8 @@
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
                             "date_u"=>strtotime($news[0]['haber_zaman']),
-                            "title"=>$news[0]['haber_baslik'],
+                            "seo_link"=>seolink($news_title),
+                            "title"=>$news_title,
                             "spot"=>$news[0]['haber_spot'],
                             "image"=>$news_image,
                             "url"=>$news[0]['haber_url'],
