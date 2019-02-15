@@ -20,7 +20,7 @@ function seolink($text){
 	$text = strtolower($text);
 	$text = preg_replace("/^-/","",$text);
 	$text = preg_replace("/-$/","",$text);
-	return $text;
+	return substr($text,0,32);
 }
 
 
