@@ -24,15 +24,16 @@
                                     $itemRaw['haber_spot']=$itemRaw['haber_baslik'];
                                 }
                                 $news_title=$itemRaw['haber_baslik'];
+                                $new_id=(int)$itemRaw['haber_id'];
                                 $catNews[]=array(
                                     "agency_title"=>"Haber Türk",
                                     "agency"=>"haberturk",
                                     "categories"=>array($itemRaw['kategori_adi']),
-                                    "id"=>(int)$itemRaw['haber_id'],
+                                    "id"=>(int)$new_id,
                                     "date_u"=>strtotime($news_date),
                                     "date"=>$news_date,
                                     "title"=>$news_title,
-                                    "seo_link"=>seolink($news_title),
+                                    "seo_link"=>seolink($news_title, "haberturk", $new_id),
                                     "spot"=>$itemRaw['haber_spot'],
                                     "image"=>$itemRaw['mansetPhoto'],
                                     "url"=>$itemRaw['httpurl']
@@ -100,10 +101,10 @@
                     $result=array(
                         "agency"=>"haberturk",
                         "agency_title"=>"Haber Türk",
-                        "seo_link"=>seolink($news_title),
+                        "seo_link"=>seolink($news_title, "haberturk", $new_id),
                         "text"=>$text,
                         "categories"=>array($news_cat),
-                        "id"=>(int)$news['haber_id'],
+                        "id"=>$new_id,
                         "date_u"=>strtotime($news_date),
                         "date"=>$news_date,
                         "title"=>$news_title,

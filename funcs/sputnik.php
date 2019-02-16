@@ -31,15 +31,16 @@
                                 $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                             }
                             $news_title=$news['title'];
+                            $new_id=$news['id'];
                             $catNews[]=array(
                                 "agency"=>"sputnik",
                                 "agency_title"=>"Sputnik",
                                 "categories"=>$cats,
-                                "id"=>$news['id'],
+                                "id"=>$new_id,
                                 "date"=>gmdate("d.m.Y H:i:s", $news['pub_date_ut']),
                                 "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
                                 "title"=>$news['title'],
-                                "seo_link"=>seolink($news_title),
+                                "seo_link"=>seolink($news_title, "sputnik", $new_id),
                                 "spot"=>$news['lead'],
                                 "image"=>$imageid,
                                 "url"=>$news['issuer_article_uri']
@@ -86,11 +87,11 @@
                             "agency_title"=>"Sputnik",
                             "text"=>strip_tags($news['body']),
                             "categories"=>$cats,
-                            "id"=>(int)$new_id,
+                            "id"=>$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),
                             "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
                             "title"=> $news_title,
-                            "seo_link"=>seolink($news_title),
+                            "seo_link"=>seolink($news_title, "sputnik", $new_id),
                             "spot"=>$news['lead'],
                             "image"=>$news_image,
                             "url"=>$news['issuer_article_uri'],

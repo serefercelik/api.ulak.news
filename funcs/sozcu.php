@@ -13,15 +13,16 @@
                         foreach($file['result']['data'] as $raw){
                             $date=gmdate("d.m.Y H:i:s", $raw['date']);
                             $news_title=$raw['title'];
+                            $new_id=(int)$raw['post_id'];
                             $catNews[]=array(
                                 "agency"=>"sozcu",
                                 "agency_title"=>"Sözcü",
                                 "categories"=>array($raw['category']),
-                                "id"=>(int)$raw['post_id'],
+                                "id"=>$new_id,
                                 "date"=>$date,
                                 "date_u"=>strtotime($date),
                                 "title"=>$news_title,
-                                "seo_link"=>seolink($news_title),
+                                "seo_link"=>seolink($news_title, "sozcu", $new_id),
                                 "spot"=>$news_title,
                                 "image"=>$raw['image'],
                                 "url"=>null
@@ -56,11 +57,11 @@
                             "agency_title"=>"Sözcü",
                             "text"=>strip_tags(html_entity_decode($news[0]['content'])),
                             "categories"=>array($news[0]['category']),
-                            "id"=>(int)$news[0]['post_id'],
+                            "id"=>$new_id,
                             "date"=>$date,
                             "date_u"=>strtotime($date),
                             "title"=>$news_title,
-                            "seo_link"=>seolink($news_title),
+                            "seo_link"=>seolink($news_title, "sozcu", $new_id),
                             "spot"=>$news[0]['title'],
                             "image"=>$news_image,
                             "url"=>$news[0]['permalink'],

@@ -10,15 +10,16 @@
                     $status=true;
                     foreach($file['result']['haberler'] as $raw){
                                 $news_title=$raw['haber_baslik'];
+                                $new_id=(int)$raw['id'];
                                 $catNews[]=array(
                                     "agency"=>"odatv",
                                     "agency_title"=>"Odatv",
                                     "categories"=>array(getCategorie("odatv", $raw['kategori_id'])),
-                                    "id"=>(int)$raw['id'],
+                                    "id"=>$new_id,
                                     "date"=>$raw['haber_zaman'],
                                     "date_u"=>strtotime($raw['haber_zaman']),
                                     "title"=>$news_title,
-                                    "seo_link"=>seolink($news_title),
+                                    "seo_link"=>seolink($news_title, "odatv", $new_id),
                                     "spot"=>$raw['haber_spot'],
                                     "image"=>$raw['resim'],
                                     "url"=>$raw['haber_url']
@@ -55,7 +56,7 @@
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
                             "date_u"=>strtotime($news[0]['haber_zaman']),
-                            "seo_link"=>seolink($news_title),
+                            "seo_link"=>seolink($news_title, "odatv", $new_id),
                             "title"=>$news_title,
                             "spot"=>$news[0]['haber_spot'],
                             "image"=>$news_image,

@@ -9,7 +9,7 @@ if($host===$_ENV['local1'] || $host===$_ENV['local2']){
     $_ENV["mongo_conn"]="mongodb://localhost";
 }
 
-function seolink($s){
+function seolink($s, $agency, $id){
     $s  = html_entity_decode($s);
     $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…');
     $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','','','','','','','','','','','');
@@ -22,7 +22,7 @@ function seolink($s){
     $s = str_replace('.', '', $s);
     $s = trim($s, '-');
     $s = substr($s, 0, 32);
-    return $s;
+    return "haber_".$s."_".$agency."_".$id.".html";
 }
 
 
