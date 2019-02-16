@@ -50,7 +50,8 @@ function catNews($filter){
                     "title"=>1, 
                     "spot"=>1, 
                     "image"=>1, 
-                    "url"=>1
+                    "url"=>1,
+                    "seo_link"=>1
                     )
             )
     );
@@ -114,7 +115,7 @@ function mostRead($arg){
                     array('read_times'=> -1),
                 'limit'=>10,
                 'projection'=>
-                            array("id"=>1, "title"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
                 )
             );
             $cursor = $manager->executeQuery('db.news', $query);
@@ -132,8 +133,8 @@ function mostRead($arg){
                     array('read_times'=> -1),
                 'limit'=>10,
                 'projection'=>
-                            array("id"=>1, "title"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
-            )
+                        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                )
             );
             $cursor = $manager->executeQuery('db.news', $query);
             return (array)$cursor->toArray();
@@ -149,8 +150,8 @@ function mostRead($arg){
                     array('read_times'=> -1),
                 'limit'=>10,
                 'projection'=>
-                            array("id"=>1, "title"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
-            )
+                    array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                )
             );
             $cursor = $manager->executeQuery('db.news', $query);
             return (array)$cursor->toArray();
@@ -163,8 +164,8 @@ function mostRead($arg){
                     'sort'=>
                         array('read_times'=> -1),
                         'projection'=>
-                                array("id"=>1, "title"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
-                    )
+                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                        )
     
             );
             $cursor = $manager->executeQuery('db.news', $query);
