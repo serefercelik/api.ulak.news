@@ -9,18 +9,20 @@ if($host===$_ENV['local1'] || $host===$_ENV['local2']){
     $_ENV["mongo_conn"]="mongodb://localhost";
 }
 
-function seolink($text){
-	$find = array("/Ğ/","/Ü/","/Ş/","/İ/","/Ö/","/Ç/","/ğ/","/ü/","/ş/","/ı/","/ö/","/ç/");
-	$degis = array("G","U","S","I","O","C","g","u","s","i","o","c");
-	$text = preg_replace("/[^0-9a-zA-ZÄzÜŞİÖÇğüşıöç]/"," ",$text);
-	$text = preg_replace($find,$degis,$text);
-	$text = preg_replace("/ +/"," ",$text);
-	$text = preg_replace("/ /","-",$text);
-	$text = preg_replace("/\s/","",$text);
-	$text = strtolower($text);
-	$text = preg_replace("/^-/","",$text);
-	$text = preg_replace("/-$/","",$text);
-	return substr($text,0,32);
+function seolink($s){
+    $s  = html_entity_decode($s);
+    $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…');
+    $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','','','','','','','','','','','');
+    $s = str_replace($tr,$eng,$s);
+    $s = strtolower($s);
+    $s = preg_replace('/&amp;amp;amp;amp;amp;amp;amp;amp;amp;.+?;/', '', $s);
+    $s = preg_replace('/\s+/', '-', $s);
+    $s = preg_replace('|-+|', '-', $s);
+    $s = preg_replace('/#/', '', $s);
+    $s = str_replace('.', '', $s);
+    $s = trim($s, '-');
+    $s = substr($s, 0, 32);
+    return $s;
 }
 
 
