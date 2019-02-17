@@ -82,6 +82,10 @@
                         if(!isset($news['enclosures'][0]['id'])){
                             $news_image="https://api.ulak.news/images/web/404.png";
                         }
+                        $news_spot=$news['lead'];
+                        if($news_spot===""){
+                            $news_spot=$news_title;
+                        }
                         $result=array(
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
@@ -92,7 +96,9 @@
                             "date_u"=>(int)explode('.',$news['pub_date_ut'])[0],
                             "title"=> $news_title,
                             "seo_link"=>seolink($news_title, "sputnik", $new_id),
-                            "spot"=>$news['lead'],
+                            "spot"=>$news_spot,
+                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                            "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news['issuer_article_uri'],
                             "read_times"=>1

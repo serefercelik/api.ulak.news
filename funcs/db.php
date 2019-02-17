@@ -98,7 +98,10 @@ function saveDatabase($agency, $data){
     return false;
 }
 
-function mostRead($arg){
+function mostRead($arg, $limit=10){
+    if($limit>100){
+        $limit=100;
+    }
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     // most read by last 7 days
     switch($arg){
@@ -113,7 +116,7 @@ function mostRead($arg){
             array(
                 'sort'=>
                     array('read_times'=> -1),
-                'limit'=>10,
+                'limit'=>$limit,
                 'projection'=>
                             array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
                 )
@@ -131,7 +134,7 @@ function mostRead($arg){
             array(
                 'sort'=>
                     array('read_times'=> -1),
-                'limit'=>10,
+                'limit'=>$limit,
                 'projection'=>
                         array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
                 )
@@ -148,7 +151,7 @@ function mostRead($arg){
             array(
                 'sort'=>
                     array('read_times'=> -1),
-                'limit'=>10,
+                'limit'=>$limit,
                 'projection'=>
                     array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
                 )
@@ -160,7 +163,7 @@ function mostRead($arg){
             $query = new MongoDB\Driver\Query(
                 array(),
                 array(
-                    'limit'=>10,
+                    'limit'=>$limit,
                     'sort'=>
                         array('read_times'=> -1),
                         'projection'=>

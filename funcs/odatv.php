@@ -48,6 +48,10 @@
                         if(!isset($news[0]['resim'])){
                             $news_image="https://api.ulak.news/images/web/404.png";
                         }
+                        $news_spot=$news[0]['haber_spot'];
+                        if($news[0]['haber_spot']===""){
+                            $news_spot=$news_title;
+                        }
                         $result=array(
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
@@ -58,7 +62,9 @@
                             "date_u"=>strtotime($news[0]['haber_zaman']),
                             "seo_link"=>seolink($news_title, "odatv", $new_id),
                             "title"=>$news_title,
-                            "spot"=>$news[0]['haber_spot'],
+                            "spot"=>$news_spot,
+                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                            "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news[0]['haber_url'],
                             "read_times"=>1

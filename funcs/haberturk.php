@@ -101,8 +101,8 @@
                         $news_image="https://api.ulak.news/images/web/404.png";
 
                     }
-                    if($itemRaw['kategori_id']=="0"){
-                        $itemRaw['kategori_adi']="HT Yazı";
+                    if($news['kategori_adi']===""){
+                        $news_cat="HaberTürk Yazılar";
                     }
                     $result=array(
                         "agency"=>"haberturk",
@@ -115,6 +115,8 @@
                         "date"=>$news_date,
                         "title"=>$news_title,
                         "spot"=>$news_spot,
+                        "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                        "saved_date"=>time(),
                         "image"=>$news_image,
                         "url"=>$news['url'],
                         "read_times"=>1

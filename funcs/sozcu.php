@@ -62,7 +62,9 @@
                             "date_u"=>strtotime($date),
                             "title"=>$news_title,
                             "seo_link"=>seolink($news_title, "sozcu", $new_id),
-                            "spot"=>$news[0]['title'],
+                            "spot"=>$news_title,
+                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_title)),
+                            "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news[0]['permalink'],
                             "read_times"=>1

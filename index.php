@@ -220,12 +220,21 @@ if($apikey_result){
                 $status=true;
                 $desc="Listed Categories";
                 $result=getSavedCategories();
+                $cats=null;
+                foreach($result as $cat){
+                    $cats[]=array("cat"=>$cat, "seo_link"=>seolinkCat($cat));
+                }
+                $result=$cats;
                 break;
             case "mostRead":
                 if(isset($_GET['filter'])){
                     $filter=Sanitizer::alfabetico($_GET['filter']);
                     $status=true;
-                    $result=mostRead($filter);
+                    if($limit>0){
+                        $result=mostRead($filter, $limit);
+                    }else{
+                        $result=mostRead($filter);
+                    }
                     $desc="most readed news filtered by $filter";
                 }else{
                     $status=true;

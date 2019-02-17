@@ -25,6 +25,23 @@ function seolink($s, $agency, $id){
     return "haber_".$s."_".$agency."_".$id.".html";
 }
 
+function seolinkCat($s){
+    $s=strip_tags($s);
+    // $s  = html_entity_decode($s);
+    // $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…','?');
+    // $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','','','','','','','','','','','','');
+    // $s = str_replace($tr,$eng,$s);
+    // $s = strtolower($s);
+    // $s = preg_replace('/&amp;amp;amp;amp;amp;amp;amp;amp;amp;.+?;/', '', $s);
+    // $s = preg_replace('/\s+/', '-', $s);
+    // $s = preg_replace('|-+|', '-', $s);
+    // $s = preg_replace('/#/', '', $s);
+    // $s = str_replace('.', '', $s);
+    // $s = trim($s, '-');
+    // $s = substr($s, 0, 32);
+    return "kategori.html?kategori=".$s;
+}
+
 
 function checkToken(){
     global $apikey_result;
@@ -167,7 +184,7 @@ function getCategorie($agency, $id){
     $cat=null;
     $result=null;
     if($agency==="odatv"){
-        $cat='[{ "id": "1","ismi": "Siyaset" }, { "id": "2","ismi": "Analiz" }, { "id": "3","ismi": "Ekonomi" }, { "id": "4","ismi": "Medya" }, { "id": "5","ismi": "Spor" }, { "id": "6","ismi": "Magazin" }, { "id": "7","ismi": "Kültür Sanat" }, { "id": "8","ismi": "Güncel" }, { "id": "9","ismi": "Yazarlar" }, { "id": "10","ismi": "Tüm Manşetler" }, { "id": "11","ismi": "En Çok Okunanlar" }]';
+        $cat='[{ "id": "1","ismi": "Siyaset" }, { "id": "2","ismi": "Analiz" }, { "id": "3","ismi": "Ekonomi" }, { "id": "4","ismi": "Medya" }, { "id": "5","ismi": "Spor" }, { "id": "6","ismi": "Magazin" }, { "id": "7","ismi": "Kültür Sanat" }, { "id": "8","ismi": "Güncel" }, { "id": "9","ismi": "Odatv Yazılar" }, { "id": "10","ismi": "Tüm Manşetler" }, { "id": "11","ismi": "En Çok Okunanlar" }]';
         foreach(json_decode($cat, true) as $line){
             if($id==$line['id']){
                 $result=$line['ismi'];
