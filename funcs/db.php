@@ -78,7 +78,7 @@ function checkNew($agency, $new_id){
             )
         );
         $cursor = $manager->executeQuery('db.news', $query);
-        $data=count((array)$cursor->toArray()[0]);
+        $data=count((array)$cursor->toArray());
         if($data>=1){
             $status=true;
             return $status;
