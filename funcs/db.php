@@ -88,7 +88,7 @@ function checkNew($agency, $new_id){
 
 function saveDatabase($agency, $data){
     global $new_id;
-    if($data['text']!=""){
+    if($data['text']!="" || !count($data['title'])<=4){
         if(!checkNew($agency, $new_id)){
                 $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
                 $bulk = new MongoDB\Driver\BulkWrite;
