@@ -71,7 +71,7 @@
                         if(isset($textRaw['font_size'])){
                             $text.="<p style='font-size:".$textRaw['font_size']."px;text-align:center;font-weight:bold'>".str_replace('\n','<br>', strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center>'))."</p>";
                         }
-                        $text.=str_replace('\n','<br>', strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img>'));
+                        $text.=str_replace('\n','<br>', strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><style>'));
                     }else
                     if($textRaw['type']==="innerImage"){
                         $text.='<img width="'.$textRaw['width'].'" height="'.$textRaw['height'].'" src="'.$textRaw['src'].'" />';
@@ -115,7 +115,7 @@
                         "date"=>$news_date,
                         "title"=>$news_title,
                         "spot"=>$news_spot,
-                        "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                        "keywords"=>keywords($news_spot),
                         "saved_date"=>time(),
                         "image"=>$news_image,
                         "url"=>$news['url'],

@@ -55,7 +55,7 @@
                         $result=array(
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
-                            "text"=>strip_tags($news[0]['haber_metin'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center>'),
+                            "text"=>strip_tags($news[0]['haber_metin'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><style>'),
                             "categories"=>array(getCategorie($agency, $news[0]['kategori_id'])),
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
@@ -63,7 +63,7 @@
                             "seo_link"=>seolink($news_title, "odatv", $new_id),
                             "title"=>$news_title,
                             "spot"=>$news_spot,
-                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                            "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news[0]['haber_url'],

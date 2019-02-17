@@ -52,10 +52,13 @@
                         if(!isset($news[0]['image'])){
                             $news_image="https://api.ulak.news/images/web/404.png";
                         }
+                        if($news[0]['category']===null){
+                            $news[0]['category']="Sözcü Diğer";
+                        }
                         $result=array(
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
-                            "text"=>strip_tags(html_entity_decode($news[0]['content']), '<strong><p><h2><h3><h4><h5><span><br><br/><img><center>'),
+                            "text"=>strip_tags(html_entity_decode($news[0]['content']), '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><style>'),
                             "categories"=>array($news[0]['category']),
                             "id"=>$new_id,
                             "date"=>$date,
@@ -63,7 +66,7 @@
                             "title"=>$news_title,
                             "seo_link"=>seolink($news_title, "sozcu", $new_id),
                             "spot"=>$news_title,
-                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_title)),
+                            "keywords"=>keywords($news_title),
                             "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news[0]['permalink'],

@@ -89,7 +89,7 @@
                         $result=array(
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
-                            "text"=>strip_tags($news['body'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><blockquote><a>'),
+                            "text"=>strip_tags($news['body'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><blockquote><a><style>'),
                             "categories"=>$cats,
                             "id"=>$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),
@@ -97,7 +97,7 @@
                             "title"=> $news_title,
                             "seo_link"=>seolink($news_title, "sputnik", $new_id),
                             "spot"=>$news_spot,
-                            "keywords"=>str_replace(array(' ', '!', '.', '”','“',',,'), array(', ', '','','','',''), strtolower($news_spot)),
+                            "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
                             "image"=>$news_image,
                             "url"=>$news['issuer_article_uri'],

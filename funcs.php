@@ -42,6 +42,10 @@ function seolinkCat($s){
     return "kategori.html?kategori=".$s;
 }
 
+function keywords($s){
+    return str_replace(array(' ', '!', '.', '”','“',',,','’','\n',"'"), array(', ', '','','','','','','',''), strtolower($s));
+}
+
 
 function checkToken(){
     global $apikey_result;
