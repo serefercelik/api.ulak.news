@@ -68,7 +68,13 @@
                 $news_cat=$news['kategori_adi'];
                 foreach($news_text as $textRaw){
                     if($textRaw['type']==="text"){
-                        $text.=strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/>')."<br>";
+                        if(isset($textRaw['font_size'])){
+                            $text.="<p style='font-size:".$textRaw['font_size']."px;text-align:center;font-weight:bold'>".strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center>')."</p>";
+                        }
+                        $text.=strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img>');
+                    }else
+                    if($textRaw['type']==="innerImage"){
+                        $text.='<img width="'.$textRaw['width'].'" height="'.$textRaw['height'].'" src="'.$textRaw['src'].'" />';
                     }else
                     if($textRaw['type']==="mainimage"){
                         $news_image=$textRaw['imageUrl'];
