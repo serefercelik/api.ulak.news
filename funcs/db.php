@@ -88,12 +88,14 @@ function checkNew($agency, $new_id){
 
 function saveDatabase($agency, $data){
     global $new_id;
-    if(!checkNew($agency, $new_id)){
-            $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-            $bulk = new MongoDB\Driver\BulkWrite;
-            $bulk->insert($data);
-            $manager->executeBulkWrite('db.news', $bulk);
-            return true;
+    if($data['text']!=""){
+        if(!checkNew($agency, $new_id)){
+                $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+                $bulk = new MongoDB\Driver\BulkWrite;
+                $bulk->insert($data);
+                $manager->executeBulkWrite('db.news', $bulk);
+                return true;
+        }
     }
     return false;
 }
