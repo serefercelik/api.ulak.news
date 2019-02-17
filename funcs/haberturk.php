@@ -68,7 +68,7 @@
                 $news_cat=$news['kategori_adi'];
                 foreach($news_text as $textRaw){
                     if($textRaw['type']==="text"){
-                        $text.=$textRaw['text']." ";
+                        $text.=strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/>')."<br>";
                     }else
                     if($textRaw['type']==="mainimage"){
                         $news_image=$textRaw['imageUrl'];

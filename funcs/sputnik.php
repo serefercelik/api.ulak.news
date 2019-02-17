@@ -85,7 +85,7 @@
                         $result=array(
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
-                            "text"=>strip_tags($news['body']),
+                            "text"=>strip_tags($news['body'], '<strong><p><h2><h3><h4><h5><span><br><br/>'),
                             "categories"=>$cats,
                             "id"=>$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),

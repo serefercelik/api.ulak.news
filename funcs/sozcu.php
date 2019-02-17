@@ -55,7 +55,7 @@
                         $result=array(
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
-                            "text"=>strip_tags(html_entity_decode($news[0]['content'])),
+                            "text"=>strip_tags(html_entity_decode($news[0]['content']), '<strong><p><h2><h3><h4><h5><span><br><br/>'),
                             "categories"=>array($news[0]['category']),
                             "id"=>$new_id,
                             "date"=>$date,

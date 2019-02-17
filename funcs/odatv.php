@@ -51,7 +51,7 @@
                         $result=array(
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
-                            "text"=>strip_tags($news[0]['haber_metin']),
+                            "text"=>strip_tags($news[0]['haber_metin'], '<strong><p><h2><h3><h4><h5><span><br><br/>'),
                             "categories"=>array(getCategorie($agency, $news[0]['kategori_id'])),
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
