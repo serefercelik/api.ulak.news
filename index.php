@@ -51,7 +51,7 @@ if(!$is_local){
     $options = array(
         'time'   => $cache_seconds, // 120 saniye yani 2 dakika
         'dir'    => 'cache/news', // sCache2 klasörü oluşturup buraya yazılsın.
-        'buffer' => true, // html sayfalarımızın sıkıştırılmasını aktif edelim.
+        'buffer' => false, // html sayfalarımızın sıkıştırılmasını aktif edelim.
         'load'   => false,  // sayfamızın sonunda load değerimiz görünsün.
         'extension' => ".json", // standart değer .html olarak ayarlanmıştır cache dosyalarınızın uzantısını temsil etmektedir.
         );
@@ -224,6 +224,9 @@ if($apikey_result){
                 foreach($result as $cat){
                     $cats[]=array("cat"=>$cat, "seo_link"=>seolinkCat($cat));
                 }
+                if($limit>0){
+                    $cats=array_splice($cats, $start, $limit);
+                }
                 $result=$cats;
                 break;
             case "mostRead":
@@ -244,7 +247,7 @@ if($apikey_result){
                 break;
             case "catNews":
                 if(isset($_GET['filter'])){
-                    $filter=Sanitizer::alfabetico($_GET['filter']);
+                    $filter=Sanitizer::alfabetico($_GET['filter'], true, true);
                     $status=true;
                     $result=catNews($filter);
                     $desc="news filtered by $filter";

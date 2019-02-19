@@ -26,7 +26,8 @@ function seolink($s, $agency, $id){
 }
 
 function seolinkCat($s){
-    $s=strip_tags($s);
+    $s=Sanitizer::alfabetico($s, true, true);
+    $s=base64_encode($s);
     // $s  = html_entity_decode($s);
     // $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…','?');
     // $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','','','','','','','','','','','','');
