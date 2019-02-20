@@ -55,7 +55,7 @@
             return array("status"=>$status, "result"=>$catNews, "desc"=>$desc);
         }
         function get_sputnik_new($new_id){
-            global $agency;
+            global $agency, $allowed_tags;
             $status=false;
             $result=null;
             $desc="İstediğiniz artık yok veya hatalı işlem.";
@@ -86,10 +86,11 @@
                         if($news_spot===""){
                             $news_spot=$news_title;
                         }
+                        $text=str_replace(array('<a'), array('<a target="_blank"'), $news['body']);
                         $result=array(
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
-                            "text"=>strip_tags($news['body'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><blockquote><a><style>'),
+                            "text"=>strip_tags($text, $allowed_tags),
                             "categories"=>$cats,
                             "id"=>$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),

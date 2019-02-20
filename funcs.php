@@ -3,6 +3,7 @@ date_default_timezone_set('Europe/Istanbul');
 // env file
 include("env.php");
 
+$allowed_tags="<strong><p><h2><h3><h4><h5><span><br><br/><img><style><center><blockquote><a>";
 $host=Sanitizer::url($_SERVER['HTTP_HOST']);
 if($host===$_ENV['local1'] || $host===$_ENV['local2']){
     $is_local=true;

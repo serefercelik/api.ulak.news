@@ -32,7 +32,7 @@
             }
             
             function get_odatv_new($new_id){
-                global $agency;
+                global $agency, $allowed_tags;
                 $status=false;
                 $result=null;
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
@@ -52,10 +52,11 @@
                         if($news[0]['haber_spot']===""){
                             $news_spot=$news_title;
                         }
+                        $text=str_replace(array('<a'), array('<a target="_blank"'), $news[0]['haber_metin']);
                         $result=array(
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
-                            "text"=>strip_tags($news[0]['haber_metin'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><style>'),
+                            "text"=>strip_tags($text, $allowed_tags),
                             "categories"=>array(getCategorie($agency, $news[0]['kategori_id'])),
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],

@@ -35,7 +35,7 @@
                 return array("status"=>$status, "result"=>$catNews, "desc"=>$desc);
             }
             function get_sozcu_new($new_id){
-                global $agency;
+                global $agency, $allowed_tags;
                 $status=false;
                 $result=null;
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
@@ -46,7 +46,7 @@
                         $desc="from agency";
                         $status=true;
                         $date=gmdate("d.m.Y H:i:s", $news[0]['date']);
-                        $news_title=$news[0]['title'];
+                        $news_title=html_entity_decode($news[0]['title']);
                         //image check
                         $news_image=$news[0]['image'];
                         if(!isset($news[0]['image'])){
@@ -56,15 +56,16 @@
                             $news[0]['category']="Sözcü Diğer";
                         }
                         $cat=Sanitizer::toCat($news[0]['category'], true, true);
+                        $text=htmlspecialchars_decode(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['content']));
                         $result=array(
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
-                            "text"=>strip_tags(html_entity_decode($news[0]['content']), '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><style>'),
+                            "title"=>$news_title,
+                            "text"=>strip_tags(html_entity_decode($text), $allowed_tags),
                             "categories"=>array($cat),
                             "id"=>$new_id,
                             "date"=>$date,
                             "date_u"=>strtotime($date),
-                            "title"=>$news_title,
                             "seo_link"=>seolink($news_title, "sozcu", $new_id),
                             "spot"=>$news_title,
                             "keywords"=>keywords($news_title),
