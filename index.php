@@ -247,7 +247,7 @@ if($apikey_result){
                 break;
             case "catNews":
                 if(isset($_GET['filter'])){
-                    $filter=Sanitizer::alfabetico($_GET['filter'], true, true);
+                    $filter=Sanitizer::toCat($_GET['filter'], true, true);
                     $status=true;
                     $result=catNews($filter);
                     $desc="news filtered by $filter";

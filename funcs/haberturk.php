@@ -65,7 +65,7 @@
                 $news_date;
                 $news_spot;
                 $news_image;
-                $news_cat=$news['kategori_adi'];
+                $news_cat=Sanitizer::toCat($news['kategori_adi'], true, true);
                 foreach($news_text as $textRaw){
                     if($textRaw['type']==="text"){
                         if(isset($textRaw['font_size'])){

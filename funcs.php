@@ -117,6 +117,13 @@ class Sanitizer {
     /**
     * @param str => $valor = valor a ser sanitizado
     */
+    public static function toCat($valor){
+        return preg_replace('#[^A-Za-zà-źÀ-Ź ]#', ' ', $valor);
+    }
+
+    /**
+    * @param str => $valor = valor a ser sanitizado
+    */
     public static function alfanumerico($valor, bool $allow_accents = true, bool $allow_spaces = false){
         $valor = str_replace(array('"', "'", '`', '´', '¨'), '', trim($valor));
         if(!$allow_accents && !$allow_spaces){
@@ -203,7 +210,7 @@ function getCategorie($agency, $id){
             }
         }
     }
-    return $result;
+    return Sanitizer::toCat($result, true, true);
 }
 
 function getImage($agency){

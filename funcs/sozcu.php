@@ -55,11 +55,12 @@
                         if($news[0]['category']===null){
                             $news[0]['category']="Sözcü Diğer";
                         }
+                        $cat=Sanitizer::toCat($news[0]['category'], true, true);
                         $result=array(
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
                             "text"=>strip_tags(html_entity_decode($news[0]['content']), '<strong><p><h2><h3><h4><h5><span><br><br/><img><center><style>'),
-                            "categories"=>array($news[0]['category']),
+                            "categories"=>array($cat),
                             "id"=>$new_id,
                             "date"=>$date,
                             "date_u"=>strtotime($date),
