@@ -88,7 +88,6 @@ function checkNew($agency, $new_id){
 
 function saveDatabase($agency, $data){
     global $new_id;
-    var_dump(strlen($data['text'])<=10);
     if(strlen($data['text'])>=10 && strlen($data['title'])>=7){
         if(!checkNew($agency, $new_id)){
                 $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
