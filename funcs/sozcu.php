@@ -60,8 +60,10 @@
                         $news_title="12412414212124124124124";
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
+                            $desc="from agency not saved text or title so short ";
                         }
                         $result=array(
+                            "visible"=>true,
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
                             "title"=>$news_title,

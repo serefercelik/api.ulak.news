@@ -57,6 +57,7 @@
                             $status=false;
                         }
                         $result=array(
+                            "visible"=>true,
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
                             "text"=>$text,

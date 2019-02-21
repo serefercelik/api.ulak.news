@@ -110,6 +110,7 @@
                         $status=false;
                     }
                     $result=array(
+                        "visible"=>true,
                         "agency"=>"haberturk",
                         "agency_title"=>"Haber Türk",
                         "seo_link"=>seolink($news_title, "haberturk", $new_id),

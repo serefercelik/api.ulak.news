@@ -91,6 +91,7 @@
                             $status=false;
                         }
                         $result=array(
+                            "visible"=>true,
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
                             "text"=>$text,
