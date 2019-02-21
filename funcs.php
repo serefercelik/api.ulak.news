@@ -126,6 +126,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function alfanumerico($valor, bool $allow_accents = true, bool $allow_spaces = false){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         $valor = str_replace(array('"', "'", '`', '´', '¨'), '', trim($valor));
         if(!$allow_accents && !$allow_spaces){
             return preg_replace('#[^A-Za-z0-9]#', '', $valor);
@@ -145,6 +148,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function numerico($valor){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         return (int)preg_replace('/\D/', '', $valor);
     }
 
@@ -152,6 +158,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function integer($valor){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         return (int)$valor;
     }
 
@@ -159,6 +168,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function float($valor){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         return (float)$valor;
     }
 
@@ -166,6 +178,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function money($valor){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         $valor = preg_replace('/\D/', '', $valor);
         if(strlen($valor) < 3){
             $valor = substr($valor, 0, strlen($valor)).'.00';
@@ -181,6 +196,9 @@ class Sanitizer {
     * @param str => $valor = valor a ser sanitizado
     */
     public static function url($valor){
+        if(is_array($valor) || is_object($valor)){
+            return false;
+        }
         $valor = strip_tags(str_replace(array('"', "'", '`', '´', '¨'), '', trim($valor)));
         return filter_var($valor, FILTER_SANITIZE_URL);
     }
