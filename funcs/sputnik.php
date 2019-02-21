@@ -86,11 +86,14 @@
                         if($news_spot===""){
                             $news_spot=$news_title;
                         }
-                        $text=str_replace(array('<a'), array('<a target="_blank"'), $news['body']);
+                        $text=trip_tags(str_replace(array('<a'), array('<a target="_blank"'), $news['body']), $allowed_tags);
+                        if(strlen($news_title)<=8 || strlen($text)<=8 ){
+                            $status=false;
+                        }
                         $result=array(
                             "agency"=>"sputnik",
                             "agency_title"=>"Sputnik",
-                            "text"=>strip_tags($text, $allowed_tags),
+                            "text"=>$text,
                             "categories"=>$cats,
                             "id"=>$new_id,
                             "date"=>gmdate("d-m-Y H:i:s", $news['pub_date_ut']),

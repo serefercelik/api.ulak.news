@@ -71,7 +71,7 @@
                         if(isset($textRaw['font_size'])){
                             $text.="<p style='font-size:".$textRaw['font_size']."px;text-align:center;font-weight:bold'>".str_replace('\n','<br>', strip_tags($textRaw['text'], '<strong><p><h2><h3><h4><h5><span><br><br/><img><center>'))."</p>";
                         }
-                        $text.=str_replace('\n','<br>', strip_tags($textRaw['text'], $allowed_tags));
+                        $text.=$textRaw['text'];
                     }else
                     if($textRaw['type']==="innerImage"){
                         $text.='<img width="'.$textRaw['width'].'" height="'.$textRaw['height'].'" src="'.$textRaw['src'].'" />';
@@ -104,7 +104,11 @@
                     if($news['kategori_adi']===""){
                         $news_cat="HaberTürk Yazılar";
                     }
-                    $text=str_replace(array('<a'), array('<a target="_blank"'), $text);
+                    $text=str_replace(array('<a', '\n'), array('<a target="_blank"','<br>'), $text);
+                    $text=strip_tags($text, $allowed_tags);
+                    if(strlen($news_title)<=8 || strlen($text)<=8 ){
+                        $status=false;
+                    }
                     $result=array(
                         "agency"=>"haberturk",
                         "agency_title"=>"Haber Türk",

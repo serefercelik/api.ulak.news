@@ -183,20 +183,24 @@ if($apikey_result){
                     $result=array(
                         "haberturk"=>array(
                             "title"=>"Haber Türk",
-                            "image"=>getImage("haberturk"), 
+                            "image"=>getImage("haberturk"),
+                            "seo_link"=>'kaynak_haberturk.html',
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
                         "odatv"=>array(
                             "title"=>"Odatv",
-                            "image"=>getImage("odatv"), 
+                            "image"=>getImage("odatv"),
+                            "seo_link"=>'kaynak_odatv.html',
                             "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
                         "sputnik"=>array(
                             "title"=>"Sputnik",
-                            "image"=>getImage("sputnik"), 
+                            "image"=>getImage("sputnik"),
+                            "seo_link"=>'kaynak_sputnik.html',
                             "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. "),
                         "sozcu"=>array(
                             "title"=>"Sözcü",
-                            "image"=>getImage("sozcu"), 
-                            "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete.")
+                            "image"=>getImage("sozcu"),
+                            "seo_link"=>'kaynak_sozcu.html',
+                            "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete."),
                     );
                     if(isset($_GET['filter'])){
                         if(isset($result[$_GET['filter']])){

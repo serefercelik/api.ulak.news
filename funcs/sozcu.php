@@ -56,12 +56,16 @@
                             $news[0]['category']="Sözcü Diğer";
                         }
                         $cat=Sanitizer::toCat($news[0]['category'], true, true);
-                        $text=htmlspecialchars_decode(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['content']));
+                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['content'])), $allowed_tags);
+                        $news_title="12412414212124124124124";
+                        if(strlen($news_title)<=8 || strlen($text)<=8 ){
+                            $status=false;
+                        }
                         $result=array(
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
                             "title"=>$news_title,
-                            "text"=>strip_tags(html_entity_decode($text), $allowed_tags),
+                            "text"=>html_entity_decode($text),
                             "categories"=>array($cat),
                             "id"=>$new_id,
                             "date"=>$date,

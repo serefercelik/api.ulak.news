@@ -52,11 +52,14 @@
                         if($news[0]['haber_spot']===""){
                             $news_spot=$news_title;
                         }
-                        $text=str_replace(array('<a'), array('<a target="_blank"'), $news[0]['haber_metin']);
+                        $text=strip_tags(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['haber_metin']), $allowed_tags);
+                        if(strlen($news_title)<=8 || strlen($text)<=8 ){
+                            $status=false;
+                        }
                         $result=array(
                             "agency"=>"odatv",
                             "agency_title"=>"Odatv",
-                            "text"=>strip_tags($text, $allowed_tags),
+                            "text"=>$text,
                             "categories"=>array(getCategorie($agency, $news[0]['kategori_id'])),
                             "id"=>(int)$news[0]['id'],
                             "date"=>$news[0]['haber_zaman'],
