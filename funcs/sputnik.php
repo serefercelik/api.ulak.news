@@ -78,15 +78,17 @@
                             $cats=array("Dünya");
                         }
                         $news_title=$news['title'];
-                        $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
-                        if(!isset($news['enclosures'][0]['id'])){
+                        $news_image=null;
+                        if(!array_key_exists('enclosures', $news)){
                             $news_image="https://api.ulak.news/images/web/404.png";
+                        }else{
+                            $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                         }
                         $news_spot=$news['lead'];
                         if($news_spot===""){
                             $news_spot=$news_title;
                         }
-                        $text=trip_tags(str_replace(array('<a'), array('<a target="_blank"'), $news['body']), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a'), array('<a target="_blank"'), $news['body']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                         }
