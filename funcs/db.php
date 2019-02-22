@@ -86,6 +86,28 @@ function checkNew($agency, $new_id){
     return $status;
 }
 
+function checkSearch($arg){
+    $status=false;
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(
+    array(
+        'keyword'=>$arg
+        ),
+        // get just id field
+    array(
+        'projection'=>
+            array("id"=>1)
+        )
+    );
+    $cursor = $manager->executeQuery('db.search', $query);
+    $data=count((array)$cursor->toArray());
+    if($data>=1){
+        $status=true;
+        return $status;
+    }
+return $status;
+}
+
 function getSearchResult($arg){
     $status=false;
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
@@ -122,12 +144,16 @@ function saveDatabase($agency, $data){
 
 function saveSearch($data){
     if(strlen($data)>=3){
-                $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-                $bulk = new MongoDB\Driver\BulkWrite;
-                $bulk->insert($data);
-                $manager->executeBulkWrite('db.search', $bulk);
-                return true;
+        if(!checkSearch($data)){
+            $data=array("keyword"=>$data);
+            $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+            $bulk = new MongoDB\Driver\BulkWrite;
+            $bulk->insert($data);
+            $manager->executeBulkWrite('db.search', $bulk);
+            return true;
+        }
     }
+
     return false;
 }
 
