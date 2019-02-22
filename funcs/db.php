@@ -102,6 +102,7 @@ function getSearchResult($arg){
         )
     );
     $cursor = $manager->executeQuery('db.news', $query);
+    saveSearch($arg);
     return $cursor->toArray();
 }
 
@@ -115,6 +116,17 @@ function saveDatabase($agency, $data){
                 $manager->executeBulkWrite('db.news', $bulk);
                 return true;
         }
+    }
+    return false;
+}
+
+function saveSearch($data){
+    if(strlen($data)>=3){
+                $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+                $bulk = new MongoDB\Driver\BulkWrite;
+                $bulk->insert($data);
+                $manager->executeBulkWrite('db.search', $bulk);
+                return true;
     }
     return false;
 }
