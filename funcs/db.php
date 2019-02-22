@@ -86,6 +86,25 @@ function checkNew($agency, $new_id){
     return $status;
 }
 
+function getSearchResult($arg){
+    $status=false;
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(
+    array(
+        'text'=>
+        array('$regex'=>$arg, '$options'=>'i')
+        ),
+        // get just id field
+    array(
+        'limit'=>20,
+        'projection'=>
+        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+        )
+    );
+    $cursor = $manager->executeQuery('db.news', $query);
+    return $cursor->toArray();
+}
+
 function saveDatabase($agency, $data){
     global $new_id;
     if(strlen($data['text'])>=10 && strlen($data['title'])>=7){

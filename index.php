@@ -233,6 +233,12 @@ if($apikey_result){
                 }
                 $result=$cats;
                 break;
+            case "search":
+                $filter=Sanitizer::alfanumerico($_GET['filter'], true, true);
+                $status=true;
+                $desc="Search result listed";
+                $result=getSearchResult($filter);
+                break;
             case "mostRead":
                 if(isset($_GET['filter'])){
                     $filter=Sanitizer::alfabetico($_GET['filter']);
