@@ -27,7 +27,6 @@
                             if(!isset($news['enclosures'][0]['id'])){
                                 $imageid=null;
                             }else{
-
                                 $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                             }
                             $news_title=$news['title'];
@@ -80,7 +79,7 @@
                         $news_title=$news['title'];
                         $news_image=null;
                         if(!array_key_exists('enclosures', $news)){
-                            $news_image="https://api.ulak.news/images/web/404.png";
+                            $news_image=null;
                         }else{
                             $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
                         }

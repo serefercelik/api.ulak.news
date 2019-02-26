@@ -130,7 +130,7 @@ function getSearchResult($arg){
 
 function saveDatabase($agency, $data){
     global $new_id;
-    if(strlen($data['text'])>=10 && strlen($data['title'])>=7){
+    if(strlen($data['text'])>=10 && strlen($data['title'])>=7 && isset($data['image'])){
         if(!checkNew($agency, $new_id)){
                 $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
                 $bulk = new MongoDB\Driver\BulkWrite;

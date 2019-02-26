@@ -45,9 +45,6 @@
                         $news_title=$news[0]['haber_baslik'];
                         //image check
                         $news_image=$news[0]['resim'];
-                        if(!isset($news[0]['resim'])){
-                            $news_image="https://api.ulak.news/images/web/404.png";
-                        }
                         $news_spot=$news[0]['haber_spot'];
                         if($news[0]['haber_spot']===""){
                             $news_spot=$news_title;

@@ -50,7 +50,7 @@
                         //image check
                         $news_image=$news[0]['image'];
                         if(!isset($news[0]['image'])){
-                            $news_image="https://api.ulak.news/images/web/404.png";
+                            $news_image=null;
                         }
                         if($news[0]['category']===null){
                             $news[0]['category']="Sözcü Diğer";

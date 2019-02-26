@@ -98,7 +98,7 @@
                     if(isset($news_image)){
                         $news_image=$news_image;
                     }else{
-                        $news_image="https://api.ulak.news/images/web/404.png";
+                        $news_image=null;
 
                     }
                     if($news['kategori_adi']===""){
