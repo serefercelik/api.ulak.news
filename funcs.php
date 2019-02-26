@@ -221,12 +221,18 @@ function getCategorie($agency, $id){
                 $result=$line['ismi'];
             }
         }
+        if(!isset($result)){
+            return "Odatv Kategorisiz";
+        }
     }elseif($agency==="sputnik"){
         $cat='[{"ismi":"T\u00fcrkiye","id":111102},{"ismi":"D\u00fcnya","id":111103},{"ismi":"Rusya","id":111114},{"ismi":"Avrupa","id":111115},{"ismi":"Do\u011fu Akdeniz","id":111116},{"ismi":"Ortado\u011fu","id":111117},{"ismi":"ABD","id":111118},{"ismi":"G\u00fcney Amerika","id":111119},{"ismi":"Asya & Pasifik","id":111120},{"ismi":"Afrika","id":111121},{"ismi":"Politika","id":111104},{"ismi":"Ekonomi","id":111105},{"ismi":"Savunma","id":111106},{"ismi":"Ya\u015fam","id":111107},{"ismi":"Bilim","id":111122},{"ismi":"\u00c7evre","id":111123},{"ismi":"K\u00fclt\u00fcr & Sanat","id":111124},{"ismi":"Spor","id":111125},{"ismi":"Analiz","id":111112},{"ismi":"R\u00f6portajlar","id":111128},{"ismi":"G\u00f6r\u00fc\u015f","id":111129},{"ismi":"Rus medyas\u0131","id":111126}]';
         foreach(json_decode($cat, true) as $line){
             if($id==$line['id']){
                 $result=$line['ismi'];
             }
+        }
+        if(!isset($result)){
+            return "Sputnik Kategorisiz";
         }
     }
     return Sanitizer::toCat($result, true, true);
