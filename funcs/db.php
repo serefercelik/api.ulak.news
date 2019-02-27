@@ -29,8 +29,10 @@ function get_new($agency, $new_id){
     ));
     $cursor = $manager->executeQuery('db.news', $query);
     $data = $cursor->toArray()[0];
-    if(isset($data)){
-        return array("result"=>$data, "status"=>true, "desc"=>"From db");
+    if($data->visible){
+        if(isset($data)){
+            return array("result"=>$data, "status"=>true, "desc"=>"From db");
+        }
     }
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
