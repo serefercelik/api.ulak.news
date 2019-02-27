@@ -115,6 +115,7 @@ function getSearchResult($arg){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
     array(
+        'visible'=>true,
         'text'=>
         array('$regex'=>$arg, '$options'=>'i')
         ),
