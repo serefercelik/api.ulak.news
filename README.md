@@ -9,6 +9,8 @@
 - En çok okunan haberleri listeleme
 - Günlük, haftalık, aylık ve tüm zamanlara göre en çok okunanları listeleme
 - Haberlerin içeriğinde arama yapabilme
+
+
 -- Geliştirmeye devam ediyorum :)
 
 
