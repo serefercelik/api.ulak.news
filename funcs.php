@@ -44,6 +44,16 @@ function seolinkCat($s){
     return "kategori.html?kategori=".$s;
 }
 
+function caticon($s){
+    $s=Sanitizer::alfabetico($s, true, true);
+    $s=base64_encode($s);
+    $db=getIconDB($s);
+    if($db){
+        return $db['icon'];
+    }
+    return "https://api.ulak.news/images/web/noCat.png";
+}
+
 function keywords($s){
     return str_replace(array(' ', '!', '.', '”','“',',,','’','\n',"'"), array(', ', '','','','','','','',''), strtolower($s));
 }
@@ -53,6 +63,9 @@ function checkToken(){
     global $apikey_result;
     $result=false;
         if(isset($_SERVER['HTTP_X_SITE']) && isset($_SERVER['HTTP_X_SITE_TOKEN'])){
+            if(isset($_SERVER['HTTP_X_SITE_BYPASS']) && $_SERVER['HTTP_X_SITE_BYPASS']==$_ENV['bypass-token']){
+                return true;
+            }
             $site=Sanitizer::url($_SERVER['HTTP_X_SITE']);
             $token=Sanitizer::alfanumerico($_SERVER['HTTP_X_SITE_TOKEN']);
             if($_ENV['site']===$site && $_ENV['token']===$token){

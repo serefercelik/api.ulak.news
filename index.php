@@ -226,7 +226,7 @@ if($apikey_result){
                 $result=getSavedCategories();
                 $cats=null;
                 foreach($result as $cat){
-                    $cats[]=array("cat"=>$cat, "seo_link"=>seolinkCat($cat));
+                    $cats[]=array("cat"=>$cat, "seo_link"=>seolinkCat($cat), "cat_icon"=>caticon($cat));
                 }
                 if($limit>0){
                     $cats=array_splice($cats, $start, $limit);

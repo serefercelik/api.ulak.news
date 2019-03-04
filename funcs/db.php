@@ -37,6 +37,19 @@ function get_new($agency, $new_id){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
+function getIconDB($id){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(array(
+        'id'=>$id,
+    ));
+    $cursor = $manager->executeQuery('db.icons', $query);
+    $data = $cursor->toArray()[0];
+    if(isset($data)){
+            return $data;
+    }
+    return false;
+}
+
 function catNews($filter){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
@@ -172,6 +185,7 @@ function mostRead($arg, $limit=10){
             $maxTime=$time-7*24*60*60;
             $query = new MongoDB\Driver\Query(
             array(
+                'visible'=>true,
                 'date_u'=>
                     array('$gte'=>$maxTime, '$lt'=>$time)
             ),
@@ -190,6 +204,7 @@ function mostRead($arg, $limit=10){
             $range=rangeMonthThis();
             $query = new MongoDB\Driver\Query(
             array(
+                'visible'=>true,
                 'date_u'=>
                     array('$gte'=>$range['start'], '$lt'=>$range['end'])
             ),
@@ -208,6 +223,7 @@ function mostRead($arg, $limit=10){
             $today=strtotime(date("d.m.Y"));
             $query = new MongoDB\Driver\Query(
             array(
+                'visible'=>true,
                 "date_u"=>array('$gt'=>$today)
             ),
             array(
@@ -223,7 +239,9 @@ function mostRead($arg, $limit=10){
         break;
         default:
             $query = new MongoDB\Driver\Query(
-                array(),
+                array(
+                    'visible'=>true
+                ),
                 array(
                     'limit'=>$limit,
                     'sort'=>

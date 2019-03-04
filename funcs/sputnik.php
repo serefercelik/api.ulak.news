@@ -27,7 +27,7 @@
                             if(!isset($news['enclosures'][0]['id'])){
                                 $imageid=null;
                             }else{
-                                $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
+                                $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50.png";
                             }
                             $news_title=$news['title'];
                             $new_id=$news['id'];
@@ -81,7 +81,7 @@
                         if(!array_key_exists('enclosures', $news)){
                             $news_image=null;
                         }else{
-                            $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50";
+                            $news_image="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50.png";
                         }
                         $news_spot=$news['lead'];
                         if($news_spot===""){
