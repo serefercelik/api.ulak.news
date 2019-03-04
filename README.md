@@ -1,4 +1,5 @@
-###Özellikler
+
+### Özellikler
 
 - Son dakika haberleri listemeleme
 - Haber ajanslarını listeleme
@@ -11,7 +12,7 @@
 -- Geliştirmeye devam ediyorum :)
 
 
-####En son haberler sonuç
+#### En son haberler sonuç
 https://api.ulak.news/?agency=all
 
 ```json
@@ -53,7 +54,7 @@ https://api.ulak.news/?agency=all
     }
 ]}
 ```
-####Ajans listesi cevap
+#### Ajans listesi cevap
 https://api.ulak.news/?agency=list
 
 ```json
