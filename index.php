@@ -238,6 +238,17 @@ if($apikey_result){
                 $status=true;
                 $desc="Search result listed";
                 $result=getSearchResult($filter);
+                $sortArray = array();
+                foreach($result as $person){ 
+                    foreach($person as $key=>$value){ 
+                        if(!isset($sortArray[$key])){ 
+                            $sortArray[$key] = array(); 
+                        } 
+                        $sortArray[$key][] = $value; 
+                    } 
+                }
+                $orderby = "date_u"; //change this to whatever key you want from the array 
+                array_multisort($sortArray[$orderby], SORT_DESC, $result); 
                 break;
             case "mostRead":
                 if(isset($_GET['filter'])){
