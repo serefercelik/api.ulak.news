@@ -271,6 +271,17 @@ if($apikey_result){
                     $filter=Sanitizer::toCat($_GET['filter'], true, true);
                     $status=true;
                     $result=catNews($filter);
+                    $sortArray = array();
+                    foreach($result as $person){ 
+                        foreach($person as $key=>$value){ 
+                            if(!isset($sortArray[$key])){ 
+                                $sortArray[$key] = array(); 
+                            } 
+                            $sortArray[$key][] = $value; 
+                        } 
+                    }
+                    $orderby = "date_u"; //change this to whatever key you want from the array 
+                    array_multisort($sortArray[$orderby], SORT_DESC, $result); 
                     $desc="news filtered by $filter";
                 }else{
                     $status=false;
