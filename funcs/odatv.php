@@ -21,7 +21,7 @@
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "odatv", $new_id),
                                     "spot"=>$raw['haber_spot'],
-                                    "image"=>$raw['resim'],
+                                    "image"=>"https://images.ulak.news/?src=".$raw['resim'],
                                     "url"=>$raw['haber_url']
                                 );
                     }
@@ -49,7 +49,7 @@
                         if($news[0]['haber_spot']===""){
                             $news_spot=$news_title;
                         }
-                        $text=strip_tags(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['haber_metin']), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $news[0]['haber_metin']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                         }
@@ -67,11 +67,13 @@
                             "spot"=>$news_spot,
                             "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
-                            "image"=>$news_image,
+                            "image"=>"https://images.ulak.news/?src=".$news_image,
                             "url"=>$news[0]['haber_url'],
                             "read_times"=>1
                         );
-                        saveDatabase($agency, $result);
+                        if(isset($news_image)){
+                            saveDatabase($agency, $result);
+                        }
                     }
                 }else{
                     $desc="Odatv ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";

@@ -35,7 +35,7 @@
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "haberturk", $new_id),
                                     "spot"=>$itemRaw['haber_spot'],
-                                    "image"=>$itemRaw['mansetPhoto'],
+                                    "image"=>"https://images.ulak.news/?src=".$itemRaw['mansetPhoto'],
                                     "url"=>$itemRaw['httpurl']
                                 );
                             }
@@ -104,7 +104,7 @@
                     if($news['kategori_adi']===""){
                         $news_cat="HaberTürk Yazılar";
                     }
-                    $text=str_replace(array('<a', '\n'), array('<a target="_blank"','<br>'), $text);
+                    $text=str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $text);
                     $text=strip_tags($text, $allowed_tags);
                     if(strlen($news_title)<=8 || strlen($text)<=8 ){
                         $status=false;
@@ -123,11 +123,13 @@
                         "spot"=>$news_spot,
                         "keywords"=>keywords($news_spot),
                         "saved_date"=>time(),
-                        "image"=>$news_image,
+                        "image"=>"https://images.ulak.news/?src=".$news_image,
                         "url"=>$news['url'],
                         "read_times"=>1
                     );
-                    saveDatabase($agency, $result);
+                    if(isset($news_image)){
+                        saveDatabase($agency, $result);
+                    }
             }else{
                 $desc="Habertürk ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
             }
