@@ -36,7 +36,7 @@ if(isset($_GET['limit'])){
 if(isset($_GET['start'])){
     $start=Sanitizer::numerico($_GET['start']);
 }
- 
+
 //get process
 $get_process=false;
 $process=null;
@@ -170,6 +170,7 @@ if($apikey_result){
                             }
                             if($result===null){
                                 $desc="null";
+                                $status=false;
                             }
                         }else{
                             $desc="Ajans ile bağlantı kurulamadı.";
@@ -205,6 +206,7 @@ if($apikey_result){
                         if(isset($result[$_GET['filter']])){
                             $result=$result[Sanitizer::alfabetico($_GET['filter'])];
                         }else{
+                            $status=false;
                             $desc="Sonuç bulunamadı.";
                             $result=null;
                         }
@@ -282,35 +284,8 @@ if($apikey_result){
                     array_multisort($sortArray[$orderby], SORT_DESC, $result); 
                     $desc="news filtered by $filter";
                 }else{
+                    $status=false;
                     $desc="no filter query";
-                }
-                break;
-            case "saveComment":
-                if(isset($_POST['text']) && isset($_POST['name']) && isset($_POST['ip'])){
-                    $process=saveComment($_POST['agency'], $_POST['id'], $_POST['text'], $_POST['name'], $_POST['ip']);
-                    if($process){
-                        $status=true;
-                        $desc="Yorum Kaydedildi.";
-                    }else{
-                        $desc="İşlem başarısız.";
-                    }
-                }else{
-                    $desc="Eksik işlem";
-                }
-                break;
-
-            case "getComments":
-                if(isset($_GET['agency_']) && isset($_GET['id_'])){
-                    $result=get_comment($_GET['agency_'], $_GET['id_']);
-                    if($result['status']){
-                        $status=true;
-                        $desc="Yorumlar";
-                        $result=$result['result'];
-                    }else{
-                        $desc="İşlem başarısız.";
-                    }
-                }else{
-                    $desc="Eksik işlem";
                 }
                 break;
             default:

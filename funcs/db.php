@@ -158,45 +158,6 @@ function saveDatabase($agency, $data){
     return false;
 }
 
-function saveComment($agency, $id, $text, $name, $ip){
-        $time=time();
-        $data=array(
-            "id"=>Sanitizer::integer($id),
-            "agency"=>Sanitizer::alfabetico($agency),
-            "text"=>Sanitizer::alfanumerico($text, true, true),
-            "name"=>Sanitizer::alfanumerico($name, true, true),
-            "ip"=>$ip,
-            "date"=>date('d.m.Y - H:i:s ', $time),
-            "date_u"=>$time
-        );
-        if(strlen($name)>3 && strlen($text)>4){
-            $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-            $bulk = new MongoDB\Driver\BulkWrite;
-            $bulk->insert($data);
-            $manager->executeBulkWrite('db.comments', $bulk);
-            return true;
-        }else{
-            return false;
-        }
-    return false;
-}
-
-function get_comment($agency, $new_id){
-    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-    $query = new MongoDB\Driver\Query(array(
-        'agency'=>$agency,
-        'id'=>$new_id
-    ));
-    $cursor = $manager->executeQuery('db.comments', $query);
-    $data = $cursor->toArray()[0];
-    if($data->visible){
-        if(isset($data)){
-            return array("result"=>$data, "status"=>true, "desc"=>"From db");
-        }
-    }
-    return array("result"=>null, "status"=>false, "desc"=>"not found in db");
-}
-
 function saveSearch($data){
     if(strlen($data)>=3){
         if(!checkSearch($data)){
