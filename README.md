@@ -11,6 +11,7 @@
 - Günlük, haftalık, aylık ve tüm zamanlara göre en çok okunanları listeleme
 - Haberlerin içeriğinde arama yapabilme
 - Haber listesinin başlangıç ve bitiş olarak listeleme (&start=0 veya herhangi başlangıç, &limit=10 veya daha fazlası)
+- Haber yorumlarını listeleme ve filtreleme
 
 
 -- Geliştirmeye devam ediyorum :)
