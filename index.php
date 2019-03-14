@@ -280,6 +280,9 @@ if($apikey_result){
                     }
                     $orderby = "date_u"; //change this to whatever key you want from the array 
                     array_multisort($sortArray[$orderby], SORT_DESC, $result); 
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
                     $desc="news filtered by $filter";
                 }else{
                     $desc="no filter query";
