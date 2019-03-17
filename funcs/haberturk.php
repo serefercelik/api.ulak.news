@@ -104,7 +104,7 @@
                     if($news['kategori_adi']===""){
                         $news_cat="HaberTürk Yazılar";
                     }
-                    $text=str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $text);
+                    $text=str_replace(array('<a', 'src="', "src='", '\n'), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src=", '<br>'), $text);
                     $text=strip_tags($text, $allowed_tags);
                     if(strlen($news_title)<=8 || strlen($text)<=8 ){
                         $status=false;
