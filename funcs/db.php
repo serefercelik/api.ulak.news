@@ -57,6 +57,8 @@ function catNews($filter){
                 'categories'=>$filter
             ),
             array(
+                'sort'=>
+                    array('date_u'=> -1),
                 'projection'=>array(
                     "id"=>1,
                     "agency"=>1, 
