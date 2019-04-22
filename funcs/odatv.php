@@ -4,7 +4,7 @@
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
                 $catNews=null;
                 $status=false;
-                $file=curl_function("{$_ENV["get_odatv"]}?catid=10"); // Tüm manşetler
+                $file=curl_function_odatv("{$_ENV["get_odatv"]}?catid=10"); // Tüm manşetler
                 if($file['status']){
                     $desc="from agency";
                     $status=true;

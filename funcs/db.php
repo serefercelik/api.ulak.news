@@ -43,7 +43,7 @@ function getIconDB($id){
         'id'=>$id,
     ));
     $cursor = $manager->executeQuery('db.icons', $query);
-    $data = $cursor->toArray()[0];
+    $data = @$cursor->toArray()[0];
     if(isset($data)){
             return $data;
     }

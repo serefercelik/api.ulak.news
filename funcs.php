@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 // env file
+$is_local=false;
 include("env.php");
 
 $allowed_tags="<strong><p><h2><h3><h4><h5><span><br><br/><img><style><center><blockquote>";
