@@ -271,6 +271,9 @@ function getImage($agency){
         case "sozcu":
             return "https://api.ulak.news/images/web/sozcu.png";
             break;
+        case "cumhuriyet":
+            return "https://api.ulak.news/images/web/cumhuriyet.png";
+            break;
         default:
             return "https://api.ulak.news/images/web/404.png";
     }
