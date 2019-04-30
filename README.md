@@ -12,7 +12,7 @@
 - Haberlerin içeriğinde arama yapabilme
 - Haber listesinin başlangıç ve bitiş olarak listeleme (&start=0 veya herhangi başlangıç, &limit=10 veya daha fazlası)
 - Haber yorumlarını listeleme ve filtreleme
-
+- Cache'ler her bir client isteğine özel olarak oluşmakta çünkü her bir client a göre isteğin cevabı farklı olabilir bundan dolayı cachler isteğe özeldir.
 
 -- Geliştirmeye devam ediyorum :)
 
