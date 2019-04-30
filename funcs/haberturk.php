@@ -95,11 +95,8 @@
                     }
                 }
                     //image check
-                    if(isset($news_image)){
-                        $news_image=$news_image;
-                    }else{
+                    if(!isset($news_image)){
                         $news_image=null;
-
                     }
                     if($news['kategori_adi']===""){
                         $news_cat="HaberTürk Yazılar";
