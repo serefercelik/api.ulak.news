@@ -10,7 +10,7 @@
                         $desc="from agency";
                         $status=true;
                         foreach($file['result'] as $raw){
-                            // hackpress unix date paylaşmadığı için bizde kendimiz üretiyoruz :)
+                            // hackpress unix date paylaşmadığı için biz de kendimiz üretiyoruz :)
                             $date=str_replace(array(',', '/', '-'), array('', '.', ''), preg_replace('/[^0-9, :,.,\/]+/i', '', $raw['date']));
                             $news_title=$raw['title'];
                             $news_summary=$raw['summary'];

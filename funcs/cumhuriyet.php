@@ -10,7 +10,7 @@
                         $desc="from agency";
                         $status=true;
                         foreach($file['result'] as $raw){
-                            // cumhuriyet unix date paylaşmadığı için bizde kendimiz üretiyoruz :)
+                            // cumhuriyet unix date paylaşmadığı için biz de kendimiz üretiyoruz :)
                             $unix=intval(preg_replace('/\D/', '', parse_url($raw['coverUrl'])['query'])/1000);
                             $date=gmdate("d.m.Y H:i:s", $unix);
                             $news_title=$raw['title'];
