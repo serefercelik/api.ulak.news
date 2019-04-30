@@ -5,7 +5,6 @@ include("funcs.php");
 
 $apikey_result= $is_local ? true : checkToken();
 
-
 $cache_seconds=120;
 // agency and new globals
 $agency_process=false;
@@ -126,6 +125,24 @@ if($apikey_result){
                         }
                     }
                 break;
+                case "cumhuriyet":
+                if($agency_new){
+                        if(!$saved_new){
+                            $islem=get_cumhuriyet_new($new_id);
+                        }
+                        $status=$islem['status'];
+                        $result=$islem['result'];
+                        $desc=$islem['desc'];
+                }else{
+                    $islem=get_cumhuriyet();
+                    $status=$islem['status'];
+                    $desc=$islem['desc'];
+                    $result=$islem['result'];
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
+                }
+            break;
                 case "sozcu":
                     if($agency_new){
                             if(!$saved_new){
@@ -149,8 +166,9 @@ if($apikey_result){
                         // $islem_odatv=get_odatv();
                         $islem_sputnik=get_sputnik();
                         $islem_sozcu=get_sozcu();
-                        if($islem_haberturk['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true){
-                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result']);
+                        $islem_cumhuriyet=get_cumhuriyet();
+                        if($islem_haberturk['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true && $islem_cumhuriyet['status']===true){
+                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result']);
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -200,6 +218,11 @@ if($apikey_result){
                             "image"=>getImage("sozcu"),
                             "seo_link"=>'kaynak_sozcu.html',
                             "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete."),
+                        "cumhuriyet"=>array(
+                            "title"=>"Cumhuriyet",
+                            "image"=>getImage("cumhuriyet"),
+                            "seo_link"=>'kaynak_cumhuriyet.html',
+                            "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
                     );
                     if(isset($_GET['filter'])){
                         if(isset($result[$_GET['filter']])){

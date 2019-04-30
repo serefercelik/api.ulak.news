@@ -1,7 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
-// env file
+
 $is_local=false;
+// env file
 include("env.php");
 
 $allowed_tags="<strong><p><h2><h3><h4><h5><span><br><br/><img><style><center><blockquote>";
@@ -248,6 +249,8 @@ function getCategorie($agency, $id){
         if(!isset($result)){
             return "Sputnik Kategorisiz";
         }
+    }elseif($agency==="cumhuriyet"){
+        return explode(', ', $id);
     }
     return Sanitizer::toCat($result, true, true);
 }
@@ -275,6 +278,7 @@ function getImage($agency){
 
 
 include("funcs/curls.php"); // curls
+include("funcs/cumhuriyet.php"); // cumhuriyet funcs..
 include("funcs/haberturk.php"); // haberturk funcs..
 include("funcs/sozcu.php"); // sozcu funcs...
 include("funcs/odatv.php"); // odatv funcs..
