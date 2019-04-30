@@ -200,7 +200,7 @@ if($apikey_result){
                             $orderby = "date_u"; //change this to whatever key you want from the array 
                             array_multisort($sortArray[$orderby],SORT_DESC,$all); 
                             $status=true;
-                            $desc="Okey";
+                            $desc="Haberler listelendi.";
                             $result=$all;
                             if($limit>0){
                                 $result=array_splice($result, $start, $limit);
@@ -283,17 +283,21 @@ if($apikey_result){
                 $status=true;
                 $desc="Search result listed";
                 $result=getSearchResult($filter);
-                $sortArray = array();
-                foreach($result as $person){ 
-                    foreach($person as $key=>$value){ 
-                        if(!isset($sortArray[$key])){ 
-                            $sortArray[$key] = array(); 
+                if(!$result){
+                    $desc="Lütfen aradığınız kelimeyi kontrol edin.";
+                }else{
+                    $sortArray = array();
+                    foreach($result as $person){ 
+                        foreach($person as $key=>$value){ 
+                            if(!isset($sortArray[$key])){ 
+                                $sortArray[$key] = array(); 
+                            } 
+                            $sortArray[$key][] = $value; 
                         } 
-                        $sortArray[$key][] = $value; 
-                    } 
+                    }
+                    $orderby = "date_u"; //change this to whatever key you want from the array 
+                    array_multisort($sortArray[$orderby], SORT_DESC, $result); 
                 }
-                $orderby = "date_u"; //change this to whatever key you want from the array 
-                array_multisort($sortArray[$orderby], SORT_DESC, $result); 
                 break;
             case "mostRead":
                 if(isset($_GET['filter'])){

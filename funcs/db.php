@@ -127,6 +127,9 @@ return $status;
 
 function getSearchResult($arg){
     $status=false;
+    if(strlen($arg)<3){
+        return false;
+    }
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
     array(
@@ -201,16 +204,19 @@ function get_comment($agency, $new_id){
 
 function saveSearch($data){
     if(strlen($data)>=3){
+        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+        $bulk = new MongoDB\Driver\BulkWrite;
         if(!checkSearch($data)){
             $data=array("keyword"=>$data);
-            $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-            $bulk = new MongoDB\Driver\BulkWrite;
             $bulk->insert($data);
-            $manager->executeBulkWrite('db.search', $bulk);
-            return true;
+        }else{
+            $bulk->update(
+                array("keyword"=>$data),
+                array('$inc' => array('search_times' => 1))
+            );
         }
+        return $manager->executeBulkWrite('db.search', $bulk);
     }
-
     return false;
 }
 
