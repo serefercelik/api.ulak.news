@@ -142,7 +142,7 @@ if($apikey_result){
                         $result=array_splice($result, $start, $limit);
                     }
                 }
-            break;
+                break;
                 case "sozcu":
                     if($agency_new){
                             if(!$saved_new){
@@ -161,14 +161,33 @@ if($apikey_result){
                         }
                     }
                 break;
+                case "hackpress":
+                if($agency_new){
+                        if(!$saved_new){
+                            $islem=get_hackpress_new($new_id);
+                        }
+                        $status=$islem['status'];
+                        $result=$islem['result'];
+                        $desc=$islem['desc'];
+                }else{
+                    $islem=get_hackpress();
+                    $status=$islem['status'];
+                    $desc=$islem['desc'];
+                    $result=$islem['result'];
+                    if($limit>0){
+                        $result=array_splice($result, $start, $limit);
+                    }
+                }
+                break;
                 case "all":
                         $islem_haberturk=get_haberturk();
                         // $islem_odatv=get_odatv();
                         $islem_sputnik=get_sputnik();
                         $islem_sozcu=get_sozcu();
                         $islem_cumhuriyet=get_cumhuriyet();
-                        if($islem_haberturk['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true && $islem_cumhuriyet['status']===true){
-                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result']);
+                        $islem_hackpress=get_hackpress();
+                        if($islem_haberturk['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true && $islem_cumhuriyet['status']===true && $islem_hackpress['status']===true){
+                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result'], $islem_hackpress['result']);
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -190,7 +209,7 @@ if($apikey_result){
                                 $desc="null";
                             }
                         }else{
-                            $desc="Ajans ile bağlantı kurulamadı.";
+                            $desc="Ajanslar ile bağlantı kurulamadı.";
                         }
         
                 break;
@@ -223,6 +242,11 @@ if($apikey_result){
                             "image"=>getImage("cumhuriyet"),
                             "seo_link"=>'kaynak_cumhuriyet.html',
                             "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
+                        "hackpress"=>array(
+                            "title"=>"Hack Press",
+                            "image"=>getImage("hackpress"),
+                            "seo_link"=>'kaynak_hackpress.html',
+                            "about"=>"Hack Press, siber güvenlik dünyasındaki gelişmelerden kullanıcıları haberdar etmek, siber dünyanın tehlikelerinden nasıl korunulması gerektiğini; açık ve anlaşılır bir üslupla içerikler yayınlayarak kullanıcılara aktarmak ve toplumda \"siber güvenlik\" kavramının yer tutmasını sağlamak amaçlarını, ilke edinen bir haber platformudur."),
                     );
                     if(isset($_GET['filter'])){
                         if(isset($result[$_GET['filter']])){

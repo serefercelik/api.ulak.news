@@ -274,6 +274,9 @@ function getImage($agency){
         case "cumhuriyet":
             return "https://api.ulak.news/images/web/cumhuriyet.png";
             break;
+        case "hackpress":
+            return "https://api.ulak.news/images/web/hackpress.svg";
+            break;
         default:
             return "https://api.ulak.news/images/web/404.png";
     }
@@ -286,7 +289,8 @@ include("funcs/haberturk.php"); // haberturk funcs..
 include("funcs/sozcu.php"); // sozcu funcs...
 include("funcs/odatv.php"); // odatv funcs..
 include("funcs/sputnik.php"); // sputnik funcs...
-                   
+include("funcs/hackpress.php"); // hackpress funcs...
+
 
 
 ?>
