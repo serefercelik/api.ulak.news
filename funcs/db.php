@@ -90,6 +90,8 @@ function checkNew($agency, $new_id){
             ),
             // get just id field
         array(
+            'sort'=>
+                array('date_u'=> -1),
             'projection'=>
                 array("id"=>1)
             )
@@ -134,14 +136,14 @@ function getSearchResult($arg){
     $query = new MongoDB\Driver\Query(
     array(
         'visible'=>true,
-        'text'=>
-        array('$regex'=>$arg, '$options'=>'i')
+        'text'=>array('$regex'=>$arg)
         ),
         // get just id field
     array(
         'limit'=>20,
-        'projection'=>
-        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+        'projection'=>array(
+            "id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1
+            )
         )
     );
     $cursor = $manager->executeQuery('db.news', $query);
