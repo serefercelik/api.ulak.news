@@ -127,8 +127,11 @@ function checkSearch($arg){
 return $status;
 }
 
-function getSearchResult($arg){
+function getSearchResult($arg, $limit=40){
     $status=false;
+    if($limit===0){
+        $limit=40;
+    }
     if(strlen($arg)<3){
         return false;
     }
@@ -140,7 +143,7 @@ function getSearchResult($arg){
         ),
         // get just id field
     array(
-        'limit'=>20,
+        'limit'=>$limit,
         'projection'=>array(
             "id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1
         ),

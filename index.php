@@ -184,8 +184,8 @@ if($apikey_result){
                         // $islem_odatv=get_odatv();
                         $islem_sputnik=get_sputnik();
                         $islem_sozcu=get_sozcu();
-                        // $islem_cumhuriyet=get_cumhuriyet();
-                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result']);
+                        $islem_cumhuriyet=get_cumhuriyet();
+                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result']);
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -232,11 +232,11 @@ if($apikey_result){
                             "image"=>getImage("sozcu"),
                             "seo_link"=>'kaynak_sozcu.html',
                             "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete."),
-                        // "cumhuriyet"=>array(
-                        //     "title"=>"Cumhuriyet",
-                        //     "image"=>getImage("cumhuriyet"),
-                        //     "seo_link"=>'kaynak_cumhuriyet.html',
-                        //     "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
+                        "cumhuriyet"=>array(
+                            "title"=>"Cumhuriyet",
+                            "image"=>getImage("cumhuriyet"),
+                            "seo_link"=>'kaynak_cumhuriyet.html',
+                            "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
                         // "hackpress"=>array(
                         //     "title"=>"Hack Press",
                         //     "image"=>getImage("hackpress"),
@@ -277,7 +277,7 @@ if($apikey_result){
                 $filter=Sanitizer::alfanumerico($_GET['filter'], true, true);
                 $status=true;
                 $desc="Search result listed";
-                $result=getSearchResult($filter);
+                $result=getSearchResult($filter, $limit);
                 if(!$result){
                     $desc="Lütfen aradığınız kelimeyi kontrol edin.";
                 }else{
