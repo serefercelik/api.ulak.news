@@ -115,7 +115,7 @@ function checkSearch($arg){
         // get just id field
     array(
         'projection'=>
-            array("id"=>1)
+            array("id"=>1),
         )
     );
     $cursor = $manager->executeQuery('db.search', $query);
@@ -136,14 +136,15 @@ function getSearchResult($arg){
     $query = new MongoDB\Driver\Query(
     array(
         'visible'=>true,
-        'text'=>array('$regex'=>$arg)
+        '$text'=>array('$search'=>$arg)
         ),
         // get just id field
     array(
         'limit'=>20,
         'projection'=>array(
             "id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1
-            )
+        ),
+        'sort'=>array("date_u"=>-1)
         )
     );
     $cursor = $manager->executeQuery('db.news', $query);
@@ -243,7 +244,8 @@ function mostRead($arg, $limit=10){
                     array('read_times'=> -1),
                 'limit'=>$limit,
                 'projection'=>
-                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
+                'sort'=>array("date_u"=>-1)
                 )
             );
             $cursor = $manager->executeQuery('db.news', $query);
@@ -262,7 +264,8 @@ function mostRead($arg, $limit=10){
                     array('read_times'=> -1),
                 'limit'=>$limit,
                 'projection'=>
-                        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
+                'sort'=>array("date_u"=>-1)
                 )
             );
             $cursor = $manager->executeQuery('db.news', $query);
@@ -280,7 +283,8 @@ function mostRead($arg, $limit=10){
                     array('read_times'=> -1),
                 'limit'=>$limit,
                 'projection'=>
-                    array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
+                    array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
+                'sort'=>array("date_u"=>-1)
                 )
             );
             $cursor = $manager->executeQuery('db.news', $query);
@@ -295,9 +299,11 @@ function mostRead($arg, $limit=10){
                     'limit'=>$limit,
                     'sort'=>
                         array('read_times'=> -1),
-                        'projection'=>
-                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1)
-                        )
+                    'projection'=>
+                        array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
+                    'sort'=>
+                        array("date_u"=>-1)
+                    )
     
             );
             $cursor = $manager->executeQuery('db.news', $query);

@@ -12,6 +12,7 @@ function curl_function($url){
     $headers[] = 'Dnt: 1';
     $headers[] = "X-Forwarded-For: $ip";
     $headers[] = "Client-IP: $ip";
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_REFERER, 'https://www.google.com.tr');
     curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -47,6 +48,7 @@ function curl_function_odatv($url){
     $headers[] = 'Dnt: 1';
     $headers[] = "X-Forwarded-For: $ip";
     $headers[] = "Client-IP: $ip";
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_REFERER, 'https://www.google.com.tr');
     curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -83,6 +85,7 @@ function curl_function_sozcu(){
     $headers[] = 'Dnt: 1';
     $headers[] = "X-Forwarded-For: $ip";
     $headers[] = "Client-IP: $ip";
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS,
             "{$_ENV["get_sozcu_field"]}");
@@ -122,6 +125,7 @@ function curl_function_sozcu_new($new_id){
     $headers[] = 'Dnt: 1';
     $headers[] = "X-Forwarded-For: $ip";
     $headers[] = "Client-IP: $ip";
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, TRUE);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS,
             $_ENV['get_sozcu_new_field']."&post_id=$new_id");

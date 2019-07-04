@@ -184,10 +184,8 @@ if($apikey_result){
                         // $islem_odatv=get_odatv();
                         $islem_sputnik=get_sputnik();
                         $islem_sozcu=get_sozcu();
-                        $islem_cumhuriyet=get_cumhuriyet();
-                        $islem_hackpress=get_hackpress();
-                        if($islem_haberturk['status']===true && $islem_sozcu['status']===true && $islem_sputnik['status']===true && $islem_cumhuriyet['status']===true && $islem_hackpress['status']===true){
-                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result'], $islem_hackpress['result']);
+                        // $islem_cumhuriyet=get_cumhuriyet();
+                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result']);
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -208,9 +206,6 @@ if($apikey_result){
                             if($result===null){
                                 $desc="null";
                             }
-                        }else{
-                            $desc="Ajanslar ile bağlantı kurulamadı.";
-                        }
         
                 break;
                 case "list":
@@ -222,11 +217,11 @@ if($apikey_result){
                             "image"=>getImage("haberturk"),
                             "seo_link"=>'kaynak_haberturk.html',
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
-                        "odatv"=>array(
-                            "title"=>"Odatv",
-                            "image"=>getImage("odatv"),
-                            "seo_link"=>'kaynak_odatv.html',
-                            "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
+                        // "odatv"=>array(
+                        //     "title"=>"Odatv",
+                        //     "image"=>getImage("odatv"),
+                        //     "seo_link"=>'kaynak_odatv.html',
+                        //     "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
                         "sputnik"=>array(
                             "title"=>"Sputnik",
                             "image"=>getImage("sputnik"),
@@ -237,16 +232,16 @@ if($apikey_result){
                             "image"=>getImage("sozcu"),
                             "seo_link"=>'kaynak_sozcu.html',
                             "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete."),
-                        "cumhuriyet"=>array(
-                            "title"=>"Cumhuriyet",
-                            "image"=>getImage("cumhuriyet"),
-                            "seo_link"=>'kaynak_cumhuriyet.html',
-                            "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
-                        "hackpress"=>array(
-                            "title"=>"Hack Press",
-                            "image"=>getImage("hackpress"),
-                            "seo_link"=>'kaynak_hackpress.html',
-                            "about"=>"Hack Press, siber güvenlik dünyasındaki gelişmelerden kullanıcıları haberdar etmek, siber dünyanın tehlikelerinden nasıl korunulması gerektiğini; açık ve anlaşılır bir üslupla içerikler yayınlayarak kullanıcılara aktarmak ve toplumda \"siber güvenlik\" kavramının yer tutmasını sağlamak amaçlarını, ilke edinen bir haber platformudur."),
+                        // "cumhuriyet"=>array(
+                        //     "title"=>"Cumhuriyet",
+                        //     "image"=>getImage("cumhuriyet"),
+                        //     "seo_link"=>'kaynak_cumhuriyet.html',
+                        //     "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
+                        // "hackpress"=>array(
+                        //     "title"=>"Hack Press",
+                        //     "image"=>getImage("hackpress"),
+                        //     "seo_link"=>'kaynak_hackpress.html',
+                        //     "about"=>"Hack Press, siber güvenlik dünyasındaki gelişmelerden kullanıcıları haberdar etmek, siber dünyanın tehlikelerinden nasıl korunulması gerektiğini; açık ve anlaşılır bir üslupla içerikler yayınlayarak kullanıcılara aktarmak ve toplumda \"siber güvenlik\" kavramının yer tutmasını sağlamak amaçlarını, ilke edinen bir haber platformudur."),
                     );
                     if(isset($_GET['filter'])){
                         if(isset($result[$_GET['filter']])){
@@ -296,7 +291,7 @@ if($apikey_result){
                         } 
                     }
                     $orderby = "date_u"; //change this to whatever key you want from the array 
-                    array_multisort($sortArray[$orderby], SORT_DESC, $result); 
+                    array_multisort($sortArray[$orderby], SORT_DESC, $result);
                 }
                 break;
             case "mostRead":
