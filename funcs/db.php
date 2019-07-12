@@ -234,21 +234,22 @@ function mostRead($arg, $limit=10){
     // most read by last 7 days
     switch($arg){
         case "week":
-            $time=time();
-            $maxTime=$time-7*24*60*60;
+            $week=getLastWeekDates();
+            $time=$week[1];
+            $maxTime=$week[0];
             $query = new MongoDB\Driver\Query(
-            array(
-                'visible'=>true,
-                'date_u'=>
-                    array('$gte'=>$maxTime, '$lt'=>$time)
-            ),
-            array(
-                'sort'=>
-                    array('read_times'=> -1),
-                'limit'=>$limit,
-                'projection'=>
-                            array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
-                'sort'=>array("date_u"=>-1)
+                array(
+                    'visible'=>true,
+                    'date_u'=>
+                        array('$gte'=>$maxTime, '$lt'=>$time)
+                ),
+                array(
+                    'sort'=>
+                        array('read_times'=> -1),
+                    'limit'=>$limit,
+                    'projection'=>
+                                array("id"=>1, "title"=>1, "seo_link"=>1, "image"=>1, "read_times"=>1, "seo_url"=>1, "agency_title"=>1, "agency"=>1, "date_u"=>1, "date"=>1, "spot"=>1),
+                    'sort'=>array("date_u"=>-1)
                 )
             );
             $cursor = $manager->executeQuery('db.news', $query);

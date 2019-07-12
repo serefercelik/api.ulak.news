@@ -86,6 +86,35 @@ function rangeMonthThis (){
     );
 }
 
+function getLastWeekDates(){
+    $lastWeek = array();
+    $prevMon = abs(strtotime("previous monday"));
+    $currentDate = abs(strtotime("today"));
+    $seconds = 86400; //86400 seconds in a day
+ 
+    $dayDiff = ceil( ($currentDate-$prevMon)/$seconds ); 
+ 
+    if( $dayDiff < 7 )
+    {
+        $dayDiff += 1; //if it's monday the difference will be 0, thus add 1 to it
+        $prevMon = strtotime( "previous monday", strtotime("-$dayDiff day") );
+    }
+ 
+    $prevMon = date("Y-m-d",$prevMon);
+ 
+    // create the dates from Monday to Sunday
+    for($i=0; $i<7; $i++)
+    {
+        // edited => haftanın ilk ve sadece son timestamp i ni array içine gönderiyoruz.
+        if($i===0 || $i===6){
+            $d = date(strtotime( $prevMon." + $i day") );
+            $lastWeek[]=(int)$d;
+        }
+    }
+ 
+    return $lastWeek;
+}
+
 function rangeWeek ($datestr) {
     date_default_timezone_set (date_default_timezone_get());
     $dt = strtotime ($datestr);
