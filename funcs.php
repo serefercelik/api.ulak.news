@@ -78,11 +78,9 @@ function checkToken(){
 }
 
 function rangeMonthThis (){
-    date_default_timezone_set (date_default_timezone_get());
-    $dt = time();
     return array (
-      "start" => strtotime ('first day of this month', $dt),
-      "end" => strtotime ('last day of this month', $dt)
+      "start" => date("Ymt"),
+      "end" => date("Ymt")
     );
 }
 
