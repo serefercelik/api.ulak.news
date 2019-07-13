@@ -2,7 +2,7 @@
 function curl_function($url){
     $error=null;
     $ch = curl_init();
-    $ip="1.2.3.4";
+    $ip="127.0.0.1";
     $headers = array();
     $headers[] = "Authority: $url";
     $headers[] = 'Pragma: no-cache';
@@ -21,7 +21,7 @@ function curl_function($url){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
     curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
     curl_setopt($ch, CURLOPT_TIMEOUT_MS, 5000);
-    // curl_setopt($ch,CURLOPT_HEADER, false); 
+    // -curl_setopt($ch,CURLOPT_HEADER, false); 
     $data=curl_exec($ch);
     $output=json_decode($data, true);
     $info = curl_getinfo($ch);
@@ -38,7 +38,7 @@ function curl_function($url){
 function curl_function_odatv($url){
     $error=null;
     $ch = curl_init();
-    $ip="1.2.3.4";
+    $ip="127.0.0.1";
     $headers = array();
     $headers[] = "Authority: $url";
     $headers[] = 'Pragma: no-cache';
@@ -75,7 +75,7 @@ function curl_function_sozcu(){
     $url=$_ENV["get_sozcu"];
     $error=null;
     $ch = curl_init();
-    $ip="1.2.3.4";
+    $ip="127.0.0.1";
     $headers = array();
     $headers[] = "Authority: $url";
     $headers[] = 'Pragma: no-cache';
@@ -115,7 +115,7 @@ function curl_function_sozcu_new($new_id){
     $url=$_ENV['get_sozcu_new'];
     $error=null;
     $ch = curl_init();
-    $ip="1.2.3.4";
+    $ip="127.0.0.1";
     $headers = array();
     $headers[] = "Authority: $url";
     $headers[] = 'Pragma: no-cache';

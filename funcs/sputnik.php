@@ -27,7 +27,7 @@
                             if(!isset($news['enclosures'][0]['id'])){
                                 $imageid=null;
                             }else{
-                                $imageid="http://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg?w=840&h=840&crop=1&q=50.png";
+                                $imageid="https://cdnmfd.img.ria.ru/enclosures/{$news['enclosures'][0]['id']}.jpg";
                             }
                             $news_title=$news['title'];
                             $new_id=$news['id'];

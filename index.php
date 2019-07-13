@@ -180,12 +180,37 @@ if($apikey_result){
                 }
                 break;
                 case "all":
+                    $all=[];
                         $islem_haberturk=get_haberturk();
-                        // $islem_odatv=get_odatv();
+                        if($islem_haberturk['status']){
+                            foreach($islem_haberturk['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_odatv=get_odatv();
+                        if($islem_odatv['status']){
+                            foreach($islem_odatv['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         $islem_sputnik=get_sputnik();
+                        if($islem_sputnik['status']){
+                            foreach($islem_sputnik['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         $islem_sozcu=get_sozcu();
+                        if($islem_sozcu['status']){
+                            foreach($islem_sozcu['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         $islem_cumhuriyet=get_cumhuriyet();
-                            $all=array_merge($islem_haberturk['result'], $islem_sputnik['result'], $islem_sozcu['result'], $islem_cumhuriyet['result']);
+                        if($islem_cumhuriyet['status']){
+                            foreach($islem_cumhuriyet['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -217,11 +242,11 @@ if($apikey_result){
                             "image"=>getImage("haberturk"),
                             "seo_link"=>'kaynak_haberturk.html',
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
-                        // "odatv"=>array(
-                        //     "title"=>"Odatv",
-                        //     "image"=>getImage("odatv"),
-                        //     "seo_link"=>'kaynak_odatv.html',
-                        //     "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
+                        "odatv"=>array(
+                            "title"=>"Odatv",
+                            "image"=>getImage("odatv"),
+                            "seo_link"=>'kaynak_odatv.html',
+                            "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
                         "sputnik"=>array(
                             "title"=>"Sputnik",
                             "image"=>getImage("sputnik"),
