@@ -387,6 +387,11 @@ if($apikey_result){
                     $desc="Eksik işlem";
                 }
                 break;
+            case "stats":
+                $result=get_db_stats();
+                $status=true;
+                $desc="Server status loaded.";
+                break;
             default:
                 $desc="Eksik veya hatalı işlem";
         }
