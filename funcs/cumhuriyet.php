@@ -77,7 +77,7 @@
                         if(!isset($news[0]['coverUrl'])){
                             $news_image=null;
                         }
-                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $news[0]['content'])), $allowed_tags);
+                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a'), array('<a target="_blank"'), $news[0]['content'])), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                             $desc="from agency not saved text or title so short ";

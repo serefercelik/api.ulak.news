@@ -205,6 +205,61 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
+                        // $islem_cumhuriyet=get_cumhuriyet();
+                        // if($islem_cumhuriyet['status']){
+                        //     foreach($islem_cumhuriyet['result'] as $raw){
+                        //         $all[]=$raw;
+                        //     }
+                        // }
+                            $sortArray = array();
+                            foreach($all as $person){ 
+                                foreach($person as $key=>$value){ 
+                                    if(!isset($sortArray[$key])){ 
+                                        $sortArray[$key] = array(); 
+                                    } 
+                                    $sortArray[$key][] = $value; 
+                                } 
+                            } 
+                            $orderby = "date_u"; //change this to whatever key you want from the array 
+                            array_multisort($sortArray[$orderby],SORT_DESC,$all); 
+                            $status=true;
+                            $desc="Haberler listelendi.";
+                            $result=$all;
+                            if($limit>0){
+                                $result=array_splice($result, $start, $limit);
+                            }
+                            if($result===null){
+                                $desc="null";
+                            }
+        
+                break;
+
+                case "all_kron":
+                    $all=[];
+                        $islem_haberturk=get_haberturk();
+                        if($islem_haberturk['status']){
+                            foreach($islem_haberturk['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_odatv=get_odatv();
+                        if($islem_odatv['status']){
+                            foreach($islem_odatv['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_sputnik=get_sputnik();
+                        if($islem_sputnik['status']){
+                            foreach($islem_sputnik['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_sozcu=get_sozcu();
+                        if($islem_sozcu['status']){
+                            foreach($islem_sozcu['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         $islem_cumhuriyet=get_cumhuriyet();
                         if($islem_cumhuriyet['status']){
                             foreach($islem_cumhuriyet['result'] as $raw){
