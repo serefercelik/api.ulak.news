@@ -10,9 +10,9 @@
                 if($file['status']){
                     $curl_status=true;
                 }else{
-                    $file=curl_function($_ENV["get_cumhuriyet2"]); // Tüm manşetler
+                    $file=curl_function_cumhuriyet($_ENV["get_cumhuriyet"]); // Tüm manşetler
                     if($file['status']){
-                        $file=$file['result'];
+                        $file['result']=json_decode($file['result'], true);
                         $curl_status=true;
                     }else{
                         $desc="Cumhuriyet ile bağlantı kurulamadı. 2. api@orhanaydogdu.com.tr";
@@ -56,9 +56,9 @@
                 if($file['status']){
                     $curl_status=true;
                 }else{
-                    $file=curl_function($_ENV["get_cumhuriyet2"]."?newsId=".$new_id);
+                    $file=curl_function_cumhuriyet($_ENV["get_cumhuriyet_new"]."?newsId=".$new_id);
                     if($file['status']){
-                        $file=$file['result'];
+                        $file['result']=json_decode($file['result'], true);
                         $curl_status=true;
                     }else{
                         $desc="Cumhuriyet ile bağlantı kurulamadı. 2. api@orhanaydogdu.com.tr";

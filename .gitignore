@@ -3,3 +3,4 @@
 env.php
 test.php
 cache/*/*.json
+funcs/vendor/*

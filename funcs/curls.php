@@ -1,4 +1,8 @@
 <?php
+require 'vendor/autoload.php';
+use CloudflareBypass\RequestMethod\CFCurl;
+
+
 function curl_function($url){
     $error=null;
     $ch = curl_init();
@@ -32,6 +36,22 @@ function curl_function($url){
     if($info['http_code']!==200){
         return array("status"=>false, "result"=>$error);
     }
+    return array("status"=>true, "result"=>$output);
+}
+
+function curl_function_cumhuriyet($url){
+    $curl_cf_wrapper = new CFCurl(array(
+        'max_retries'   => 5,                   // How many times to try and get clearance?
+        'cache'         => false,               // Enable caching?
+        'cache_path'    => '/cache',            // Where to cache cookies? (Default: system tmp directory)
+        'verbose'       => false                // Enable verbose? (Good for debugging issues - doesn't effect cURL handle)
+    ));
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36');
+    $output=$curl_cf_wrapper->exec($ch);
+    curl_close($ch);
     return array("status"=>true, "result"=>$output);
 }
 
