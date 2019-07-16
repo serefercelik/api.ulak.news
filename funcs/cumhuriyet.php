@@ -38,7 +38,7 @@
                             "title"=>$news_title,
                             "seo_link"=>seolink($news_title, "cumhuriyet", $new_id),
                             "spot"=>$news_summary,
-                            "image"=>"https://images.ulak.news/?src="."http://cumhuriyet.com.tr".$raw['coverUrl'],
+                            "image"=>"http://cumhuriyet.com.tr".$raw['coverUrl'],
                             "url"=>"http://cumhuriyet.com.tr".$raw['newsUrl']
                         );
                     };
@@ -96,7 +96,7 @@
                             "spot"=>$news_title,
                             "keywords"=>keywords($news_title),
                             "saved_date"=>time(),
-                            "image"=>"https://images.ulak.news/?src=".$news_image,
+                            "image"=>$news_image,
                             "url"=>"http://cumhuriyet.com.tr".$news[0]['newsUrl'],
                             "read_times"=>1
                         );
