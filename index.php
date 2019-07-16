@@ -233,8 +233,7 @@ if($apikey_result){
                             }
         
                 break;
-
-                case "all_kron":
+                case "allKron":
                     $all=[];
                         $islem_haberturk=get_haberturk();
                         if($islem_haberturk['status']){
