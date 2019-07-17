@@ -309,24 +309,6 @@ function getImage($agency){
     }
 }
 
-function get_db_stats(){
-    $db_stats=[];
-    $db_status=curl_function("http://ulak.news:27017");
-    if($db_status['status']){
-        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-        $query = new MongoDB\Driver\Command(
-            ["count" => "news"]
-    );
-    $cursor = $manager->executeCommand('db', $query);
-    $count_news = current($cursor->toArray())->n;
-    $db_stats=array("count"=>$count_news);
-    }
-    return array(
-        "db_status"=>$db_status['status'],
-        "db_stats"=>$db_stats
-    );
-}
-
 include("funcs/curls.php"); // curls
 include("funcs/cumhuriyet.php"); // cumhuriyet funcs..
 include("funcs/haberturk.php"); // haberturk funcs..

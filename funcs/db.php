@@ -315,4 +315,84 @@ function mostRead($arg, $limit=10){
     }
 }
 
+function getAgencyReadTimes() {
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $command = new MongoDB\Driver\Command([
+        'aggregate' => 'news',
+        'pipeline' => [
+            ['$group' => ['_id' => '$agency', 'total' => ['$sum' => ['$add'=> '$read_times']]]],
+        ],
+        'cursor' => new stdClass,
+    ]);
+    $cursor = $manager->executeCommand('db', $command);
+    
+    /* The aggregate command can optionally return its results in a cursor instead
+     * of a single result document. In this case, we can iterate on the cursor
+     * directly to access those results. */
+    $arr=[];
+    foreach ($cursor as $key=>$document) {
+        $arr[]=$document;
+    }
+
+    if(count($arr)>0){
+        return $arr;
+    }
+    return null;
+}
+
+function getAgencyNewsCount() {
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $command = new MongoDB\Driver\Command([
+        'aggregate' => 'news',
+        'pipeline' => [
+            ['$group' => ['_id' => '$agency', 'total' => ['$sum' => 1]]],
+        ],
+        'cursor' => new stdClass,
+    ]);
+    $cursor = $manager->executeCommand('db', $command);
+    
+    /* The aggregate command can optionally return its results in a cursor instead
+     * of a single result document. In this case, we can iterate on the cursor
+     * directly to access those results. */
+    $arr=[];
+    foreach ($cursor as $key=>$document) {
+        $arr[]=$document;
+    }
+
+    if(count($arr)>0){
+        return $arr;
+    }
+    return null;
+}
+
+function get_db_stats(){
+    $db_stats=[];
+    $db_status=curl_function("http://ulak.news:27017");
+    if($db_status['status']){
+        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+        $query = new MongoDB\Driver\Command(
+            ["count" => "news"]
+    );
+    $cursor = $manager->executeCommand('db', $query);
+    $count_news = current($cursor->toArray())->n;
+    $read_times=getAgencyReadTimes();
+    $read_times_total=0;
+    
+    foreach($read_times as $raw){
+        $read_times_total=$read_times_total+$raw->total;
+    }
+
+    $agency_news=getAgencyNewsCount();
+    $agency_news_count=0;
+    foreach($agency_news as $raw){
+        $agency_news_count=$agency_news_count+$raw->total;
+    }
+    $db_stats=array("news_count_total"=>$agency_news_count, "news_count"=>$agency_news, "read_times"=>$read_times, "read_times_total"=>$read_times_total);
+    }
+    return array(
+        "db_status"=>$db_status['status'],
+        "db_stats"=>$db_stats
+    );
+}
+
 ?>
