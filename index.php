@@ -414,8 +414,8 @@ if($apikey_result){
                 }
                 break;
             case "saveComment":
-                if(isset($_POST['text']) && isset($_POST['name']) && isset($_POST['ip'])){
-                    $process=saveComment($_POST['agency'], $_POST['id'], $_POST['text'], $_POST['name'], $_POST['ip']);
+                if(isset($_GET['toAgency']) && isset($_GET['toId']) && isset($_POST['text']) && isset($_POST['name']) && isset($_POST['ip'])){
+                    $process=saveComment($_GET['toAgency'], $_GET['toId'], $_POST['text'], $_POST['name'], $_POST['ip']);
                     if($process){
                         $status=true;
                         $desc="Yorum Kaydedildi.";
@@ -428,8 +428,8 @@ if($apikey_result){
                 break;
 
             case "getComments":
-                if(isset($_GET['agency_']) && isset($_GET['id_'])){
-                    $result=get_comment($_GET['agency_'], $_GET['id_']);
+                if(isset($_GET['toAgency']) && isset($_GET['toId'])){
+                    $result=get_comment($_GET['toAgency'], $_GET['toId']);
                     if($result['status']){
                         $status=true;
                         $desc="Yorumlar";
