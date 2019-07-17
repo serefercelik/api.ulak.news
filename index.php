@@ -441,8 +441,13 @@ if($apikey_result){
                     $desc="Eksik işlem";
                 }
                 break;
+            case "lastSearch":
+                $result=get_last_search();
+                $status=true;
+                $desc="Last Search listed.";
+                break;
             case "stats":
-                $result=get_db_stats();
+                $result=get_db_stats($limit);
                 $status=true;
                 $desc="Server status loaded.";
                 break;

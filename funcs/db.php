@@ -395,4 +395,19 @@ function get_db_stats(){
     );
 }
 
+
+function get_last_search($limit=10){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(
+        array(
+        ),
+        array(
+            'sort'=>
+                array('_id'=> -1),
+            'limit'=> $limit,
+        )
+    );
+    $cursor = $manager->executeQuery('db.search', $query);
+    return (array)$cursor->toArray();
+}
 ?>
