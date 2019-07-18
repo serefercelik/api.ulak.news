@@ -44,6 +44,12 @@ if(isset($_GET['process'])){
     $process=Sanitizer::alfabetico($_GET['process']);
 }
 
+if(isset($_GET['process'])){
+    if($_GET['process']==="getComments" || $_GET['process']==="saveComment"){
+        $is_local=true;
+    }
+}
+
 /// CACHE
 if(!$is_local){
     require_once "sCache.php";
