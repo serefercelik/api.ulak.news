@@ -179,9 +179,10 @@ function saveComment($agency, $id, $text, $name, $ip){
             "name"=>Sanitizer::alfanumerico($name, true, true),
             "ip"=>$ip,
             "date"=>date('d.m.Y - H:i:s ', $time),
+            "visible"=>true,
             "date_u"=>$time
         );
-        if(strlen($name)>3 && strlen($text)>4){
+        if(strlen($name)>=3 && strlen($text)>4){
             $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
             $bulk = new MongoDB\Driver\BulkWrite;
             $bulk->insert($data);
@@ -196,10 +197,16 @@ function saveComment($agency, $id, $text, $name, $ip){
 function get_comment($agency, $new_id){
     $new_id=(int)$new_id;
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-    $query = new MongoDB\Driver\Query(array(
-        'agency'=>$agency,
-        'id'=>$new_id
-    ));
+    $query = new MongoDB\Driver\Query(
+        array(
+            'agency'=>$agency,
+            'id'=>$new_id,
+            'visible'=>true
+        ),
+        array(
+            'sort'=>array("_id"=>-1)
+        )
+    );
     $cursor = $manager->executeQuery('db.comments', $query);
     $data = $cursor->toArray();
     if(count($data)>0){

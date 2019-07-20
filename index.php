@@ -420,8 +420,8 @@ if($apikey_result){
                 }
                 break;
             case "saveComment":
-                if(isset($_GET['toAgency']) && isset($_GET['toId']) && isset($_POST['text']) && isset($_POST['name']) && isset($_POST['ip'])){
-                    $process=saveComment($_GET['toAgency'], $_GET['toId'], $_POST['text'], $_POST['name'], $_POST['ip']);
+                if(isset($_POST['toAgency']) && isset($_POST['toId']) && isset($_POST['text']) && isset($_POST['name']) && isset($_POST['ip'])){
+                    $process=saveComment($_POST['toAgency'], $_POST['toId'], $_POST['text'], $_POST['name'], $_POST['ip']);
                     if($process){
                         $status=true;
                         $desc="Yorum Kaydedildi.";
@@ -441,6 +441,7 @@ if($apikey_result){
                         $desc="Yorumlar";
                         $result=$result['result'];
                     }else{
+                        $result=[];
                         $desc="İşlem başarısız.";
                     }
                 }else{
@@ -473,7 +474,8 @@ $resultPage=array(
     "cached_time"=>$time,
     "availability"=>$time+$cache_seconds,
     "result"=>$result,
-    "get"=>$_GET
+    "get"=>$_GET,
+    "post"=>$_POST
 );
 
 echo json_encode($resultPage);
