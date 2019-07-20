@@ -92,7 +92,7 @@
                             "id"=>$new_id,
                             "date"=>$date,
                             "date_u"=>getUnixTime($date),
-                            "seo_link"=>seolink($news_title, "sozcu", $new_id),
+                            "seo_link"=>seolink($news_title, "cumhuriyet", $new_id),
                             "spot"=>$news_title,
                             "keywords"=>keywords($news_title),
                             "saved_date"=>time(),
