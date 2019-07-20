@@ -16,7 +16,7 @@
                             $cats=[];
                             foreach($cat as $subcat){
                                 $resCat=getCategorie("sputnik", $subcat);
-                                if($resCat!=null){
+                                if($resCat!==null){
                                     $cats[]=$resCat;
                                 }
                             }

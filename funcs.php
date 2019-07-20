@@ -274,7 +274,7 @@ function getCategorie($agency, $id){
             }
         }
         if(!isset($result)){
-            return "Sputnik Kategorisiz";
+            return null;
         }
     }elseif($agency==="cumhuriyet"){
         return explode(', ', $id);
