@@ -37,6 +37,19 @@ function get_new($agency, $new_id){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
+function get_agency_news($agency){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(array(
+        'agency'=>$agency
+    ));
+    $cursor = $manager->executeQuery('db.news', $query);
+    $data = $cursor->toArray();
+    if(count($data)>=1){
+        return array("result"=>$data, "status"=>true, "desc"=>"From db");
+    }
+    return array("result"=>null, "status"=>false, "desc"=>"not found in db");
+}
+
 function getIconDB($id){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(array(
