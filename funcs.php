@@ -12,6 +12,9 @@ if($host===$_ENV['local1'] || $host===$_ENV['local2']){
     $_ENV["mongo_conn"]="mongodb://localhost";
 }
 
+/**
+ * haberler için seo link oluşturucu title, agency ve id ye göre
+ */
 function seolink($s, $agency, $id){
     $s  = html_entity_decode($s);
     $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…','?','‘','”');
@@ -28,24 +31,18 @@ function seolink($s, $agency, $id){
     return "haber_".$s."_".$agency."_".$id.".html";
 }
 
+/**
+ * kategoriler için seo link oluşturucu.
+ */
 function seolinkCat($s){
     $s=Sanitizer::alfabetico($s, true, true);
     $s=base64_encode($s);
-    // $s  = html_entity_decode($s);
-    // $tr = array('ş','Ş','ı','I','İ','ğ','Ğ','ü','Ü','ö','Ö','Ç','ç','(',')','/',':',',', "'", "!",'’','#',"'",'&039;','"','“','.','…','?');
-    // $eng = array('s','s','i','i','i','g','g','u','u','o','o','c','c','','','-','-','','','','','','','','','','','','');
-    // $s = str_replace($tr,$eng,$s);
-    // $s = strtolower($s);
-    // $s = preg_replace('/&amp;amp;amp;amp;amp;amp;amp;amp;amp;.+?;/', '', $s);
-    // $s = preg_replace('/\s+/', '-', $s);
-    // $s = preg_replace('|-+|', '-', $s);
-    // $s = preg_replace('/#/', '', $s);
-    // $s = str_replace('.', '', $s);
-    // $s = trim($s, '-');
-    // $s = substr($s, 0, 32);
     return "kategori.html?kategori=".$s;
 }
 
+/**
+ * kategoriler için icon listeleme.
+ */
 function caticon($s){
     $s=Sanitizer::alfabetico($s, true, true);
     $s=base64_encode($s);
@@ -56,11 +53,16 @@ function caticon($s){
     return "https://api.ulak.news/images/web/noCat.png";
 }
 
+/**
+ * keyword oluşturucu
+ */
 function keywords($s){
     return str_replace(array(' ', '!', '.', '”','“',',,','’','\n',"'"), array(', ', '','','','','','','',''), strtolower($s));
 }
 
-
+/**
+ * token kontrol.
+ */
 function checkToken(){
     global $apikey_result;
     $result=false;
@@ -77,6 +79,9 @@ function checkToken(){
     return $result;
 }
 
+/**
+ * bu ayın ilk gününün tarihini ve son gününün tarihini verir.
+ */
 function rangeMonthThis (){
     return array (
       "start" => date("Ymt"),
@@ -84,6 +89,9 @@ function rangeMonthThis (){
     );
 }
 
+/**
+ * son haftanın başlangıç ve bitiş tarihlerini verir.
+ */
 function getLastWeekDates(){
     $lastWeek = array();
     $prevMon = abs(strtotime("previous monday"));
@@ -113,6 +121,9 @@ function getLastWeekDates(){
     return $lastWeek;
 }
 
+/**
+ * haftanın ilk ve son tarihlerini verir.
+ */
 function rangeWeek ($datestr) {
     date_default_timezone_set (date_default_timezone_get());
     $dt = strtotime ($datestr);
@@ -122,7 +133,9 @@ function rangeWeek ($datestr) {
     );
 }
 
-  
+/**
+ * tarihden unix time a çevirir.
+ */
 function getUnixTime ($dateStr){
     $date=new DateTime($dateStr, new DateTimeZone("Europe/Istanbul"));
     return (int)$date->format('U');
@@ -249,10 +262,16 @@ class Sanitizer {
 // Functions
 include("funcs/db.php");
 
+/**
+ * yapım aşamasında olan resim kaydetme.
+ */
 function saveImage($link){
     // save to images/web/$agency/$id.jpg
 }
 
+/**
+ * haber kaynaklarının verdiği kategori id lerinin hangi kategori olduğunun sonucunu verir.
+ */
 function getCategorie($agency, $id){
     $cat=null;
     $result=null;
@@ -282,6 +301,9 @@ function getCategorie($agency, $id){
     return Sanitizer::toCat($result, true, true);
 }
 
+/**
+ * ilgili ajansa göre resmini getirir.
+ */
 function getImage($agency){
     $result;
     switch ($agency) {

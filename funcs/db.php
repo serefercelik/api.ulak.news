@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * ilgili haberin read_times inı artırır.
+ */
 function read_new($agency, $new_id){
         $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
         $bulk = new MongoDB\Driver\BulkWrite;
@@ -10,6 +13,9 @@ function read_new($agency, $new_id){
         $manager->executeBulkWrite('db.news', $bulk);
 }
 
+/**
+ * şuana kadar kaydedilmiş kategorileri getirir.
+ */
 function getSavedCategories(){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $cmd = new MongoDB\Driver\Command([
@@ -21,6 +27,9 @@ function getSavedCategories(){
       return $cursor->toArray()[0]->values;
 }
 
+/**
+ * ilgili haberi getirir.
+ */
 function get_new($agency, $new_id){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(array(
@@ -37,6 +46,9 @@ function get_new($agency, $new_id){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
+/**
+ * ilgili ajansın haberlerini getirir.
+ */
 function get_agency_news($agency){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
@@ -55,6 +67,27 @@ function get_agency_news($agency){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
+/**
+ * key value şeklinde özel arama yapmamızı sağlar
+ */
+function key_value_search($key, $value){
+    $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+    $query = new MongoDB\Driver\Query(
+        array(
+            '$key'=>$value
+        )
+    );
+    $cursor = $manager->executeQuery('db.news', $query);
+    $data = $cursor->toArray();
+    if(count($data)>=1){
+        return array("result"=>$data, "status"=>true, "desc"=>"From db");
+    }
+    return array("result"=>null, "status"=>false, "desc"=>"not found in db");
+}
+
+/**
+ * henüz fikir aşamasında olan icon database
+ */
 function getIconDB($id){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(array(
@@ -68,6 +101,9 @@ function getIconDB($id){
     return false;
 }
 
+/**
+ * ilgili kategori haberlerini getirir.
+ */
 function catNews($filter){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
@@ -99,6 +135,9 @@ function catNews($filter){
     return null;
 }
 
+/**
+ * haberin database de kaydını kontrol eder.
+ */
 function checkNew($agency, $new_id){
         $status=false;
         $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
@@ -124,6 +163,9 @@ function checkNew($agency, $new_id){
     return $status;
 }
 
+/**
+ * ilgili aramanın daha önceden yapılıp yapılmadığını kontrol eder.
+ */
 function checkSearch($arg){
     $status=false;
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
@@ -143,9 +185,12 @@ function checkSearch($arg){
         $status=true;
         return $status;
     }
-return $status;
+    return $status;
 }
 
+/**
+ * ilgili arama sonuçlarını getirir.
+ */
 function getSearchResult($arg, $limit=40){
     $status=false;
     if($limit===0){
@@ -185,6 +230,30 @@ function getSearchResult($arg, $limit=40){
     return $cursor->toArray();
 }
 
+/**
+ * ilgili aramayı kaydeder.
+ */
+function saveSearch($data){
+    if(strlen($data)>=3){
+        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+        $bulk = new MongoDB\Driver\BulkWrite;
+        if(!checkSearch($data)){
+            $data=array("keyword"=>$data);
+            $bulk->insert($data);
+        }else{
+            $bulk->update(
+                array("keyword"=>$data),
+                array('$inc' => array('search_times' => 1))
+            );
+        }
+        return $manager->executeBulkWrite('db.search', $bulk);
+    }
+    return false;
+}
+
+/**
+ * haber kaydeder.
+ */
 function saveDatabase($agency, $data){
     global $new_id;
     if(strlen($data['text'])>=10 && strlen($data['title'])>=7 && isset($data['image'])){
@@ -199,6 +268,9 @@ function saveDatabase($agency, $data){
     return false;
 }
 
+/**
+ * yorum kaydeder.
+ */
 function saveComment($agency, $id, $text, $name, $ip){
         $time=time();
         $data=array(
@@ -223,6 +295,9 @@ function saveComment($agency, $id, $text, $name, $ip){
     return false;
 }
 
+/**
+ * ilgili haberin yorumlarını getirir.
+ */
 function get_comment($agency, $new_id){
     $new_id=(int)$new_id;
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
@@ -244,24 +319,9 @@ function get_comment($agency, $new_id){
     return array("result"=>null, "status"=>false, "desc"=>"not found in db");
 }
 
-function saveSearch($data){
-    if(strlen($data)>=3){
-        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-        $bulk = new MongoDB\Driver\BulkWrite;
-        if(!checkSearch($data)){
-            $data=array("keyword"=>$data);
-            $bulk->insert($data);
-        }else{
-            $bulk->update(
-                array("keyword"=>$data),
-                array('$inc' => array('search_times' => 1))
-            );
-        }
-        return $manager->executeBulkWrite('db.search', $bulk);
-    }
-    return false;
-}
-
+/**
+ * en çok okunan haberleri getirir.
+ */
 function mostRead($arg, $limit=10){
     if($limit>100){
         $limit=100;
@@ -365,6 +425,9 @@ function mostRead($arg, $limit=10){
     }
 }
 
+/**
+ * ajansların okunma sayısına göre istatistik getir.
+ */
 function getAgencyReadTimes() {
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $command = new MongoDB\Driver\Command([
@@ -390,6 +453,9 @@ function getAgencyReadTimes() {
     return null;
 }
 
+/**
+ * ajansların haber sayılarının istatistik bilgilerini getir.
+ */
 function getAgencyNewsCount() {
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $command = new MongoDB\Driver\Command([
@@ -415,6 +481,10 @@ function getAgencyNewsCount() {
     return null;
 }
 
+/**
+ * database istatistiklerini getirir.
+ * haber sayıları, okunma sayıları vs.
+ */
 function get_db_stats(){
     $db_stats=[];
     $db_status=curl_function("http://ulak.news:27017");
@@ -445,7 +515,9 @@ function get_db_stats(){
     );
 }
 
-
+/**
+ * son aramaları listeler.
+ */
 function get_last_search($limit=10){
     $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
     $query = new MongoDB\Driver\Query(
