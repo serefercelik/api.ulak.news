@@ -211,12 +211,6 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
-                        // $islem_cumhuriyet=get_cumhuriyet();
-                        // if($islem_cumhuriyet['status']){
-                        //     foreach($islem_cumhuriyet['result'] as $raw){
-                        //         $all[]=$raw;
-                        //     }
-                        // }
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 

@@ -65,7 +65,6 @@ function keywords($s){
  */
 function checkToken(){
     global $apikey_result;
-    $result=false;
         if(isset($_SERVER['HTTP_X_SITE']) && isset($_SERVER['HTTP_X_SITE_TOKEN'])){
             if(isset($_SERVER['HTTP_X_SITE_BYPASS']) && $_SERVER['HTTP_X_SITE_BYPASS']==$_ENV['bypass-token']){
                 return true;
@@ -73,10 +72,10 @@ function checkToken(){
             $site=Sanitizer::url($_SERVER['HTTP_X_SITE']);
             $token=Sanitizer::alfanumerico($_SERVER['HTTP_X_SITE_TOKEN']);
             if($_ENV['site']===$site && $_ENV['token']===$token){
-                $result=true;
+                return true;
             }
         }
-    return $result;
+    return false;
 }
 
 /**
