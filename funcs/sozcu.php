@@ -11,22 +11,24 @@
                         $desc="from agency";
                         $status=true;
                         foreach($file['result']['data'] as $raw){
-                            $date=gmdate("d.m.Y H:i:s", $raw['date']);
-                            $news_title=$raw['title'];
-                            $new_id=(int)$raw['post_id'];
-                            $catNews[]=array(
-                                "agency"=>"sozcu",
-                                "agency_title"=>"Sözcü",
-                                "categories"=>array($raw['category']),
-                                "id"=>$new_id,
-                                "date"=>$date,
-                                "date_u"=>$raw['date'],
-                                "title"=>$news_title,
-                                "seo_link"=>seolink($news_title, "sozcu", $new_id),
-                                "spot"=>$news_title,
-                                "image"=>"https://images.ulak.news/?src=".$raw['image'],
-                                "url"=>null
-                            );
+                            if($raw['slug']==="sozcu"){
+                                $date=gmdate("d.m.Y H:i:s", $raw['date']);
+                                $news_title=$raw['title'];
+                                $new_id=(int)$raw['post_id'];
+                                $catNews[]=array(
+                                    "agency"=>"sozcu",
+                                    "agency_title"=>"Sözcü",
+                                    "categories"=>array($raw['category']),
+                                    "id"=>$new_id,
+                                    "date"=>$date,
+                                    "date_u"=>$raw['date'],
+                                    "title"=>$news_title,
+                                    "seo_link"=>seolink($news_title, "sozcu", $new_id),
+                                    "spot"=>$news_title,
+                                    "image"=>"https://images.ulak.news/?src=".$raw['image'],
+                                    "url"=>null
+                                );
+                            }
                         }
                     };
                 }else{

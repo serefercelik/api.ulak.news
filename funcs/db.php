@@ -139,7 +139,6 @@ function catNews($filter){
  * haberin database de kaydını kontrol eder.
  */
 function checkNew($agency, $new_id){
-        $status=false;
         $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
         $query = new MongoDB\Driver\Query(
         array(
@@ -157,10 +156,9 @@ function checkNew($agency, $new_id){
         $cursor = $manager->executeQuery('db.news', $query);
         $data=count((array)$cursor->toArray());
         if($data>=1){
-            $status=true;
-            return $status;
+            return true;
         }
-    return $status;
+    return false;
 }
 
 /**
