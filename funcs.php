@@ -5,11 +5,30 @@ $is_local=false;
 // env file
 include("env.php");
 
+/**
+ * haber içeriklerinde izin verilen tagler
+ */
 $allowed_tags="<strong><p><h2><h3><h4><h5><span><br><br/><img><style><center><blockquote>";
+
+/**
+ * host bilgisi alıyoruz.
+ */
 $host=Sanitizer::url($_SERVER['HTTP_HOST']);
+
+/**
+ * eğer projemiz localde çalışıyor ise local database işlem yapmak için.
+ */
 if($host===$_ENV['local1'] || $host===$_ENV['local2']){
     $is_local=true;
     $_ENV["mongo_conn"]="mongodb://localhost";
+}
+
+
+/**
+ * ajanslardan gelen çoklu gereksiz br etiketlerine karşı :)
+ */
+function multiBrClear($text){
+    return preg_replace('#(<\s*br[^/>]*/?\s*>\s*){2,}#is',"<br />", nl2br($text));
 }
 
 /**

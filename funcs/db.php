@@ -40,6 +40,7 @@ function get_new($agency, $new_id){
     $data = $cursor->toArray()[0];
     if($data->visible){
         if(isset($data)){
+            $data->text=multiBrClear($data->text);
             return array("result"=>$data, "status"=>true, "desc"=>"From db");
         }
     }
@@ -254,6 +255,7 @@ function saveSearch($data){
  */
 function saveDatabase($agency, $data){
     global $new_id;
+    $data['text']=multiBrClear($data['text']);
     if(strlen($data['text'])>=10 && strlen($data['title'])>=7 && isset($data['image'])){
         if(!checkNew($agency, $new_id)){
                 $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
