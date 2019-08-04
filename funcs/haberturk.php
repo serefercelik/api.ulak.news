@@ -11,7 +11,7 @@
                 $desc="from agency";
                 $status=true;
                 foreach($file['result']['items'] as $raw){
-                    if(isset($raw['items'])){
+                    if($raw['type']==="manset" || $raw['type']==="manset4lu" || $raw['type']==="tepeSlider" || $raw['type']==="news" || $raw['type']==="author"){
                         foreach($raw['items'] as $itemRaw){
                             if(explode('/',$itemRaw['url'])[2]==="news"){
                                 $rawDate=explode(' ',$itemRaw['giris_zamani']);

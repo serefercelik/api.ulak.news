@@ -168,22 +168,40 @@ if($apikey_result){
                     }
                 break;
                 case "hackpress":
-                if($agency_new){
+                    if($agency_new){
+                            if(!$saved_new){
+                                $islem=get_hackpress_new($new_id);
+                            }
+                            $status=$islem['status'];
+                            $result=$islem['result'];
+                            $desc=$islem['desc'];
+                    }else{
+                        $islem=get_hackpress();
+                        $status=$islem['status'];
+                        $desc=$islem['desc'];
+                        $result=$islem['result'];
+                        if($limit>0){
+                            $result=array_splice($result, $start, $limit);
+                        }
+                    }
+                break;
+                case "diken":
+                    if($agency_new){
                         if(!$saved_new){
-                            $islem=get_hackpress_new($new_id);
+                            $islem=get_diken_new($new_id);
                         }
                         $status=$islem['status'];
                         $result=$islem['result'];
                         $desc=$islem['desc'];
-                }else{
-                    $islem=get_hackpress();
-                    $status=$islem['status'];
-                    $desc=$islem['desc'];
-                    $result=$islem['result'];
-                    if($limit>0){
-                        $result=array_splice($result, $start, $limit);
+                    }else{
+                        $islem=get_diken();
+                        $status=$islem['status'];
+                        $desc=$islem['desc'];
+                        $result=$islem['result'];
+                        if($limit>0){
+                            $result=array_splice($result, $start, $limit);
+                        }
                     }
-                }
                 break;
                 case "all":
                     $all=[];
@@ -208,6 +226,12 @@ if($apikey_result){
                         $islem_sozcu=get_sozcu();
                         if($islem_sozcu['status']){
                             foreach($islem_sozcu['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_diken=get_diken();
+                        if($islem_diken['status']){
+                            foreach($islem_diken['result'] as $raw){
                                 $all[]=$raw;
                             }
                         }
@@ -265,6 +289,12 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
+                        $islem_diken=get_diken();
+                        if($islem_diken['status']){
+                            foreach($islem_diken['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                             $sortArray = array();
                             foreach($all as $person){ 
                                 foreach($person as $key=>$value){ 
@@ -291,31 +321,36 @@ if($apikey_result){
                     $status=true;
                     $desc= "Listelendi.";
                     $result=array(
-                        "haberturk"=>array(
-                            "title"=>"Haber Türk",
-                            "image"=>getImage("haberturk"),
-                            "seo_link"=>'kaynak_haberturk.html',
-                            "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
-                        "odatv"=>array(
-                            "title"=>"Odatv",
-                            "image"=>getImage("odatv"),
-                            "seo_link"=>'kaynak_odatv.html',
-                            "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
-                        "sputnik"=>array(
-                            "title"=>"Sputnik",
-                            "image"=>getImage("sputnik"),
-                            "seo_link"=>'kaynak_sputnik.html',
-                            "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. "),
                         "sozcu"=>array(
                             "title"=>"Sözcü",
                             "image"=>getImage("sozcu"),
                             "seo_link"=>'kaynak_sozcu.html',
                             "about"=>"Sözcü, 27 Haziran 2007 yılında merkezi İstanbul olmak üzere kurulmuş gazete."),
+                        "diken"=>array(
+                            "title"=>"Diken",
+                            "image"=>getImage("diken"),
+                            "seo_link"=>'kaynak_diken.html',
+                            "about"=>"Diken’in misyonu net ve kısa: Ülkemizde gül bahçesine dönüştürülmek istenen medyanın dikeni olup, köklerinden sallanmaya başlayan demokrasimizi, temel özgürlüklerimizi ve laikliği savunmak. Bu misyonu yerine getirirken de gazetecilik mesleğine hak ettiği itibar ve onuru yeniden kazandırmak."),
                         "cumhuriyet"=>array(
                             "title"=>"Cumhuriyet",
                             "image"=>getImage("cumhuriyet"),
                             "seo_link"=>'kaynak_cumhuriyet.html',
                             "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
+                        "odatv"=>array(
+                            "title"=>"Odatv",
+                            "image"=>getImage("odatv"),
+                            "seo_link"=>'kaynak_odatv.html',
+                            "about"=>"Odatv.com, Odatv ya da odaᵀⱽ, 2007 yılında haber portalı olarak yayın yaşamına başlayan Web sitesi. İmtiyaz sahibi kişisi Soner Yalçın'dır. "),
+                        "haberturk"=>array(
+                            "title"=>"Haber Türk",
+                            "image"=>getImage("haberturk"),
+                            "seo_link"=>'kaynak_haberturk.html',
+                            "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
+                        "sputnik"=>array(
+                            "title"=>"Sputnik",
+                            "image"=>getImage("sputnik"),
+                            "seo_link"=>'kaynak_sputnik.html',
+                            "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. ")
                         // "hackpress"=>array(
                         //     "title"=>"Hack Press",
                         //     "image"=>getImage("hackpress"),
@@ -461,16 +496,16 @@ if($apikey_result){
 }else{
     $desc="Please send token";
 }
+
 // result
 $resultPage=array(
-    "status"=>$status,
-    "desc"=>$desc,
-    "cached_time"=>$time,
-    "availability"=>$time+$cache_seconds,
-    "result"=>$result,
-    "get"=>$_GET,
-    "post"=>$_POST
+    "status"=> $status,
+    "desc"=> $desc,
+    "cached_time"=> $time,
+    "availability"=> $time+$cache_seconds,
+    "result"=> $result,
+    "get"=> $_GET,
+    "post"=> $_POST
 );
-
 echo json_encode($resultPage);
 ?>
