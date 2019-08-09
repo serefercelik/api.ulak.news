@@ -58,7 +58,7 @@
                         if($news['excerpt']['rendered']===""){
                             $news_spot=$news_title;
                         }
-                        $text=strip_tags(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $news['content']['rendered']), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a', 'src="', "src='", 'srcset='), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src=", 'srcsett='), $news['content']['rendered']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                         }

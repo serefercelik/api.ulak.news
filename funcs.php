@@ -354,6 +354,8 @@ function getImage($agency){
         case "hackpress":
             return "https://api.ulak.news/images/web/hackpress.svg";
             break;
+        case "diken":
+            return "https://api.ulak.news/images/web/diken.png";
         default:
             return "https://api.ulak.news/images/web/404.png";
     }
