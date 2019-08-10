@@ -316,7 +316,7 @@ function getCategorie($agency, $id){
     }elseif($agency==="cumhuriyet"){
         return explode(', ', $id);
     }elseif($agency==="diken"){
-        $cat='[{"id":21,"ismi":"9 Soruda"},{"id":6353,"ismi":"Advertorial"},{"id":12,"ismi":"Agora"},{"id":16,"ismi":"Ak\u015fam bask\u0131s\u0131"},{"id":14,"ismi":"Akt\u00fcel"},{"id":17,"ismi":"An itibar\u0131yla"},{"id":9,"ismi":"Analiz"},{"id":6356,"ismi":"Anket"},{"id":20,"ismi":"Astroloji"},{"id":827,"ismi":"Ba\u015f yaz\u0131"},{"id":287,"ismi":"Bir \u0130nsan"},{"id":18,"ismi":"Bir rakam bir insan"},{"id":288,"ismi":"Bir Say\u0131"},{"id":828,"ismi":"Bir s\u00f6z"},{"id":4349,"ismi":"Brasil2014"},{"id":6352,"ismi":"Brexit"},{"id":6354,"ismi":"Destek k\u00f6\u015fesi"},{"id":11,"ismi":"Diken \u00f6zel"},{"id":3962,"ismi":"Diken TV"},{"id":1292,"ismi":"Diken\'de bu hafta"},{"id":321,"ismi":"Diken\'e tak\u0131lanlar"},{"id":6347,"ismi":"Diken\'le 2015"},{"id":6351,"ismi":"Doktor K\u00f6\u015fesi"},{"id":13,"ismi":"D\u00fcnya"},{"id":1320,"ismi":"English"},{"id":15,"ismi":"G\u00fcn\u00fcn 11\'i"},{"id":7158,"ismi":"G\u00fcn\u00fcn eseri"},{"id":1521,"ismi":"G\u00fcn\u00fcn karesi"},{"id":6348,"ismi":"HAFTANIN SUYU"},{"id":19,"ismi":"Keyif"},{"id":216,"ismi":"Lorem ipsum"},{"id":366,"ismi":"Man\u015fet"},{"id":8,"ismi":"Medya"},{"id":6349,"ismi":"Panama Belgeleri"},{"id":6346,"ismi":"Perker"},{"id":7147,"ismi":"Sanat"},{"id":6350,"ismi":"Sarraf davas\u0131"},{"id":5676,"ismi":"Snowden"},{"id":6357,"ismi":"Spor"},{"id":1,"ismi":"Uncategorized"},{"id":6344,"ismi":"Vefat"},{"id":1111,"ismi":"Diken Vitrin"},{"id":6355,"ismi":"VPN Haber"}]';
+        $cat='[{"id":21,"ismi":"9 Soruda"},{"id":6353,"ismi":"Advertorial"},{"id":12,"ismi":"Agora"},{"id":16,"ismi":"Ak\u015fam bask\u0131s\u0131"},{"id":14,"ismi":"Akt\u00fcel"},{"id":17,"ismi":"An itibar\u0131yla"},{"id":9,"ismi":"Analiz"},{"id":6356,"ismi":"Anket"},{"id":20,"ismi":"Astroloji"},{"id":827,"ismi":"Ba\u015f yaz\u0131"},{"id":287,"ismi":"Bir \u0130nsan"},{"id":18,"ismi":"Bir rakam bir insan"},{"id":288,"ismi":"Bir Say\u0131"},{"id":828,"ismi":"Bir s\u00f6z"},{"id":4349,"ismi":"Brasil2014"},{"id":6352,"ismi":"Brexit"},{"id":6354,"ismi":"Destek k\u00f6\u015fesi"},{"id":11,"ismi":"Diken \u00f6zel"},{"id":3962,"ismi":"Diken TV"},{"id":1292,"ismi":"Diken de bu hafta"},{"id":321,"ismi":"Dikene tak\u0131lanlar"},{"id":6347,"ismi":"Dikenle 2015"},{"id":6351,"ismi":"Doktor K\u00f6\u015fesi"},{"id":13,"ismi":"D\u00fcnya"},{"id":1320,"ismi":"English"},{"id":15,"ismi":"G\u00fcn\u00fcn 11i"},{"id":7158,"ismi":"G\u00fcn\u00fcn eseri"},{"id":1521,"ismi":"G\u00fcn\u00fcn karesi"},{"id":6348,"ismi":"HAFTANIN SUYU"},{"id":19,"ismi":"Keyif"},{"id":216,"ismi":"Lorem ipsum"},{"id":366,"ismi":"Man\u015fet"},{"id":8,"ismi":"Medya"},{"id":6349,"ismi":"Panama Belgeleri"},{"id":6346,"ismi":"Perker"},{"id":7147,"ismi":"Sanat"},{"id":6350,"ismi":"Sarraf davas\u0131"},{"id":5676,"ismi":"Snowden"},{"id":6357,"ismi":"Spor"},{"id":1,"ismi":"Uncategorized"},{"id":6344,"ismi":"Vefat"},{"id":1111,"ismi":"Diken Vitrin"},{"id":6355,"ismi":"VPN Haber"}]';
         foreach(json_decode($cat, true) as $line){
             if($id==$line['id']){
                 $result=$line['ismi'];
@@ -325,6 +325,10 @@ function getCategorie($agency, $id){
         if(!isset($result)){
             return null;
         }
+        /**
+         * diken ise direk result çıkarıyoruz...
+         */
+        return $result;
     }
     return Sanitizer::toCat($result, true, true);
 }
@@ -353,6 +357,9 @@ function getImage($agency){
             break;
         case "hackpress":
             return "https://api.ulak.news/images/web/hackpress.svg";
+            break;
+        case "diken":
+            return "https://api.ulak.news/images/web/diken.png";
             break;
         default:
             return "https://api.ulak.news/images/web/404.png";

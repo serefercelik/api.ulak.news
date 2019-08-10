@@ -19,17 +19,22 @@
                                         $cats[]=$resCat;
                                     }
                                 }
+                                if(array_key_exists('wp:featuredmedia', $raw['_embedded'])){
+                                    $news_image=$raw['_embedded']['wp:featuredmedia'][0]['source_url'];
+                                }else{
+                                    $news_image="https://api.ulak.news/images/web/diken_manset.png";
+                                }
                                 $catNews[]=array(
                                     "agency"=>"diken",
                                     "agency_title"=>"Diken",
                                     "categories"=>$cats,
                                     "id"=>$new_id,
-                                    "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $news['date']))),
+                                    "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $raw['date']))),
                                     "date_u"=>getUnixTime($raw['date']),
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "diken", $new_id),
                                     "spot"=>$raw['excerpt']['rendered'],
-                                    "image"=>"https://images.ulak.news/?src=".$raw['_embedded']['wp:featuredmedia'][0]['source_url'],
+                                    "image"=>"https://images.ulak.news/?src=".$news_image,
                                     "url"=>$raw['link']
                                 );
                     }
@@ -50,15 +55,21 @@
                     if($news!=null){
                         $desc="from agency";
                         $status=true;
+                        $news_image="";
                         $news_title=$news['title']['rendered'];
                         //image check
-                        $news_image=$news['_embedded']['wp:featuredmedia'][0]['source_url'];
+
+                        if(array_key_exists('wp:featuredmedia', $news['_embedded'])){
+                            $news_image=$news['_embedded']['wp:featuredmedia'][0]['source_url'];
+                        }else{
+                            $news_image="https://api.ulak.news/images/web/diken_manset.png";
+                        }
 
                         $news_spot=$news['excerpt']['rendered'];
                         if($news['excerpt']['rendered']===""){
                             $news_spot=$news_title;
                         }
-                        $text=strip_tags(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $news['content']['rendered']), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a', 'src="', "src='", 'srcset='), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src=", ''), $news['content']['rendered']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                         }
@@ -87,9 +98,7 @@
                             "url"=>$news['link'],
                             "read_times"=>1
                         );
-                        if(isset($news_image)){
                            saveDatabase($agency, $result);
-                        }
                     }
                 }else{
                     $desc="Diken ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
