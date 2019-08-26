@@ -371,7 +371,7 @@ function mostRead($arg, $limit=10){
             array(
                 'visible'=>true,
                 'date_u'=>
-                    array('$gte'=>$range['start'], '$lt'=>$range['end'])
+                    array('$gte'=>$range['start'], '$lte'=>$range['end'])
             ),
             array(
                 'sort'=>

@@ -102,8 +102,8 @@ function checkToken(){
  */
 function rangeMonthThis (){
     return array (
-      "start" => date("Ymt"),
-      "end" => date("Ymt")
+      "start" => (int)strtotime(date("Ym01")),
+      "end" => (int)strtotime(date("Ymt"))
     );
 }
 
