@@ -34,7 +34,7 @@
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "diken", $new_id),
                                     "spot"=>$raw['excerpt']['rendered'],
-                                    "image"=>"https://images.ulak.news/?src=".$news_image,
+                                    "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                                     "url"=>$raw['link']
                                 );
                     }
@@ -69,7 +69,7 @@
                         if($news['excerpt']['rendered']===""){
                             $news_spot=$news_title;
                         }
-                        $text=strip_tags(str_replace(array('<a', 'src="', "src='", 'srcset='), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src=", ''), $news['content']['rendered']), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a', 'src="', "src='", 'srcset='), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src=", ''), $news['content']['rendered']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                         }
@@ -94,7 +94,7 @@
                             "spot"=>$news_spot,
                             "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
-                            "image"=>"https://images.ulak.news/?src=".$news_image,
+                            "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                             "url"=>$news['link'],
                             "read_times"=>1
                         );

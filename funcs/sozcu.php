@@ -25,7 +25,7 @@
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "sozcu", $new_id),
                                     "spot"=>$news_title,
-                                    "image"=>"https://images.ulak.news/?src=".$raw['image'],
+                                    "image"=>"https://images.ulak.news/index2.php?src=".$raw['image'],
                                     "url"=>null
                                 );
                             }
@@ -58,7 +58,7 @@
                             $news[0]['category']="Sözcü Diğer";
                         }
                         $cat=Sanitizer::toCat($news[0]['category'], true, true);
-                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src="), $news[0]['content'])), $allowed_tags);
+                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src="), $news[0]['content'])), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                             $desc="from agency not saved text or title so short ";
@@ -77,7 +77,7 @@
                             "spot"=>$news_title,
                             "keywords"=>keywords($news_title),
                             "saved_date"=>time(),
-                            "image"=>"https://images.ulak.news/?src=".$news_image,
+                            "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                             "url"=>$news[0]['permalink'],
                             "read_times"=>1
                         );

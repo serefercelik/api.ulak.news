@@ -35,7 +35,7 @@
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "haberturk", $new_id),
                                     "spot"=>$itemRaw['haber_spot'],
-                                    "image"=>"https://images.ulak.news/?src=".$itemRaw['mansetPhoto'],
+                                    "image"=>"https://images.ulak.news/index2.php?src=".$itemRaw['mansetPhoto'],
                                     "url"=>$itemRaw['httpurl']
                                 );
                             }
@@ -101,7 +101,7 @@
                     if($news['kategori_adi']===""){
                         $news_cat="HaberTürk Yazılar";
                     }
-                    $text=str_replace(array('<a', 'src="', "src='", '\n'), array('<a target="_blank"', 'src="https://images.ulak.news/?src=', "src='https://images.ulak.news/?src=", '<br>'), $text);
+                    $text=str_replace(array('<a', 'src="', "src='", '\n'), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src=", '<br>'), $text);
                     $text=strip_tags($text, $allowed_tags);
                     if(strlen($news_title)<=8 || strlen($text)<=8 ){
                         $status=false;
@@ -120,7 +120,7 @@
                         "spot"=>$news_spot,
                         "keywords"=>keywords($news_spot),
                         "saved_date"=>time(),
-                        "image"=>"https://images.ulak.news/?src=".$news_image,
+                        "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                         "url"=>$news['url'],
                         "read_times"=>1
                     );
