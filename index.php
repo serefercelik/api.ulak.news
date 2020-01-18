@@ -217,12 +217,12 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
-                        $islem_sputnik=get_sputnik();
-                        if($islem_sputnik['status']){
-                            foreach($islem_sputnik['result'] as $raw){
-                                $all[]=$raw;
-                            }
-                        }
+                        // $islem_sputnik=get_sputnik();
+                        // if($islem_sputnik['status']){
+                        //     foreach($islem_sputnik['result'] as $raw){
+                        //         $all[]=$raw;
+                        //     }
+                        // }
                         $islem_sozcu=get_sozcu();
                         if($islem_sozcu['status']){
                             foreach($islem_sozcu['result'] as $raw){
@@ -271,12 +271,12 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
-                        $islem_sputnik=get_sputnik();
-                        if($islem_sputnik['status']){
-                            foreach($islem_sputnik['result'] as $raw){
-                                $all[]=$raw;
-                            }
-                        }
+                        // $islem_sputnik=get_sputnik();
+                        // if($islem_sputnik['status']){
+                        //     foreach($islem_sputnik['result'] as $raw){
+                        //         $all[]=$raw;
+                        //     }
+                        // }
                         $islem_sozcu=get_sozcu();
                         if($islem_sozcu['status']){
                             foreach($islem_sozcu['result'] as $raw){
@@ -346,11 +346,11 @@ if($apikey_result){
                             "image"=>getImage("haberturk"),
                             "seo_link"=>'kaynak_haberturk.html',
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
-                        "sputnik"=>array(
-                            "title"=>"Sputnik",
-                            "image"=>getImage("sputnik"),
-                            "seo_link"=>'kaynak_sputnik.html',
-                            "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. ")
+                        // "sputnik"=>array(
+                        //     "title"=>"Sputnik",
+                        //     "image"=>getImage("sputnik"),
+                        //     "seo_link"=>'kaynak_sputnik.html',
+                        //     "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. ")
                         // "hackpress"=>array(
                         //     "title"=>"Hack Press",
                         //     "image"=>getImage("hackpress"),
