@@ -33,7 +33,7 @@
                                     "date_u"=>getUnixTime($raw['date']),
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "diken", $new_id),
-                                    "spot"=>$raw['excerpt']['rendered'],
+                                    "spot"=>trim(preg_replace('/\s\s+/', ' ',$raw['excerpt']['rendered'])),
                                     "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                                     "url"=>$raw['link']
                                 );

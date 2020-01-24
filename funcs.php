@@ -76,7 +76,7 @@ function caticon($s){
  * keyword oluşturucu
  */
 function keywords($s){
-    return str_replace(array(' ', '!', '.', '”','“',',,','’','\n',"'"), array(', ', '','','','','','','',''), strtolower(strip_tags($s)));
+    return explode(',', str_replace(array(',',' ', '!', '.', '”','“',',,','’','\n',"'", "&quot;", '&#039;'), array('', ',', '','','','','','','','', '', ''), strtolower(rtrim(strip_tags($s)))));
 }
 
 /**

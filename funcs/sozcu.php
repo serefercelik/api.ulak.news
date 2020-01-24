@@ -58,7 +58,7 @@
                             $news[0]['category']="Sözcü Diğer";
                         }
                         $cat=Sanitizer::toCat($news[0]['category'], true, true);
-                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='"), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src="), $news[0]['content'])), $allowed_tags);
+                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='", 'aip(\'pageStructure\', {"pageUrl":"https:\/\/www.sozcu.com.tr\/apiv2","pageCanonical":"https:\/\/www.sozcu.com.tr\/apiv2","pageType":"diger","pageIdentifier":"","pageCategory1":"sozcu","pageCategory2":"","pageCategory3":"","pageCategory4":"","pageCategory5":"","pageTitle":" - S\u00f6zc\u00fc Gazetesi"});&lt;/script&gt;'), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src=", ''), $news[0]['content'])), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
                             $desc="from agency not saved text or title so short ";

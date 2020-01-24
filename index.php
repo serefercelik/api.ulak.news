@@ -231,8 +231,11 @@ if($apikey_result){
                         }
                         $islem_diken=get_diken();
                         if($islem_diken['status']){
-                            foreach($islem_diken['result'] as $raw){
+                            foreach($islem_diken['result'] as $index =>$raw){
                                 $all[]=$raw;
+                                if($index === 1){
+                                break;
+                                }
                             }
                         }
                             $sortArray = array();
@@ -243,7 +246,7 @@ if($apikey_result){
                                     } 
                                     $sortArray[$key][] = $value; 
                                 } 
-                            } 
+                            }
                             $orderby = "date_u"; //change this to whatever key you want from the array 
                             array_multisort($sortArray[$orderby],SORT_DESC,$all); 
                             $status=true;
@@ -350,7 +353,7 @@ if($apikey_result){
                         //     "title"=>"Sputnik",
                         //     "image"=>getImage("sputnik"),
                         //     "seo_link"=>'kaynak_sputnik.html',
-                        //     "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. ")
+                        //     "about"=>"Sputnik, 10 Kasım 2014'te Rossiya Segodnya tarafından kurulan Moskova merkezli uluslararası medya kuruluşu. Dünyanın farklı bölgelerinde ofisleri bulunmaktadır. Sputnik, yayınlarını 34 ülkeyi kapsayan 130 şehirde, günde toplam 800 saatin üzerinde internet sitesinden ve radyo istasyonlarından yapar. "),
                         // "hackpress"=>array(
                         //     "title"=>"Hack Press",
                         //     "image"=>getImage("hackpress"),
