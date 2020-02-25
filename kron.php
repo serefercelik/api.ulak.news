@@ -1,5 +1,5 @@
 <?php
-    set_time_limit(300);
+    set_time_limit(600);
 
     header('Content-Type: application/json; charset=utf-8');
     include("env.php");
