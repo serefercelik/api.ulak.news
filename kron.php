@@ -3,6 +3,12 @@
 
     header('Content-Type: application/json; charset=utf-8');
     include("env.php");
+    if(!isset($_SERVER['HTTP_X_SITE_TOKEN'])){
+        $_SERVER['HTTP_X_SITE_TOKEN'] = "";
+    }
+    if(!isset($_SERVER['HTTP_X_SITE'])){
+        $_SERVER['HTTP_X_SITE'] = "";
+    }
     if(isset($_GET['key']) && $_GET['key']===$_ENV['cron_key']){
 
 		///// CACHE //////////
@@ -11,7 +17,7 @@
 				'time'   => 1200, // 60 saniye
 				'dir'    => 'cache/', // sCache2 klasörü oluşturup buraya yazılsın.
 				'load'   => false,  // sayfamızın sonunda load değerimiz görünsün.
-				'extension' => ".json", // standart değer .html olarak ayarlanmıştır cache dosyalarınızın uzantısını temsil etmektedir.
+				'extension' => ".json", // extension
 				);
 			
 			$sCache = new sCache($options); // ayarları sınıfımıza gönderip sınıfı çalıştıralım.
