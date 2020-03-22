@@ -1,4 +1,7 @@
 <?php
+ignore_user_abort(true);
+set_time_limit(0);
+
 header("Content-type:application/json");
 
 include("funcs.php");
@@ -223,12 +226,12 @@ if($apikey_result){
                         //         $all[]=$raw;
                         //     }
                         // }
-                        $islem_sozcu=get_sozcu();
-                        if($islem_sozcu['status']){
-                            foreach($islem_sozcu['result'] as $raw){
-                                $all[]=$raw;
-                            }
-                        }
+                        // $islem_sozcu=get_sozcu();
+                        // if($islem_sozcu['status']){
+                        //     foreach($islem_sozcu['result'] as $raw){
+                        //         $all[]=$raw;
+                        //     }
+                        // }
                         $islem_diken=get_diken();
                         if($islem_diken['status']){
                             foreach($islem_diken['result'] as $index =>$raw){

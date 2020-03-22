@@ -4,13 +4,14 @@
  * ilgili haberin read_times inı artırır.
  */
 function read_new($agency, $new_id){
-        $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
-        $bulk = new MongoDB\Driver\BulkWrite;
-        $bulk->update(
-            array('id' => $new_id, 'agency'=>$agency),
-            array('$inc' => array('read_times' => 1))
-        );
-        $manager->executeBulkWrite('db.news', $bulk);
+        return true;
+        // $manager = new MongoDB\Driver\Manager($_ENV["mongo_conn"]);
+        // $bulk = new MongoDB\Driver\BulkWrite;
+        // $bulk->update(
+        //     array('id' => $new_id, 'agency'=>$agency),
+        //     array('$inc' => array('read_times' => 1))
+        // );
+        // $manager->executeBulkWrite('db.news', $bulk);
 }
 
 /**

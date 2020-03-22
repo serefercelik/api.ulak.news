@@ -1,94 +1,103 @@
 <?php
 
-            /// SÖZCÜ BAŞLANGIÇ ////
+            /// SÖZCÜ ///
             function get_sozcu(){
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
                 $catNews=null;
                 $status=false;
-                $file=curl_function_sozcu(); // Tüm manşetler
+                $file=curl_function("{$_ENV["get_sozcu"]}?status=acf-disabled&time=".time()); // Tüm manşetler
                 if($file['status']){
-                    if($file['result']['success']){
-                        $desc="from agency";
-                        $status=true;
-                        foreach($file['result']['data'] as $raw){
-                            if($raw['slug']==="sozcu"){
-                                $date=gmdate("d.m.Y H:i:s", $raw['date']);
-                                $news_title=$raw['title'];
-                                $new_id=(int)$raw['post_id'];
+                    $desc="from agency";
+                    $status=true;
+                    foreach($file['result'] as $raw){
+                                $news_title=$raw['title']['rendered'];
+                                $new_id=(int)$raw['id'];
+                                
+                                // $news_html = get_meta_tags($raw['link']);
+
+                                // if($news_html['twitter:image'] === null){
+                                //     $news_image = "https://api.ulak.news/images/web/sozcu.png";
+                                // }else{
+                                //     $news_image = $news_html['twitter:image'];
+                                // }
+
                                 $catNews[]=array(
                                     "agency"=>"sozcu",
                                     "agency_title"=>"Sözcü",
-                                    "categories"=>array($raw['category']),
+                                    // "categories"=>[explode(',', $news_html['sgm:pagecat'])[0]],
                                     "id"=>$new_id,
-                                    "date"=>$date,
-                                    "date_u"=>$raw['date'],
+                                    "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $raw['date']))),
+                                    "date_u"=>getUnixTime($raw['date']),
                                     "title"=>$news_title,
                                     "seo_link"=>seolink($news_title, "sozcu", $new_id),
-                                    "spot"=>$news_title,
-                                    "image"=>"https://images.ulak.news/index2.php?src=".$raw['image'],
-                                    "url"=>null
+                                    "spot"=>trim(preg_replace('/\s\s+/', ' ',$raw['excerpt']['rendered'])),
+                                    // "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
+                                    "url"=>$raw['link']
                                 );
-                            }
-                        }
-                    };
+                    }
                 }else{
-                    $desc="Sözcü ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
+                    $desc="sozcu ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
                 }
                 return array("status"=>$status, "result"=>$catNews, "desc"=>$desc);
             }
+            
             function get_sozcu_new($new_id){
                 global $agency, $allowed_tags;
                 $status=false;
                 $result=null;
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
-                $file=curl_function_sozcu_new($new_id);
+                $file=curl_function("{$_ENV['get_sozcu']}/{$new_id}?_embed&time=".time());
                 if($file['status']){
-                    $news=$file['result']['data'];
-                    if($news[0]['post_id']!=null){
+                    $news=$file['result'];
+                    if($news!=null){
                         $desc="from agency";
                         $status=true;
-                        $date=gmdate("d.m.Y H:i:s", $news[0]['date']);
-                        $news_title=html_entity_decode($news[0]['title']);
-                        //image check
-                        $news_image=$news[0]['image'];
-                        if(!isset($news[0]['image'])){
-                            $news_image=null;
+                        $news_image="";
+                        $news_title=$news['title']['rendered'];
+
+                        $news_html = get_meta_tags($news['link']);
+
+                        if($news_html['twitter:image'] === null){
+                            $news_image = "https://api.ulak.news/images/web/sozcu.png";
+                        }else{
+                            $news_image = $news_html['twitter:image'];
                         }
-                        if($news[0]['category']===null){
-                            $news[0]['category']="Sözcü Diğer";
+
+                        $news_spot=$news['excerpt']['rendered'];
+                        if($news['excerpt']['rendered']===""){
+                            $news_spot=$news_title;
                         }
-                        $cat=Sanitizer::toCat($news[0]['category'], true, true);
-                        $text=strip_tags(htmlspecialchars_decode(str_replace(array('<a', 'src="', "src='", 'aip(\'pageStructure\', {"pageUrl":"https:\/\/www.sozcu.com.tr\/apiv2","pageCanonical":"https:\/\/www.sozcu.com.tr\/apiv2","pageType":"diger","pageIdentifier":"","pageCategory1":"sozcu","pageCategory2":"","pageCategory3":"","pageCategory4":"","pageCategory5":"","pageTitle":" - S\u00f6zc\u00fc Gazetesi"});&lt;/script&gt;'), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src=", ''), $news[0]['content'])), $allowed_tags);
+                        $text=strip_tags(str_replace(array('<a', 'src="', "src='", 'srcset=', 'aip(\'pageStructure\', {\"pageUrl\":\"https:\\/\\/www.sozcu.com.tr\\/wp-json\\/wp\\/v2\\/posts\\/'.$new_id.'\",\"pageCanonical\":\"https:\\/\\/www.sozcu.com.tr\\/wp-json\\/wp\\/v2\\/posts\\/'.$new_id.'\",\"pageType\":\"diger\",\"pageIdentifier\":\"\",\"pageCategory1\":\"sozcu\",\"pageCategory2\":\"\",\"pageCategory3\":\"\",\"pageCategory4\":\"\",\"pageCategory5\":\"\",\"pageTitle\":\" - S\\u00f6zc\\u00fc Gazetesi\"});'), array('<a target="_blank"', 'src="https://images.ulak.news/index2.php?src=', "src='https://images.ulak.news/index2.php?src=", '', ''), $news['content']['rendered']), $allowed_tags);
                         if(strlen($news_title)<=8 || strlen($text)<=8 ){
                             $status=false;
-                            $desc="from agency not saved text or title so short ";
                         }
+
                         $result=array(
                             "visible"=>true,
                             "agency"=>"sozcu",
                             "agency_title"=>"Sözcü",
-                            "title"=>$news_title,
-                            "text"=>html_entity_decode($text),
-                            "categories"=>array($cat),
-                            "id"=>$new_id,
-                            "date"=>$date,
-                            "date_u"=>getUnixTime($date),
+                            "text"=>$text,
+                            "categories"=>[explode(',', $news_html['sgm:pagecat'])[0]],
+                            "id"=>(int)$news['id'],
+                            "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $news['date']))),
+                            "date_u"=>getUnixTime($news['date']),
                             "seo_link"=>seolink($news_title, "sozcu", $new_id),
-                            "spot"=>$news_title,
-                            "keywords"=>keywords($news_title),
+                            "title"=>$news_title,
+                            "spot"=>$news_spot,
+                            "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
                             "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
-                            "url"=>$news[0]['permalink'],
+                            "url"=>$news['link'],
                             "read_times"=>1
                         );
-                        if(isset($news_image)){
-                            saveDatabase($agency, $result);
-                        }
+                            if($news_image !== "https://api.ulak.news/images/web/sozcu.png"){
+                                saveDatabase($agency, $result);
+                            }
                     }
                 }else{
-                    $desc="Sözcü ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
+                    $desc="sozcu ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
                 }
                 return array("status"=>$status, "result"=>$result, "desc"=>$desc);
             }
-
-            ?>
+                    // SÖZCÜ BİTİŞ ///
+?>

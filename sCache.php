@@ -8,6 +8,13 @@
 * Update : 29.06.2016
 * Edited by Orhan AYDOGDU - FOR ULAK.NEWS
 */
+if(!isset($_SERVER['HTTP_X_SITE_TOKEN'])){
+	$_SERVER['HTTP_X_SITE_TOKEN'] = "";
+}
+if(!isset($_SERVER['HTTP_X_SITE'])){
+	$_SERVER['HTTP_X_SITE'] = "";
+}
+
 class sCache {
 	
 	private  $cache = null;
