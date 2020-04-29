@@ -32,7 +32,7 @@
             }
             
             function get_odatv_new($new_id){
-                global $agency, $allowed_tags;
+                global $agency, $allowed_tags, $s3;
                 $status=false;
                 $result=null;
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
@@ -45,6 +45,12 @@
                         $news_title=$news[0]['haber_baslik'];
                         //image check
                         $news_image=$news[0]['resim'];
+                        $ext = pathinfo(parse_url($news_image, PHP_URL_PATH), PATHINFO_EXTENSION);
+                        if(strlen($ext)<1){
+                            $ext = ".jpg";
+                        }
+                        $upload = $s3->upload(md5($news_image).'.'.$ext, $news_image, true);
+                        $news_image  = $upload['result']['ObjectURL'];
                         $news_spot=$news[0]['haber_spot'];
                         if($news[0]['haber_spot']===""){
                             $news_spot=$news_title;
@@ -67,7 +73,7 @@
                             "spot"=>$news_spot,
                             "keywords"=>keywords($news_spot),
                             "saved_date"=>time(),
-                            "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
+                            "image"=>$news_image,
                             "url"=>$news[0]['haber_url'],
                             "read_times"=>1
                         );

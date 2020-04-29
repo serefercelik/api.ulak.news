@@ -2,7 +2,13 @@
 ignore_user_abort(true);
 set_time_limit(0);
 
+
 header("Content-type:application/json");
+
+require_once 'S3.php';
+use UlakNews\S3;
+
+$s3 = new S3('ulaknews-images');
 
 include("funcs.php");
 
@@ -116,42 +122,42 @@ if($apikey_result){
                         }
                     }
                 break;
-                case "sputnik":
-                    if($agency_new){
-                            if(!$saved_new){
-                                $islem=get_sputnik_new($new_id);
-                            }
-                            $status=$islem['status'];
-                            $result=$islem['result'];
-                            $desc=$islem['desc'];
-                    }else{
-                        $islem=get_sputnik();
-                        $status=$islem['status'];
-                        $desc=$islem['desc'];
-                        $result=$islem['result'];
-                        if($limit>0){
-                            $result=array_splice($result, $start, $limit);
-                        }
-                    }
-                break;
-                case "cumhuriyet":
-                if($agency_new){
-                        if(!$saved_new){
-                            $islem=get_cumhuriyet_new($new_id);
-                        }
-                        $status=$islem['status'];
-                        $result=$islem['result'];
-                        $desc=$islem['desc'];
-                }else{
-                    $islem=get_cumhuriyet();
-                    $status=$islem['status'];
-                    $desc=$islem['desc'];
-                    $result=$islem['result'];
-                    if($limit>0){
-                        $result=array_splice($result, $start, $limit);
-                    }
-                }
-                break;
+                // case "sputnik":
+                //     if($agency_new){
+                //             if(!$saved_new){
+                //                 $islem=get_sputnik_new($new_id);
+                //             }
+                //             $status=$islem['status'];
+                //             $result=$islem['result'];
+                //             $desc=$islem['desc'];
+                //     }else{
+                //         $islem=get_sputnik();
+                //         $status=$islem['status'];
+                //         $desc=$islem['desc'];
+                //         $result=$islem['result'];
+                //         if($limit>0){
+                //             $result=array_splice($result, $start, $limit);
+                //         }
+                //     }
+                // break;
+                // case "cumhuriyet":
+                // if($agency_new){
+                //         if(!$saved_new){
+                //             $islem=get_cumhuriyet_new($new_id);
+                //         }
+                //         $status=$islem['status'];
+                //         $result=$islem['result'];
+                //         $desc=$islem['desc'];
+                // }else{
+                //     $islem=get_cumhuriyet();
+                //     $status=$islem['status'];
+                //     $desc=$islem['desc'];
+                //     $result=$islem['result'];
+                //     if($limit>0){
+                //         $result=array_splice($result, $start, $limit);
+                //     }
+                // }
+                // break;
                 case "sozcu":
                     if($agency_new){
                             if(!$saved_new){
@@ -170,24 +176,24 @@ if($apikey_result){
                         }
                     }
                 break;
-                case "hackpress":
-                    if($agency_new){
-                            if(!$saved_new){
-                                $islem=get_hackpress_new($new_id);
-                            }
-                            $status=$islem['status'];
-                            $result=$islem['result'];
-                            $desc=$islem['desc'];
-                    }else{
-                        $islem=get_hackpress();
-                        $status=$islem['status'];
-                        $desc=$islem['desc'];
-                        $result=$islem['result'];
-                        if($limit>0){
-                            $result=array_splice($result, $start, $limit);
-                        }
-                    }
-                break;
+                // case "hackpress":
+                //     if($agency_new){
+                //             if(!$saved_new){
+                //                 $islem=get_hackpress_new($new_id);
+                //             }
+                //             $status=$islem['status'];
+                //             $result=$islem['result'];
+                //             $desc=$islem['desc'];
+                //     }else{
+                //         $islem=get_hackpress();
+                //         $status=$islem['status'];
+                //         $desc=$islem['desc'];
+                //         $result=$islem['result'];
+                //         if($limit>0){
+                //             $result=array_splice($result, $start, $limit);
+                //         }
+                //     }
+                // break;
                 case "diken":
                     if($agency_new){
                         if(!$saved_new){
@@ -198,6 +204,24 @@ if($apikey_result){
                         $desc=$islem['desc'];
                     }else{
                         $islem=get_diken();
+                        $status=$islem['status'];
+                        $desc=$islem['desc'];
+                        $result=$islem['result'];
+                        if($limit>0){
+                            $result=array_splice($result, $start, $limit);
+                        }
+                    }
+                break;
+                case "halkweb":
+                    if($agency_new){
+                        if(!$saved_new){
+                            $islem=get_halkweb_new($new_id);
+                        }
+                        $status=$islem['status'];
+                        $result=$islem['result'];
+                        $desc=$islem['desc'];
+                    }else{
+                        $islem=get_halkweb();
                         $status=$islem['status'];
                         $desc=$islem['desc'];
                         $result=$islem['result'];
@@ -220,18 +244,30 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
+                        $islem_halkweb=get_odatv();
+                        if($islem_halkweb['status']){
+                            foreach($islem_halkweb['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         // $islem_sputnik=get_sputnik();
                         // if($islem_sputnik['status']){
                         //     foreach($islem_sputnik['result'] as $raw){
                         //         $all[]=$raw;
                         //     }
                         // }
-                        // $islem_sozcu=get_sozcu();
-                        // if($islem_sozcu['status']){
-                        //     foreach($islem_sozcu['result'] as $raw){
-                        //         $all[]=$raw;
-                        //     }
-                        // }
+                        $islem_sozcu=get_sozcu();
+                        if($islem_sozcu['status']){
+                            foreach($islem_sozcu['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
+                        $islem_halkweb=get_halkweb();
+                        if($islem_halkweb['status']){
+                            foreach($islem_halkweb['result'] as $raw){
+                                $all[]=$raw;
+                            }
+                        }
                         $islem_diken=get_diken();
                         if($islem_diken['status']){
                             foreach($islem_diken['result'] as $index =>$raw){
@@ -289,12 +325,18 @@ if($apikey_result){
                                 $all[]=$raw;
                             }
                         }
-                        $islem_cumhuriyet=get_cumhuriyet();
-                        if($islem_cumhuriyet['status']){
-                            foreach($islem_cumhuriyet['result'] as $raw){
+                        $islem_halkweb=get_halkweb();
+                        if($islem_halkweb['status']){
+                            foreach($islem_halkweb['result'] as $raw){
                                 $all[]=$raw;
                             }
                         }
+                        // $islem_cumhuriyet=get_cumhuriyet();
+                        // if($islem_cumhuriyet['status']){
+                        //     foreach($islem_cumhuriyet['result'] as $raw){
+                        //         $all[]=$raw;
+                        //     }
+                        // }
                         $islem_diken=get_diken();
                         if($islem_diken['status']){
                             foreach($islem_diken['result'] as $raw){
@@ -337,11 +379,11 @@ if($apikey_result){
                             "image"=>getImage("diken"),
                             "seo_link"=>'kaynak_diken.html',
                             "about"=>"Diken’in misyonu net ve kısa: Ülkemizde gül bahçesine dönüştürülmek istenen medyanın dikeni olup, köklerinden sallanmaya başlayan demokrasimizi, temel özgürlüklerimizi ve laikliği savunmak. Bu misyonu yerine getirirken de gazetecilik mesleğine hak ettiği itibar ve onuru yeniden kazandırmak."),
-                        "cumhuriyet"=>array(
-                            "title"=>"Cumhuriyet",
-                            "image"=>getImage("cumhuriyet"),
-                            "seo_link"=>'kaynak_cumhuriyet.html',
-                            "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
+                        // "cumhuriyet"=>array(
+                        //     "title"=>"Cumhuriyet",
+                        //     "image"=>getImage("cumhuriyet"),
+                        //     "seo_link"=>'kaynak_cumhuriyet.html',
+                        //     "about"=>"Cumhuriyet Gazetesi, \"amacını toplum yaşamına katıldığı 7 Mayıs 1924'te yayınladığı ilk sayısında kurucusu Yunus Nadi'nin kalemiyle belirlemiştir. Cumhuriyet, ne hükümet ne de parti gazetesidir. Cumhuriyet yalnız Cumhuriyet'in, bilimsel ve yaygın anlatımıyla demokrasinin savunucusudur. "),
                         "odatv"=>array(
                             "title"=>"Odatv",
                             "image"=>getImage("odatv"),
@@ -352,6 +394,11 @@ if($apikey_result){
                             "image"=>getImage("haberturk"),
                             "seo_link"=>'kaynak_haberturk.html',
                             "about"=>"Habertürk, Ciner Yayın Holding bünyesinde 1 Mart 2009 tarihinde yayın hayatına başlayan günlük gazeteydi. Son sayısı 5 Temmuz 2018'de çıktı. "),
+                        "haberturk"=>array(
+                            "title"=>"HalkWeb",
+                            "image"=>getImage("halkweb"),
+                            "seo_link"=>'kaynak_halkweb.html',
+                            "about"=>"Halkweb, halkweb.com.tr Genel Yayın Yönetmeni Orhan ŞAHİN"),
                         // "sputnik"=>array(
                         //     "title"=>"Sputnik",
                         //     "image"=>getImage("sputnik"),

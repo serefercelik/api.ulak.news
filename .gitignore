@@ -5,3 +5,4 @@ test.php
 cache/*/*.json
 funcs/vendor/*
 cache/
+vendor/*

@@ -1,11 +1,11 @@
 <?php
 
-            /// DİKEN ///
-            function get_diken(){
+            /// HALKWEB ///
+            function get_halkweb(){
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
                 $catNews=null;
                 $status=false;
-                $file=curl_function("{$_ENV["get_diken"]}?per_page=25&_embed"); // Tüm manşetler
+                $file=curl_function_odatv("{$_ENV["get_halkweb"]}?per_page=25&_embed"); // Tüm manşetler
                 if($file['status']){
                     $desc="from agency";
                     $status=true;
@@ -14,7 +14,7 @@
                                 $new_id=(int)$raw['id'];
                                 $cats=[];
                                 foreach($raw['categories'] as $subcat){
-                                    $resCat=getCategorie("diken", $subcat);
+                                    $resCat=getCategorie("halkweb", $subcat);
                                     if($resCat!==null){
                                         $cats[]=$resCat;
                                     }
@@ -22,34 +22,34 @@
                                 if(array_key_exists('wp:featuredmedia', $raw['_embedded'])){
                                     $news_image=$raw['_embedded']['wp:featuredmedia'][0]['source_url'];
                                 }else{
-                                    $news_image="https://api.ulak.news/images/web/diken_manset.png";
+                                    $news_image="https://api.ulak.news/images/web/halkweb_manset.png";
                                 }
                                 $catNews[]=array(
-                                    "agency"=>"diken",
-                                    "agency_title"=>"Diken",
+                                    "agency"=>"halkweb",
+                                    "agency_title"=>"Halkweb",
                                     "categories"=>$cats,
                                     "id"=>$new_id,
                                     "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $raw['date']))),
                                     "date_u"=>getUnixTime($raw['date']),
                                     "title"=>$news_title,
-                                    "seo_link"=>seolink($news_title, "diken", $new_id),
+                                    "seo_link"=>seolink($news_title, "halkweb", $new_id),
                                     "spot"=>trim(preg_replace('/\s\s+/', ' ',$raw['excerpt']['rendered'])),
                                     "image"=>"https://images.ulak.news/index2.php?src=".$news_image,
                                     "url"=>$raw['link']
                                 );
                     }
                 }else{
-                    $desc="Diken ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
+                    $desc="Halkweb ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
                 }
                 return array("status"=>$status, "result"=>$catNews, "desc"=>$desc);
             }
             
-            function get_diken_new($new_id){
+            function get_halkweb_new($new_id){
                 global $agency, $allowed_tags, $s3;
                 $status=false;
                 $result=null;
                 $desc="İstediğiniz artık yok veya hatalı işlem.";
-                $file=curl_function("{$_ENV['get_diken']}/{$new_id}?_embed");
+                $file=curl_function_odatv("{$_ENV['get_halkweb']}/{$new_id}?_embed");
                 if($file['status']){
                     $news=$file['result'];
                     if($news!=null){
@@ -68,7 +68,7 @@
                             $upload = $s3->upload(md5($news_image).'.'.$ext, $news_image, true);
                             $news_image  = $upload['result']['ObjectURL'];
                         }else{
-                            $news_image="https://api.ulak.news/images/web/diken_manset.png";
+                            $news_image="https://api.ulak.news/images/web/halkweb_manset.png";
                         }
 
                         $news_spot=$news['excerpt']['rendered'];
@@ -81,21 +81,21 @@
                         }
                         $cats=[];
                         foreach($news['categories'] as $subcat){
-                            $resCat=getCategorie("diken", $subcat);
+                            $resCat=getCategorie("halkweb", $subcat);
                             if($resCat!==null){
                                 $cats[]=$resCat;
                             }
                         }
                         $result=array(
                             "visible"=>true,
-                            "agency"=>"diken",
-                            "agency_title"=>"Diken",
+                            "agency"=>"halkweb",
+                            "agency_title"=>"Halkweb",
                             "text"=>$text,
                             "categories"=>$cats,
                             "id"=>(int)$news['id'],
                             "date"=>date('d.m.Y H:i:s', getUnixTime(str_replace('T', ' ', $news['date']))),
                             "date_u"=>getUnixTime($news['date']),
-                            "seo_link"=>seolink($news_title, "diken", $new_id),
+                            "seo_link"=>seolink($news_title, "halkweb", $new_id),
                             "title"=>$news_title,
                             "spot"=>$news_spot,
                             "keywords"=>keywords($news_spot),
@@ -107,7 +107,7 @@
                            saveDatabase($agency, $result);
                     }
                 }else{
-                    $desc="Diken ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
+                    $desc="Halkweb ile bağlantı kurulamadı. api@orhanaydogdu.com.tr";
                 }
                 return array("status"=>$status, "result"=>$result, "desc"=>$desc);
             }

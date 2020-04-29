@@ -329,6 +329,20 @@ function getCategorie($agency, $id){
          * diken ise direk result çıkarıyoruz...
          */
         return $result;
+    }elseif($agency==="halkweb"){
+        $cat='[{"ismi":"D\u00fcnya","id":19},{"ismi":"Ekonomi","id":6},{"ismi":"G\u00fcndem","id":1},{"ismi":"Konuk Yazar","id":13050},{"ismi":"K\u00fclt\u00fcr - Sanat","id":7},{"ismi":"Magazin","id":10005},{"ismi":"Medya","id":163},{"ismi":"Sosyal","id":12347},{"ismi":"T\u00fcrkiye","id":113},{"ismi":"Ya\u015fam","id":12533},{"ismi":"Yazarlar","id":9638}]';
+        foreach(json_decode($cat, true) as $line){
+            if($id==$line['id']){
+                $result=$line['ismi'];
+            }
+        }
+        if(!isset($result)){
+            return null;
+        }
+        /**
+         * halkweb ise direk result çıkarıyoruz...
+         */
+        return $result;
     }
     return Sanitizer::toCat($result, true, true);
 }
@@ -361,19 +375,23 @@ function getImage($agency){
         case "diken":
             return "https://api.ulak.news/images/web/diken.png";
             break;
+        case "halkweb":
+            return "https://api.ulak.news/images/web/halkweb.png";
+            break;
         default:
             return "https://api.ulak.news/images/web/404.png";
     }
 }
 
 include("funcs/curls.php"); // curls
-include("funcs/cumhuriyet.php"); // cumhuriyet funcs..
+// include("funcs/cumhuriyet.php"); // cumhuriyet funcs..
 include("funcs/haberturk.php"); // haberturk funcs..
 include("funcs/sozcu.php"); // sozcu funcs...
 include("funcs/odatv.php"); // odatv funcs..
-include("funcs/sputnik.php"); // sputnik funcs...
-include("funcs/hackpress.php"); // hackpress funcs...
+// include("funcs/sputnik.php"); // sputnik funcs...
+// include("funcs/hackpress.php"); // hackpress funcs...
 include("funcs/diken.php"); // diken funcs...
+include("funcs/halkweb.php"); // halkweb funcs...
 
 
 ?>
